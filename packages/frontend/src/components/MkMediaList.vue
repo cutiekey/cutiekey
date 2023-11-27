@@ -156,8 +156,8 @@ onMounted(() => {
 			[itemData.w, itemData.h] = [itemData.h, itemData.w];
 		}
 		itemData.msrc = file.thumbnailUrl;
-		itemData.alt = file.comment ?? file.name;
-		itemData.comment = file.comment ?? file.name;
+		itemData.alt = file.comment ?? undefined;
+		itemData.comment = file.comment;
 		itemData.thumbCropped = true;
 	});
 
