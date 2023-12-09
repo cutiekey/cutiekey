@@ -29,7 +29,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 				</div>
 				<FormSection>
 					<div class="_gaps_s">
-						<FormLink to="https://github.com/transfem-org/Sharkey" external>
+						<FormLink to="https://git.joinsharkey.org/Sharkey/Sharkey" external>
 							<template #icon><i class="ph-code ph-bold ph-lg"></i></template>
 							{{ i18n.ts._aboutMisskey.source }}
 							<template #suffix>GitHub</template>

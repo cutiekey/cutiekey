@@ -4,7 +4,7 @@
 	"codename": "shonk",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/transfem-org/sharkey.git"
+		"url": "https://git.joinsharkey.org/Sharkey/Sharkey.git"
 	},
 	"packageManager": "pnpm@8.10.5",
 	"workspaces": [

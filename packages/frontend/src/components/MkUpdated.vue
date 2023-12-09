@@ -27,7 +27,7 @@ const modal = shallowRef<InstanceType<typeof MkModal>>();
 
 const whatIsNew = () => {
 	modal.value.close();
-	window.open(`https://github.com/transfem-org/Sharkey/releases/tag/${version}`, '_blank');
+	window.open(`https://git.joinsharkey.org/Sharkey/Sharkey/releases/tag/${version}`, '_blank');
 };
 
 onMounted(() => {
