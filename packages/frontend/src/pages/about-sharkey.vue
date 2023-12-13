@@ -44,13 +44,13 @@ SPDX-License-Identifier: AGPL-3.0-only
 				<FormSection>
 					<template #label>{{ i18n.ts._aboutMisskey.projectMembers }}</template>
 					<div :class="$style.contributors" style="margin-bottom: 8px;">
-						<a href="https://github.com/Mar0xy" target="_blank" :class="$style.contributor">
-							<img src="https://avatars.githubusercontent.com/u/8841466?v=4" :class="$style.contributorAvatar">
-							<span :class="$style.contributorUsername">@Mar0xy</span>
+						<a href="https://git.joinsharkey.org/Marie" target="_blank" :class="$style.contributor">
+							<img src="https://git.joinsharkey.org/avatar/0d57abf583f5ed6cf37f47055a1e1aa4?size=512" :class="$style.contributorAvatar">
+							<span :class="$style.contributorUsername">@Marie</span>
 						</a>
-						<a href="https://github.com/Insert5StarName" target="_blank" :class="$style.contributor">
-							<img src="https://avatars.githubusercontent.com/u/123300075?v=4" :class="$style.contributorAvatar">
-							<span :class="$style.contributorUsername">@Insert5StarName</span>
+						<a href="https://git.joinsharkey.org/Amelia" target="_blank" :class="$style.contributor">
+							<img src="https://git.joinsharkey.org/avatars/0634b661b89d6e45137074b6ddcd0b9ffc4cf467f2188ec12416ec6f91bb9d42?size=512" :class="$style.contributorAvatar">
+							<span :class="$style.contributorUsername">@Amelia</span>
 						</a>
 					</div>
 					<template #caption><MkLink url="https://github.com/transfem-org/sharkey/graphs/contributors">{{ i18n.ts._aboutMisskey.allContributors }}</MkLink></template>
