@@ -670,7 +670,7 @@ importers:
         specifier: 5.0.5
         version: 5.0.5(rollup@4.4.1)
       '@sharkey/sfm-js':
-        specifier: ^0.23.3
+        specifier: 0.23.3
         version: 0.23.3
       '@syuilo/aiscript':
         specifier: 0.16.0
