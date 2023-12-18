@@ -13,7 +13,7 @@ import { intersperse } from '@/misc/prelude/array.js';
 import type { IMentionedRemoteUsers } from '@/models/Note.js';
 import { bindThis } from '@/decorators.js';
 import * as TreeAdapter from '../../node_modules/parse5/dist/tree-adapters/default.js';
-import type * as mfm from 'mfm-js';
+import type * as mfm from '@sharkey/sfm-js';
 
 const treeAdapter = TreeAdapter.defaultTreeAdapter;
 

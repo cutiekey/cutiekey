@@ -100,7 +100,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 
 <script lang="ts" setup>
 import { inject, watch, nextTick, onMounted, defineAsyncComponent, provide } from 'vue';
-import * as mfm from 'mfm-js';
+import * as mfm from '@sharkey/sfm-js';
 import * as Misskey from 'misskey-js';
 import insertTextAtCursor from 'insert-text-at-cursor';
 import { toASCII } from 'punycode/';

@@ -106,6 +106,9 @@ importers:
       '@peertube/http-signature':
         specifier: 1.7.0
         version: 1.7.0
+      '@sharkey/sfm-js':
+        specifier: 0.23.3
+        version: 0.23.3
       '@simplewebauthn/server':
         specifier: 8.3.5
         version: 8.3.5
@@ -244,9 +247,6 @@ importers:
       meilisearch:
         specifier: 0.35.0
         version: 0.35.0
-      mfm-js:
-        specifier: 0.23.3
-        version: 0.23.3
       microformats-parser:
         specifier: 1.5.2
         version: 1.5.2
@@ -669,6 +669,9 @@ importers:
       '@rollup/pluginutils':
         specifier: 5.0.5
         version: 5.0.5(rollup@4.4.1)
+      '@sharkey/sfm-js':
+        specifier: ^0.23.3
+        version: 0.23.3
       '@syuilo/aiscript':
         specifier: 0.16.0
         version: 0.16.0
@@ -756,9 +759,6 @@ importers:
       matter-js:
         specifier: 0.19.0
         version: 0.19.0
-      mfm-js:
-        specifier: 0.23.3
-        version: 0.23.3
       misskey-js:
         specifier: workspace:*
         version: link:../misskey-js
@@ -1081,7 +1081,7 @@ importers:
         version: 9.0.0(eslint@8.54.0)
       jest:
         specifier: ^29.7.0
-        version: 29.7.0
+        version: 29.7.0(@types/node@20.9.1)
       jest-worker:
         specifier: ^29.7.0
         version: 29.7.0
@@ -5733,6 +5733,12 @@ packages:
       string-argv: 0.3.1
     dev: true
 
+  /@sharkey/sfm-js@0.23.3:
+    resolution: {integrity: sha512-j4VxSmZIA438RKCe16kxaqhl2g+69w89x49ebm22XwRwH/KvYIC6uVQdcBhOovyN7l2xCCLdsPM1+bu8wZIP2A==, tarball: https://git.joinsharkey.org/api/packages/Sharkey/npm/%40sharkey%2Fsfm-js/-/0.23.3/sfm-js-0.23.3.tgz}
+    dependencies:
+      twemoji-parser: 14.0.0
+    dev: false
+
   /@sideway/address@4.1.4:
     resolution: {integrity: sha512-7vwq+rOHVWjyXxVlR76Agnvhy8I9rpzjosTESvmhNeXOXdZZB15Fl+TI9x1SiHZH5Jv2wTGduSxFDIaq0m3DUw==}
     dependencies:
@@ -7285,7 +7291,7 @@ packages:
       ts-dedent: 2.2.0
       type-fest: 2.19.0
       vue: 3.3.8(typescript@5.2.2)
-      vue-component-type-helpers: 1.8.24
+      vue-component-type-helpers: 1.8.25
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -7297,7 +7303,7 @@ packages:
     hasBin: true
     peerDependencies:
       '@swc/core': ^1.2.66
-      chokidar: ^3.5.1
+      chokidar: 3.5.3
     peerDependenciesMeta:
       chokidar:
         optional: true
@@ -13857,34 +13863,6 @@ packages:
       - supports-color
     dev: true
 
-  /jest-cli@29.7.0:
-    resolution: {integrity: sha512-OVVobw2IubN/GSYsxETi+gOe7Ka59EFMR/twOU3Jb2GnKKeMGJB5SGUUrEz3SFVmJASUdZUzy83sLNNQ2gZslg==}
-    engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
-    hasBin: true
-    peerDependencies:
-      node-notifier: ^8.0.1 || ^9.0.0 || ^10.0.0
-    peerDependenciesMeta:
-      node-notifier:
-        optional: true
-    dependencies:
-      '@jest/core': 29.7.0
-      '@jest/test-result': 29.7.0
-      '@jest/types': 29.6.3
-      chalk: 4.1.2
-      create-jest: 29.7.0(@types/node@20.9.1)
-      exit: 0.1.2
-      import-local: 3.1.0
-      jest-config: 29.7.0(@types/node@20.9.1)
-      jest-util: 29.7.0
-      jest-validate: 29.7.0
-      yargs: 17.7.2
-    transitivePeerDependencies:
-      - '@types/node'
-      - babel-plugin-macros
-      - supports-color
-      - ts-node
-    dev: true
-
   /jest-cli@29.7.0(@types/node@20.9.1):
     resolution: {integrity: sha512-OVVobw2IubN/GSYsxETi+gOe7Ka59EFMR/twOU3Jb2GnKKeMGJB5SGUUrEz3SFVmJASUdZUzy83sLNNQ2gZslg==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
@@ -14328,27 +14306,6 @@ packages:
       jest-util: 29.7.0
       merge-stream: 2.0.0
       supports-color: 8.1.1
-    dev: true
-
-  /jest@29.7.0:
-    resolution: {integrity: sha512-NIy3oAFp9shda19hy4HK0HRTWKtPJmGdnvywu01nOqNC2vZg+Z+fvJDxpMQA88eb2I9EcafcdjYgsDthnYTvGw==}
-    engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
-    hasBin: true
-    peerDependencies:
-      node-notifier: ^8.0.1 || ^9.0.0 || ^10.0.0
-    peerDependenciesMeta:
-      node-notifier:
-        optional: true
-    dependencies:
-      '@jest/core': 29.7.0
-      '@jest/types': 29.6.3
-      import-local: 3.1.0
-      jest-cli: 29.7.0
-    transitivePeerDependencies:
-      - '@types/node'
-      - babel-plugin-macros
-      - supports-color
-      - ts-node
     dev: true
 
   /jest@29.7.0(@types/node@20.9.1):
@@ -15117,12 +15074,6 @@ packages:
   /methods@1.1.2:
     resolution: {integrity: sha512-iclAHeNqNm68zFtnZ0e+1L2yUIdvzNoauKU4WBA3VvH/vPFieF7qfRlwUZU+DA9P9bPXIS90ulxoUoCH23sV2w==}
     engines: {node: '>= 0.6'}
-
-  /mfm-js@0.23.3:
-    resolution: {integrity: sha512-o8scYmbey6rMUmWAlT3k3ntt6khaCLdxlmHhAWV5wTTMj2OK1atQvZfRUq0SIVm1Jig08qlZg/ps71xUqrScNA==}
-    dependencies:
-      twemoji-parser: 14.0.0
-    dev: false
 
   /microformats-parser@1.5.2:
     resolution: {integrity: sha512-EcHm8zxEm3CggOLgILfxCo2wDiJEOnACzpV/FXWGLaRk24ECei+JkoWNdKdo2vzo/Pww9EvrQNeQsdv4JuHy7Q==}
@@ -19088,7 +19039,7 @@ packages:
       '@babel/core': 7.23.3
       bs-logger: 0.2.6
       fast-json-stable-stringify: 2.1.0
-      jest: 29.7.0
+      jest: 29.7.0(@types/node@20.9.1)
       jest-util: 29.7.0
       json5: 2.2.3
       lodash.memoize: 4.1.2
@@ -19859,8 +19810,8 @@ packages:
   /vscode-textmate@8.0.0:
     resolution: {integrity: sha512-AFbieoL7a5LMqcnOF04ji+rpXadgOXnZsxQr//r83kLPr7biP7am3g9zbaZIaBGwBRWeSvoMD4mgPdX3e4NWBg==}
 
-  /vue-component-type-helpers@1.8.24:
-    resolution: {integrity: sha512-lqWs/7fdRXoSBAlbouHBX+LNuaY6gI9xWW34m/ZIz9zVPYHEyw0b2/zaCBwlKx0NtKTeF/6pOpvrxVkh7nhIYg==}
+  /vue-component-type-helpers@1.8.25:
+    resolution: {integrity: sha512-NCA6sekiJIMnMs4DdORxATXD+/NRkQpS32UC+I1KQJUasx+Z7MZUb3Y+MsKsFmX+PgyTYSteb73JW77AibaCCw==}
     dev: true
 
   /vue-component-type-helpers@1.8.4:
@@ -20364,19 +20315,6 @@ packages:
       string-width: 4.2.3
       y18n: 5.0.8
       yargs-parser: 21.1.1
-
-  /yargs@17.7.2:
-    resolution: {integrity: sha512-7dSzzRQ++CKnNI/krKnYRV7JKKPUXMEh61soaHKg9mrWEhzFWhFnxPxGl+69cD1Ou63C13NUPCnmIcrvqCuM6w==}
-    engines: {node: '>=12'}
-    dependencies:
-      cliui: 8.0.1
-      escalade: 3.1.1
-      get-caller-file: 2.0.5
-      require-directory: 2.1.1
-      string-width: 4.2.3
-      y18n: 5.0.8
-      yargs-parser: 21.1.1
-    dev: true
 
   /yauzl@2.10.0:
     resolution: {integrity: sha512-p4a9I6X6nu6IhoGmBqAcbJy1mlC4j27vEPZX9F4L4/vZT3Lyq1VkFHw/V/PUcB9Buo+DG3iHkT0x3Qya58zc3g==}

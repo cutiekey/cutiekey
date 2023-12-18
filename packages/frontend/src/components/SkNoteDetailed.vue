@@ -229,7 +229,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 
 <script lang="ts" setup>
 import { computed, inject, onMounted, provide, ref, shallowRef, watch } from 'vue';
-import * as mfm from 'mfm-js';
+import * as mfm from '@sharkey/sfm-js';
 import * as Misskey from 'misskey-js';
 import SkNoteSub from '@/components/SkNoteSub.vue';
 import SkNoteSimple from '@/components/SkNoteSimple.vue';

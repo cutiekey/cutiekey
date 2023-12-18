@@ -77,7 +77,7 @@
 
 <script lang="ts" setup>
 import { inject, onMounted, ref, shallowRef } from 'vue';
-import * as mfm from 'mfm-js';
+import * as mfm from '@sharkey/sfm-js';
 import * as Misskey from 'misskey-js';
 import MkNoteSimple from '@/components/MkNoteSimple.vue';
 import MkMediaList from '@/components/MkMediaList.vue';

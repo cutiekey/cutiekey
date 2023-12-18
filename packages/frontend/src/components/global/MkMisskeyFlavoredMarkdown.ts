@@ -4,7 +4,7 @@
  */
 
 import { VNode, h } from 'vue';
-import * as mfm from 'mfm-js';
+import * as mfm from '@sharkey/sfm-js';
 import * as Misskey from 'misskey-js';
 import MkUrl from '@/components/global/MkUrl.vue';
 import MkTime from '@/components/global/MkTime.vue';

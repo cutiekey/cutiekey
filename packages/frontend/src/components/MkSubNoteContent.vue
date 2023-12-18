@@ -41,7 +41,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 <script lang="ts" setup>
 import { } from 'vue';
 import * as Misskey from 'misskey-js';
-import * as mfm from 'mfm-js';
+import * as mfm from '@sharkey/sfm-js';
 import MkMediaList from '@/components/MkMediaList.vue';
 import MkPoll from '@/components/MkPoll.vue';
 import MkButton from '@/components/MkButton.vue';
