@@ -372,11 +372,16 @@ const reactionsPagination = computed(() => ({
 	},
 }));
 
+async function addReplyTo(note, replyNote: Misskey.entities.Note) {
+		replies.value.unshift(replyNote);
+}
+
 useNoteCapture({
 	rootEl: el,
 	note: appearNote,
 	pureNote: note,
 	isDeletedRef: isDeleted,
+	onReplyCallback: addReplyTo,
 });
 
 useTooltip(renoteButton, async (showing) => {

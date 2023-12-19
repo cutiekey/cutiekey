@@ -780,6 +780,9 @@ export class NoteCreateService implements OnApplicationShutdown {
 
 			// If has in reply to note
 			if (data.reply) {
+				this.globalEventService.publishNoteStream(data.reply.id, 'replied', {
+					id: note.id,
+				});
 				// 通知
 				if (data.reply.userHost === null) {
 					const isThreadMuted = await this.noteThreadMutingsRepository.exist({

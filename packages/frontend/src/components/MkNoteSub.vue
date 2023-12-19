@@ -132,6 +132,7 @@ const likeButton = shallowRef<HTMLElement>();
 
 let appearNote = computed(() => isRenote ? props.note.renote as Misskey.entities.Note : props.note);
 const defaultLike = computed(() => defaultStore.state.like ? defaultStore.state.like : null);
+const replies = ref<Misskey.entities.Note[]>([]);
 
 const isRenote = (
 	props.note.renote != null &&
@@ -140,10 +141,16 @@ const isRenote = (
 	props.note.poll == null
 );
 
+async function addReplyTo(note, replyNote: Misskey.entities.Note) {
+		replies.value.unshift(replyNote);
+}
+
 useNoteCapture({
 	rootEl: el,
 	note: appearNote,
 	isDeletedRef: isDeleted,
+	// only update replies if we are, in fact, showing replies
+	onReplyCallback: props.detail && props.depth < numberOfReplies.value ? addReplyTo : undefined,
 });
 
 if ($i) {
@@ -249,8 +256,6 @@ let showContent = ref(defaultStore.state.uncollapseCW);
 watch(() => props.expandAllCws, (expandAllCws) => {
 	if (expandAllCws !== showContent.value) showContent.value = expandAllCws;
 });
-
-let replies = ref<Misskey.entities.Note[]>([]);
 
 function boostVisibility() {
 	os.popupMenu([
