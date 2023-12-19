@@ -4,7 +4,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 -->
 
 <template>
-<div v-if="!muted" ref="el" :class="[$style.root, { [$style.children]: depth > 1 }]">
+<div v-show="!isDeleted" v-if="!muted" ref="el" :class="[$style.root, { [$style.children]: depth > 1 }]">
 	<div v-if="!hideLine" :class="$style.line"></div>
 	<div :class="$style.main">
 		<div v-if="note.channel" :class="$style.colorBar" :style="{ background: note.channel.color }"></div>
