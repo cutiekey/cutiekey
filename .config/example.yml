@@ -212,6 +212,8 @@ proxyRemoteFiles: true
 
 # Sign to ActivityPub GET request (default: true)
 signToActivityPubGet: true
+# check that inbound ActivityPub GET requests are signed ("authorized fetch")
+checkActivityPubGetSignature: false
 
 # For security reasons, uploading attachments from the intranet is prohibited,
 # but exceptions can be made from the following settings. Default value is "undefined". 
