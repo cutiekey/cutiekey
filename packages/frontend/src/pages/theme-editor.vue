@@ -134,10 +134,6 @@ let changed = $ref(false);
 
 useLeaveGuard($$(changed));
 
-function showPreview() {
-	os.pageWindow('/preview');
-}
-
 function setBgColor(color: typeof bgColors[number]) {
 	if (theme.base !== color.kind) {
 		const base = color.kind === 'dark' ? darkTheme : lightTheme;
@@ -214,11 +210,6 @@ async function saveAs() {
 watch($$(theme), apply, { deep: true });
 
 const headerActions = $computed(() => [{
-	asFullButton: true,
-	icon: 'ph-eye ph-bold ph-lg',
-	text: i18n.ts.preview,
-	handler: showPreview,
-}, {
 	asFullButton: true,
 	icon: 'ph-check ph-bold ph-lg',
 	text: i18n.ts.saveAs,
