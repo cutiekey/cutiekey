@@ -32,7 +32,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 						<FormLink to="https://git.joinsharkey.org/Sharkey/Sharkey" external>
 							<template #icon><i class="ph-code ph-bold ph-lg"></i></template>
 							{{ i18n.ts._aboutMisskey.source }}
-							<template #suffix>GitHub</template>
+							<template #suffix>Forgejo</template>
 						</FormLink>
 						<FormLink to="https://ko-fi.com/transfem" external>
 							<template #icon><i class="ph-piggy-bank ph-bold ph-lg"></i></template>
@@ -53,7 +53,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 							<span :class="$style.contributorUsername">@Amelia</span>
 						</a>
 					</div>
-					<template #caption><MkLink url="https://github.com/transfem-org/sharkey/graphs/contributors">{{ i18n.ts._aboutMisskey.allContributors }}</MkLink></template>
+					<template #caption><MkLink url="https://git.joinsharkey.org/Sharkey/Sharkey/graph">{{ i18n.ts._aboutMisskey.allContributors }}</MkLink></template>
 				</FormSection>
 				<FormSection>
 					<template #label>Misskey Contributors</template>
