@@ -74,10 +74,8 @@ SPDX-License-Identifier: AGPL-3.0-only
 						/>
 					</div>
 					<div class="description">
-						<MkOmit>
-							<Mfm v-if="user.description" :text="user.description" :isNote="false" :author="user"/>
-							<p v-else class="empty">{{ i18n.ts.noAccountDescription }}</p>
-						</MkOmit>
+						<Mfm v-if="user.description" :text="user.description" :isNote="false" :author="user"/>
+						<p v-else class="empty">{{ i18n.ts.noAccountDescription }}</p>
 					</div>
 					<div class="fields system">
 						<dl v-if="user.location" class="field">
@@ -170,7 +168,6 @@ import MkFollowButton from '@/components/MkFollowButton.vue';
 import MkAccountMoved from '@/components/MkAccountMoved.vue';
 import MkRemoteCaution from '@/components/MkRemoteCaution.vue';
 import MkTextarea from '@/components/MkTextarea.vue';
-import MkOmit from '@/components/MkOmit.vue';
 import MkInfo from '@/components/MkInfo.vue';
 import MkButton from '@/components/MkButton.vue';
 import { getScrollPosition } from '@/scripts/scroll.js';
