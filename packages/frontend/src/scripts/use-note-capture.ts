@@ -14,7 +14,8 @@ export function useNoteCapture(props: {
 	note: Ref<Misskey.entities.Note>;
 	pureNote: Ref<Misskey.entities.Note>;
 	isDeletedRef: Ref<boolean>;
-	onReplyCallback: (note, replyNote: Misskey.entities.Note) => void | undefined;
+	onReplyCallback: (replyNote: Misskey.entities.Note) => void | undefined;
+	onDeleteCallback: (id: Misskey.entities.Note['id']) => void | undefined;
 }) {
 	const note = props.note;
 	const pureNote = props.pureNote !== undefined ? props.pureNote : props.note;
@@ -33,7 +34,7 @@ export function useNoteCapture(props: {
 					noteId: body.id,
 				});
 
-				await props.onReplyCallback(pureNote, replyNote);
+				await props.onReplyCallback(replyNote);
 				break;
 			}
 
@@ -88,6 +89,8 @@ export function useNoteCapture(props: {
 
 			case 'deleted': {
 				props.isDeletedRef.value = true;
+
+				if (props.onDeleteCallback) await props.onDeleteCallback(id);
 				break;
 			}
 

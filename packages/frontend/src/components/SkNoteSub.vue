@@ -73,7 +73,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 		</div>
 	</div>
 	<template v-if="depth < numberOfReplies">
-		<SkNoteSub v-for="reply in replies" :key="reply.id" :note="reply" :class="[$style.reply, { [$style.single]: replies.length === 1 }]" :detail="true" :depth="depth + 1" :expandAllCws="props.expandAllCws"/>
+		<SkNoteSub v-for="reply in replies" :key="reply.id" :note="reply" :class="[$style.reply, { [$style.single]: replies.length === 1 }]" :detail="true" :depth="depth + 1" :expandAllCws="props.expandAllCws" :onDeleteCallback="removeReply"/>
 	</template>
 	<div v-else :class="$style.more">
 		<MkA class="_link" :to="notePage(note)">{{ i18n.ts.continueThread }} <i class="ph-caret-double-right ph-bold ph-lg"></i></MkA>
@@ -119,6 +119,7 @@ const props = withDefaults(defineProps<{
 	note: Misskey.entities.Note;
 	detail?: boolean;
 	expandAllCws?: boolean;
+	onDeleteCallback?: (id: Misskey.entities.Note['id']) => void;
 
 	// how many notes are in between this one and the note being viewed in detail
 	depth?: number;
@@ -150,8 +151,17 @@ const isRenote = (
 	props.note.poll == null
 );
 
-async function addReplyTo(note, replyNote: Misskey.entities.Note) {
+async function addReplyTo(replyNote: Misskey.entities.Note) {
 		replies.value.unshift(replyNote);
+		appearNote.repliesCount += 1;
+}
+
+async function removeReply(id: Misskey.entities.Note['id']) {
+		const replyIdx = replies.value.findIndex(note => note.id === id);
+		if (replyIdx >= 0) {
+			replies.value.splice(replyIdx, 1);
+			appearNote.repliesCount -= 1;
+		}
 }
 
 useNoteCapture({
@@ -160,6 +170,7 @@ useNoteCapture({
 	isDeletedRef: isDeleted,
 	// only update replies if we are, in fact, showing replies
 	onReplyCallback: props.detail && props.depth < numberOfReplies.value ? addReplyTo : undefined,
+	onDeleteCallback: props.detail && props.depth < numberOfReplies.value ? props.onDeleteCallback : undefined,
 });
 
 if ($i) {
