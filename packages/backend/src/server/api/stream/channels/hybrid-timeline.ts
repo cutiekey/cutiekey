@@ -74,7 +74,7 @@ class HybridTimelineChannel extends Channel {
 		}
 
 		// Ignore notes from instances the user has muted
-		if (isInstanceMuted(note, new Set<string>(this.userProfile!.mutedInstances))) return;
+		if (isInstanceMuted(note, new Set<string>(this.userProfile!.mutedInstances)) && !this.following[note.userId]) return;
 
 		if (note.reply) {
 			const reply = note.reply;
