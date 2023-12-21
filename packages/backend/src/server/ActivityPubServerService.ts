@@ -131,6 +131,7 @@ export class ActivityPubServerService {
 			const instanceActor = await this.instanceActorService.getInstanceActor();
 
 			if (userId === instanceActor.id) return false;
+			if (userId === instanceActor.username) return false;
 		}
 
 		let signature;
