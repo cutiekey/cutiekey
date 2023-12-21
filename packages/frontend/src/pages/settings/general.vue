@@ -319,6 +319,12 @@ watch(useSystemFont, () => {
 	}
 });
 
+watch(noteDesign, async (newval) => {
+	if (noteDesign.value === newval) {
+		await reloadAsk();
+	}
+});
+
 watch([
 	lang,
 	fontSize,
