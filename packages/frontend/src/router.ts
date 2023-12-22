@@ -308,6 +308,10 @@ export const routes = [{
 	path: '/channels',
 	component: page(() => import('./pages/channels.vue')),
 }, {
+	path: '/avatar-decorations',
+	name: 'avatarDecorations',
+	component: page(() => import('./pages/avatar-decorations.vue')),
+}, {
 	path: '/custom-emojis-manager',
 	component: page(() => import('./pages/custom-emojis-manager.vue')),
 }, {
