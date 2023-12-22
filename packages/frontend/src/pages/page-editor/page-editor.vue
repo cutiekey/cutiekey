@@ -25,7 +25,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 				</MkInput>
 
 				<MkInput v-model="name">
-					<template #prefix>{{ url }}/@{{ author.username }}/pages/</template>
+					<template #prefix>@{{ author.username }}/pages/</template>
 					<template #label>{{ i18n.ts._pages.url }}</template>
 				</MkInput>
 
@@ -68,7 +68,6 @@ import MkButton from '@/components/MkButton.vue';
 import MkSelect from '@/components/MkSelect.vue';
 import MkSwitch from '@/components/MkSwitch.vue';
 import MkInput from '@/components/MkInput.vue';
-import { url } from '@/config.js';
 import * as os from '@/os.js';
 import { selectFile } from '@/scripts/select-file.js';
 import { mainRouter } from '@/router.js';
