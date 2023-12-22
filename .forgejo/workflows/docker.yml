@@ -1,12 +1,8 @@
 name: Publish Docker image
 
 on:
-  push:
-    branches:
-      - stable
-    paths:
-      - packages/**
-      - locales/**
+  release:
+    types: [published]
   workflow_dispatch:
 
 env:
@@ -61,5 +57,5 @@ jobs:
           push: true
           platforms: ${{ steps.buildx.outputs.platforms }}
           provenance: false
-          tags: ${{ env.REGISTRY }}/sharkey/sharkey:stable
-          labels: stable
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
