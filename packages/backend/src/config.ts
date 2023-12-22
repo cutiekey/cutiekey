@@ -85,6 +85,8 @@ type Source = {
 	proxyRemoteFiles?: boolean;
 	videoThumbnailGenerator?: string;
 
+	customMOTD?: string[];
+
 	signToActivityPubGet?: boolean;
 
 	perChannelMaxNoteCacheCount?: number;
@@ -142,6 +144,7 @@ export type Config = {
 	deliverJobMaxAttempts: number | undefined;
 	inboxJobMaxAttempts: number | undefined;
 	proxyRemoteFiles: boolean | undefined;
+	customMOTD: string[] | undefined;
 	signToActivityPubGet: boolean | undefined;
 
 	version: string;
@@ -248,6 +251,7 @@ export function loadConfig(): Config {
 		deliverJobMaxAttempts: config.deliverJobMaxAttempts,
 		inboxJobMaxAttempts: config.inboxJobMaxAttempts,
 		proxyRemoteFiles: config.proxyRemoteFiles,
+		customMOTD: config.customMOTD,
 		signToActivityPubGet: config.signToActivityPubGet,
 		mediaProxy: externalMediaProxy ?? internalMediaProxy,
 		externalMediaProxyEnabled: externalMediaProxy !== null && externalMediaProxy !== internalMediaProxy,
