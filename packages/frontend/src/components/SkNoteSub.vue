@@ -153,14 +153,14 @@ const isRenote = (
 
 async function addReplyTo(replyNote: Misskey.entities.Note) {
 		replies.value.unshift(replyNote);
-		appearNote.repliesCount += 1;
+		appearNote.value.repliesCount += 1;
 }
 
 async function removeReply(id: Misskey.entities.Note['id']) {
 		const replyIdx = replies.value.findIndex(note => note.id === id);
 		if (replyIdx >= 0) {
 			replies.value.splice(replyIdx, 1);
-			appearNote.repliesCount -= 1;
+			appearNote.value.repliesCount -= 1;
 		}
 }
 
