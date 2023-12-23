@@ -186,7 +186,7 @@ export class ActivityPubServerService {
 			/* keyId is often in the shape `${user.uri}#${keyname}`, try
 				 fetching information about the remote user */
 			const candidate = formatURL(keyId, { fragment: false });
-			this.authlogger.info(`${request.id} ${request.url} we don't know the user for keyId ${keyID}, trying to fetch via ${candidate}`);
+			this.authlogger.info(`${request.id} ${request.url} we don't know the user for keyId ${keyId}, trying to fetch via ${candidate}`);
 			authUser = await this.apDbResolverService.getAuthUserFromApId(candidate);
 		}
 
