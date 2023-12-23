@@ -74,9 +74,9 @@ SPDX-License-Identifier: AGPL-3.0-only
 							<img src="https://avatars.githubusercontent.com/u/67428053?v=4" :class="$style.contributorAvatar">
 							<span :class="$style.contributorUsername">@kakkokari-gtyih</span>
 						</a>
-						<a href="https://github.com/taichanNE30" target="_blank" :class="$style.contributor">
+						<a href="https://github.com/tai-cha" target="_blank" :class="$style.contributor">
 							<img src="https://avatars.githubusercontent.com/u/40626578?v=4" :class="$style.contributorAvatar">
-							<span :class="$style.contributorUsername">@taichanNE30</span>
+							<span :class="$style.contributorUsername">@tai-cha</span>
 						</a>
 					</div>
 				</FormSection>
@@ -102,7 +102,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 </template>
 
 <script lang="ts" setup>
-import { nextTick, onBeforeUnmount } from 'vue';
+import { nextTick, onBeforeUnmount, ref, shallowRef, computed } from 'vue';
 import { version } from '@/config.js';
 import FormLink from '@/components/form/link.vue';
 import FormSection from '@/components/form/section.vue';
@@ -116,21 +116,21 @@ import { definePageMetadata } from '@/scripts/page-metadata.js';
 import { claimAchievement, claimedAchievements } from '@/scripts/achievements.js';
 import { $i } from '@/account.js';
 
-let thereIsTreasure = $ref($i && !claimedAchievements.includes('foundTreasure'));
+const thereIsTreasure = ref($i && !claimedAchievements.includes('foundTreasure'));
 
 let easterEggReady = false;
-let easterEggEmojis = $ref([]);
-let easterEggEngine = $ref(null);
-let sponsors = $ref([]);
-const containerEl = $shallowRef<HTMLElement>();
+const easterEggEmojis = ref([]);
+const easterEggEngine = ref(null);
+const sponsors = ref([]);
+const containerEl = shallowRef<HTMLElement>();
 
-await os.api('sponsors', { forceUpdate: true }).then((res) => sponsors.push(res.sponsor_data));
+await os.api('sponsors', { forceUpdate: true }).then((res) => sponsors.value.push(res.sponsor_data));
 
 function iconLoaded() {
 	const emojis = defaultStore.state.reactions;
-	const containerWidth = containerEl.offsetWidth;
+	const containerWidth = containerEl.value.offsetWidth;
 	for (let i = 0; i < 32; i++) {
-		easterEggEmojis.push({
+		easterEggEmojis.value.push({
 			id: i.toString(),
 			top: -(128 + (Math.random() * 256)),
 			left: (Math.random() * containerWidth),
@@ -146,30 +146,30 @@ function iconLoaded() {
 function gravity() {
 	if (!easterEggReady) return;
 	easterEggReady = false;
-	easterEggEngine = physics(containerEl);
+	easterEggEngine.value = physics(containerEl.value);
 }
 
 function iLoveMisskey() {
 	os.post({
-		initialText: 'I $[jelly ❤] #Sharkey',
+		initialText: 'I $[jelly ❤] #Misskey',
 		instant: true,
 	});
 }
 
 function getTreasure() {
-	thereIsTreasure = false;
+	thereIsTreasure.value = false;
 	claimAchievement('foundTreasure');
 }
 
 onBeforeUnmount(() => {
-	if (easterEggEngine) {
-		easterEggEngine.stop();
+	if (easterEggEngine.value) {
+		easterEggEngine.value.stop();
 	}
 });
 
-const headerActions = $computed(() => []);
+const headerActions = computed(() => []);
 
-const headerTabs = $computed(() => []);
+const headerTabs = computed(() => []);
 
 definePageMetadata({
 	title: i18n.ts.aboutMisskey,

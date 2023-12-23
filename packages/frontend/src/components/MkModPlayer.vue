@@ -29,7 +29,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, nextTick } from 'vue';
+import { ref, nextTick, computed } from 'vue';
 import * as Misskey from 'misskey-js';
 import { i18n } from '@/i18n.js';
 import { defaultStore } from '@/store.js';
@@ -71,9 +71,9 @@ const props = defineProps<{
 	module: Misskey.entities.DriveFile
 }>();
 
-const isSensitive = $computed(() => { return props.module.isSensitive; });
-const url = $computed(() => { return props.module.url; });
-let hide = ref((defaultStore.state.nsfw === 'force') ? true : isSensitive && (defaultStore.state.nsfw !== 'ignore'));
+const isSensitive = computed(() => { return props.module.isSensitive; });
+const url = computed(() => { return props.module.url; });
+let hide = ref((defaultStore.state.nsfw === 'force') ? true : isSensitive.value && (defaultStore.state.nsfw !== 'ignore'));
 let playing = ref(false);
 let displayCanvas = ref<HTMLCanvasElement>();
 let progress = ref<HTMLProgressElement>();
@@ -84,7 +84,7 @@ const rowBuffer = 24;
 let buffer = null;
 let isSeeking = false;
 
-player.value.load(url).then((result) => {
+player.value.load(url.value).then((result) => {
 	buffer = result;
 	try {
 		player.value.play(buffer);

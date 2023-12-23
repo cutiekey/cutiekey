@@ -72,7 +72,7 @@ const fetching = ref(true);
 const usage = ref<any>(null);
 const capacity = ref<any>(null);
 const uploadFolder = ref<any>(null);
-let alwaysMarkNsfw = $ref($i.alwaysMarkNsfw);
+const alwaysMarkNsfw = ref($i.alwaysMarkNsfw);
 
 const meterStyle = computed(() => {
 	return {
@@ -117,20 +117,20 @@ function chooseUploadFolder() {
 
 function saveProfile() {
 	os.api('i/update', {
-		alwaysMarkNsfw: !!alwaysMarkNsfw,
+		alwaysMarkNsfw: !!alwaysMarkNsfw.value,
 	}).catch(err => {
 		os.alert({
 			type: 'error',
 			title: i18n.ts.error,
 			text: err.message,
 		});
-		alwaysMarkNsfw = true;
+		alwaysMarkNsfw.value = true;
 	});
 }
 
-const headerActions = $computed(() => []);
+const headerActions = computed(() => []);
 
-const headerTabs = $computed(() => []);
+const headerTabs = computed(() => []);
 
 definePageMetadata({
 	title: i18n.ts.drive,

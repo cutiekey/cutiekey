@@ -13,7 +13,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 			<div :class="$style.content">
 				<p v-if="note.cw != null" :class="$style.cw">
 					<Mfm v-if="note.cw != ''" style="margin-right: 8px;" :text="note.cw" :author="note.user" :nyaize="'respect'"/>
-					<MkCwButton v-model="showContent" :note="note"/>
+					<MkCwButton v-model="showContent" :text="note.text" :files="note.files" :poll="note.poll"/>
 				</p>
 				<div v-show="note.cw == null || showContent">
 					<MkSubNoteContent :class="$style.text" :note="note" :translating="translating" :translation="translation"/>
@@ -93,15 +93,14 @@ import { notePage } from '@/filters/note.js';
 import * as os from '@/os.js';
 import { i18n } from '@/i18n.js';
 import { $i } from '@/account.js';
-import { userPage } from "@/filters/user.js";
-import { checkWordMute } from "@/scripts/check-word-mute.js";
-import { defaultStore } from "@/store.js";
+import { userPage } from '@/filters/user.js';
+import { checkWordMute } from '@/scripts/check-word-mute.js';
+import { defaultStore } from '@/store.js';
 import { pleaseLogin } from '@/scripts/please-login.js';
 import { showMovedDialog } from '@/scripts/show-moved-dialog.js';
 import MkRippleEffect from '@/components/MkRippleEffect.vue';
 import { reactionPicker } from '@/scripts/reaction-picker.js';
 import { claimAchievement } from '@/scripts/achievements.js';
-import type { MenuItem } from '@/types/menu.js';
 import { getNoteMenu } from '@/scripts/get-note-menu.js';
 import { useNoteCapture } from '@/scripts/use-note-capture.js';
 
@@ -131,7 +130,7 @@ const quoteButton = shallowRef<HTMLElement>();
 const menuButton = shallowRef<HTMLElement>();
 const likeButton = shallowRef<HTMLElement>();
 
-let appearNote = $computed(() => isRenote ? props.note.renote as Misskey.entities.Note : props.note);
+let appearNote = computed(() => isRenote ? props.note.renote as Misskey.entities.Note : props.note);
 const defaultLike = computed(() => defaultStore.state.like ? defaultStore.state.like : null);
 
 const isRenote = (
@@ -143,13 +142,13 @@ const isRenote = (
 
 useNoteCapture({
 	rootEl: el,
-	note: $$(appearNote),
+	note: appearNote,
 	isDeletedRef: isDeleted,
 });
 
 if ($i) {
-	os.api("notes/renotes", {
-		noteId: appearNote.id,
+	os.api('notes/renotes', {
+		noteId: appearNote.value.id,
 		userId: $i.id,
 		limit: 1,
 	}).then((res) => {
@@ -230,8 +229,8 @@ function undoReact(note): void {
 
 function undoRenote() : void {
 	if (!renoted.value) return;
-	os.api("notes/unrenote", {
-		noteId: appearNote.id,
+	os.api('notes/unrenote', {
+		noteId: appearNote.value.id,
 	});
 	os.toast(i18n.ts.rmboost);
 	renoted.value = false;
@@ -245,13 +244,13 @@ function undoRenote() : void {
 	}
 }
 
-let showContent = $ref(defaultStore.state.uncollapseCW);
+let showContent = ref(defaultStore.state.uncollapseCW);
 
 watch(() => props.expandAllCws, (expandAllCws) => {
-	if (expandAllCws !== showContent) showContent = expandAllCws;
+	if (expandAllCws !== showContent.value) showContent.value = expandAllCws;
 });
 
-let replies: Misskey.entities.Note[] = $ref([]);
+let replies = ref<Misskey.entities.Note[]>([]);
 
 function boostVisibility() {
 	os.popupMenu([
@@ -293,7 +292,7 @@ function renote(visibility: 'public' | 'home' | 'followers' | 'specified' | 'loc
 	pleaseLogin();
 	showMovedDialog();
 
-	if (appearNote.channel) {
+	if (appearNote.value.channel) {
 		const el = renoteButton.value as HTMLElement | null | undefined;
 		if (el) {
 			const rect = el.getBoundingClientRect();
@@ -333,12 +332,12 @@ function quote() {
 	pleaseLogin();
 	showMovedDialog();
 
-	if (appearNote.channel) {
+	if (appearNote.value.channel) {
 		os.post({
-			renote: appearNote,
-			channel: appearNote.channel,
+			renote: appearNote.value,
+			channel: appearNote.value.channel,
 		}).then(() => {
-			os.api("notes/renotes", {
+			os.api('notes/renotes', {
 				noteId: props.note.id,
 				userId: $i.id,
 				limit: 1,
@@ -358,9 +357,9 @@ function quote() {
 		});
 	} else {
 		os.post({
-			renote: appearNote,
+			renote: appearNote.value,
 		}).then(() => {
-			os.api("notes/renotes", {
+			os.api('notes/renotes', {
 				noteId: props.note.id,
 				userId: $i.id,
 				limit: 1,
@@ -394,7 +393,7 @@ if (props.detail) {
 		limit: numberOfReplies.value,
 		showQuotes: false,
 	}).then(res => {
-		replies = res;
+		replies.value = res;
 	});
 }
 </script>

@@ -12,6 +12,8 @@ import { MetaService } from '@/core/MetaService.js';
 export const meta = {
 	tags: ['admin'],
 
+	kind: 'write:admin',
+
 	requireCredential: true,
 	requireAdmin: true,
 } as const;
@@ -116,6 +118,8 @@ export const paramDef = {
 		objectStorageS3ForcePathStyle: { type: 'boolean' },
 		enableIpLogging: { type: 'boolean' },
 		enableActiveEmailValidation: { type: 'boolean' },
+		enableVerifymailApi: { type: 'boolean' },
+		verifymailAuthKey: { type: 'string', nullable: true },
 		enableChartsForRemoteUser: { type: 'boolean' },
 		enableChartsForFederatedInstances: { type: 'boolean' },
 		enableServerMachineStats: { type: 'boolean' },
@@ -453,6 +457,18 @@ export default class extends Endpoint<typeof meta, typeof paramDef> { // eslint-
 
 			if (ps.enableActiveEmailValidation !== undefined) {
 				set.enableActiveEmailValidation = ps.enableActiveEmailValidation;
+			}
+
+			if (ps.enableVerifymailApi !== undefined) {
+				set.enableVerifymailApi = ps.enableVerifymailApi;
+			}
+
+			if (ps.verifymailAuthKey !== undefined) {
+				if (ps.verifymailAuthKey === '') {
+					set.verifymailAuthKey = null;
+				} else {
+					set.verifymailAuthKey = ps.verifymailAuthKey;
+				}
 			}
 
 			if (ps.enableChartsForRemoteUser !== undefined) {
