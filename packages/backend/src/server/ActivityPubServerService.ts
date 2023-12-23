@@ -36,12 +36,17 @@ import { IActivity } from '@/core/activitypub/type.js';
 import { isPureRenote } from '@/misc/is-pure-renote.js';
 import type { FastifyInstance, FastifyRequest, FastifyReply, FastifyPluginOptions, FastifyBodyParser } from 'fastify';
 import type { FindOptionsWhere } from 'typeorm';
+import type Logger from '@/logger.js';
+import { LoggerService } from '@/core/LoggerService.js';
 
 const ACTIVITY_JSON = 'application/activity+json; charset=utf-8';
 const LD_JSON = 'application/ld+json; profile="https://www.w3.org/ns/activitystreams"; charset=utf-8';
 
 @Injectable()
 export class ActivityPubServerService {
+	private logger: Logger;
+	private authlogger: Logger;
+
 	constructor(
 		@Inject(DI.config)
 		private config: Config,
@@ -79,8 +84,11 @@ export class ActivityPubServerService {
 		private queueService: QueueService,
 		private userKeypairService: UserKeypairService,
 		private queryService: QueryService,
+		private loggerService: LoggerService,
 	) {
 		//this.createServer = this.createServer.bind(this);
+		this.logger = this.loggerService.getLogger('apserv', 'pink');
+		this.authlogger = this.logger.createSubLogger('sigcheck');
 	}
 
 	@bindThis
@@ -130,8 +138,10 @@ export class ActivityPubServerService {
 		if (userId) {
 			const instanceActor = await this.instanceActorService.getInstanceActor();
 
-			if (userId === instanceActor.id) return false;
-			if (userId === instanceActor.username) return false;
+			if (userId === instanceActor.id || userId === instanceActor.username) {
+				this.authlogger.debug(`${request.id} ${request.url} request to instance.actor, letting through`);
+				return false;
+			}
 		}
 
 		let signature;
@@ -140,6 +150,7 @@ export class ActivityPubServerService {
 			signature = httpSignature.parseRequest(request.raw, { 'headers': [] });
 		} catch (e) {
 			// not signed, or malformed signature: refuse
+			this.authlogger.warn(`${request.id} ${request.url} not signed, or malformed signature: refuse`);
 			reply.code(401);
 			return true;
 		}
@@ -147,6 +158,7 @@ export class ActivityPubServerService {
 		if (signature.params.headers.indexOf('host') === -1
 			|| request.headers.host !== this.config.host) {
 			// no destination host, or not us: refuse
+			this.authlogger.warn(`${request.id} ${request.url} no destination host, or not us: refuse`);
 			reply.code(401);
 			return true;
 		}
@@ -159,6 +171,7 @@ export class ActivityPubServerService {
 			/* blocked instance: refuse (we don't care if the signature is
 				 good, if they even pretend to be from a blocked instance,
 				 they're out) */
+			this.authlogger.warn(`${request.id} ${request.url} instance ${keyHost} is blocked: refuse`);
 			reply.code(401);
 			return true;
 		}
@@ -173,11 +186,13 @@ export class ActivityPubServerService {
 			/* keyId is often in the shape `${user.uri}#${keyname}`, try
 				 fetching information about the remote user */
 			const candidate = formatURL(keyId, { fragment: false });
+			this.authlogger.info(`${request.id} ${request.url} we don't know the user for keyId ${keyID}, trying to fetch via ${candidate}`);
 			authUser = await this.apDbResolverService.getAuthUserFromApId(candidate);
 		}
 
 		if (authUser?.key == null) {
 			// we can't figure out who the signer is, or we can't get their key: refuse
+			this.authlogger.warn(`${request.id} ${request.url} we can't figure out who the signer is, or we can't get their key: refuse`);
 			reply.code(401);
 			return true;
 		}
@@ -185,16 +200,20 @@ export class ActivityPubServerService {
 		let httpSignatureValidated = httpSignature.verifySignature(signature, authUser.key.keyPem);
 
 		if (!httpSignatureValidated) {
+			this.authlogger.info(`${request.id} ${request.url} failed to validate signature, re-fetching the key for ${authUser.user}`);
 			// maybe they changed their key? refetch it
 			authUser.key = await this.apDbResolverService.refetchPublicKeyForApId(authUser.user);
 
 			if (authUser.key != null) {
 				httpSignatureValidated = httpSignature.verifySignature(signature, authUser.key.keyPem);
+			} else {
+				this.authlogger.warn(`${request.id} ${request.url} failed to re-fetch key for ${authUser.user}`);
 			}
 		}
 
 		if (!httpSignatureValidated) {
 			// bad signature: refuse
+			this.authlogger.info(`${request.id} ${request.url} failed to validate signature: refuse`);
 			reply.code(401);
 			return true;
 		}
