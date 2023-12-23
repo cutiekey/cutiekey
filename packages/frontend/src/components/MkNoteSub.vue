@@ -4,7 +4,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 -->
 
 <template>
-<div v-if="!muted" ref="el" :class="[$style.root, { [$style.children]: depth > 1 }]">
+<div v-show="!isDeleted" v-if="!muted" ref="el" :class="[$style.root, { [$style.children]: depth > 1 }]">
 	<div :class="$style.main">
 		<div v-if="note.channel" :class="$style.colorBar" :style="{ background: note.channel.color }"></div>
 		<MkAvatar :class="$style.avatar" :user="note.user" link preview/>
@@ -65,7 +65,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 		</div>
 	</div>
 	<template v-if="depth < numberOfReplies">
-		<MkNoteSub v-for="reply in replies" :key="reply.id" :note="reply" :class="$style.reply" :detail="true" :depth="depth + 1" :expandAllCws="props.expandAllCws"/>
+		<MkNoteSub v-for="reply in replies" :key="reply.id" :note="reply" :class="$style.reply" :detail="true" :depth="depth + 1" :expandAllCws="props.expandAllCws" :onDeleteCallback="removeReply"/>
 	</template>
 	<div v-else :class="$style.more">
 		<MkA class="_link" :to="notePage(note)">{{ i18n.ts.continueThread }} <i class="ph-caret-double-right ph-bold ph-lg"></i></MkA>
@@ -110,6 +110,7 @@ const props = withDefaults(defineProps<{
 	note: Misskey.entities.Note;
 	detail?: boolean;
 	expandAllCws?: boolean;
+	onDeleteCallback?: (id: Misskey.entities.Note['id']) => void;
 
 	// how many notes are in between this one and the note being viewed in detail
 	depth?: number;
@@ -132,6 +133,7 @@ const likeButton = shallowRef<HTMLElement>();
 
 let appearNote = computed(() => isRenote ? props.note.renote as Misskey.entities.Note : props.note);
 const defaultLike = computed(() => defaultStore.state.like ? defaultStore.state.like : null);
+const replies = ref<Misskey.entities.Note[]>([]);
 
 const isRenote = (
 	props.note.renote != null &&
@@ -140,10 +142,26 @@ const isRenote = (
 	props.note.poll == null
 );
 
+async function addReplyTo(replyNote: Misskey.entities.Note) {
+		replies.value.unshift(replyNote);
+		appearNote.value.repliesCount += 1;
+}
+
+async function removeReply(id: Misskey.entities.Note['id']) {
+		const replyIdx = replies.value.findIndex(note => note.id === id);
+		if (replyIdx >= 0) {
+			replies.value.splice(replyIdx, 1);
+			appearNote.value.repliesCount -= 1;
+		}
+}
+
 useNoteCapture({
 	rootEl: el,
 	note: appearNote,
 	isDeletedRef: isDeleted,
+	// only update replies if we are, in fact, showing replies
+	onReplyCallback: props.detail && props.depth < numberOfReplies.value ? addReplyTo : undefined,
+	onDeleteCallback: props.detail && props.depth < numberOfReplies.value ? props.onDeleteCallback : undefined,
 });
 
 if ($i) {
@@ -249,8 +267,6 @@ let showContent = ref(defaultStore.state.uncollapseCW);
 watch(() => props.expandAllCws, (expandAllCws) => {
 	if (expandAllCws !== showContent.value) showContent.value = expandAllCws;
 });
-
-let replies = ref<Misskey.entities.Note[]>([]);
 
 function boostVisibility() {
 	os.popupMenu([
