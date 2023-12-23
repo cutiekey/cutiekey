@@ -50,7 +50,7 @@ const bg = {
 	padding: 4px;
 	overflow: clip;
 	color: #fff;
-	text-shadow: -1px -1px 0 var(--bg),1px -1px 0 var(--bg),-1px 1px 0 var(--bg),1px 1px 0 var(--bg)
+	text-shadow: -1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;
 }
 
 .icon {
