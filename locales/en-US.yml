@@ -2207,7 +2207,7 @@ _notification:
   sendTestNotification: "Send test notification"
   notificationWillBeDisplayedLikeThis: "Notifications look like this"
   reactedBySomeUsers: "{n} users reacted"
-  renotedBySomeUsers: "Renote from {n} users"
+  renotedBySomeUsers: "Boosted by {n} users"
   followedBySomeUsers: "Followed by {n} users"
   _types:
     all: "All"
