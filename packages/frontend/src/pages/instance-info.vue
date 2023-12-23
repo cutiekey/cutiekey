@@ -206,10 +206,10 @@ async function toggleSuspend(): Promise<void> {
 }
 
 async function toggleNSFW(): Promise<void> {
-	if (!instance) throw new Error('No instance?');
+	if (!instance.value) throw new Error('No instance?');
 	await os.api('admin/federation/update-instance', {
-		host: instance.host,
-		isNSFW: isNSFW,
+		host: instance.value.host,
+		isNSFW: isNSFW.value,
 	});
 }
 
