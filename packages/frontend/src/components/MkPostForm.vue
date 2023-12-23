@@ -1059,7 +1059,7 @@ defineExpose({
 	left: 12px;
 	width: 5px;
 	height: 100% ;
-	border-radius: 999px;
+	border-radius: var(--radius-ellipse);
 	pointer-events: none;
 }
 

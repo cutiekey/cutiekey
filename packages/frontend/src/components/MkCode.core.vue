@@ -62,7 +62,7 @@ watch(() => props.lang, (to) => {
 	padding: 1em;
 	margin: .5em 0;
 	overflow: auto;
-	border-radius: 8px;
+	border-radius: var(--radius-sm);
 
 	& pre,
 	& code {

@@ -198,7 +198,7 @@ const bannerStyle = computed(() => {
 	transform: translate(25%, -25%);
 	background-color: var(--accent);
 	border: solid var(--bg) 4px;
-	border-radius: 100%;
+	border-radius: var(--radius-full);
 	width: 1.5rem;
 	height: 1.5rem;
 	aspect-ratio: 1 / 1;
