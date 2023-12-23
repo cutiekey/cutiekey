@@ -200,7 +200,7 @@ export class ActivityPubServerService {
 		let httpSignatureValidated = httpSignature.verifySignature(signature, authUser.key.keyPem);
 
 		if (!httpSignatureValidated) {
-			this.authlogger.info(`${request.id} ${request.url} failed to validate signature, re-fetching the key for ${authUser.user}`);
+			this.authlogger.info(`${request.id} ${request.url} failed to validate signature, re-fetching the key for ${authUser.user.uri}`);
 			// maybe they changed their key? refetch it
 			authUser.key = await this.apDbResolverService.refetchPublicKeyForApId(authUser.user);
 
