@@ -45,8 +45,8 @@
 		"lodash": "4.17.21"
 	},
 	"dependencies": {
-		"execa": "8.0.1",
 		"cssnano": "6.0.2",
+		"execa": "8.0.1",
 		"js-yaml": "4.1.0",
 		"postcss": "8.4.32",
 		"terser": "5.26.0",
@@ -58,7 +58,7 @@
 		"cross-env": "7.0.3",
 		"cypress": "13.6.1",
 		"eslint": "8.56.0",
-		"start-server-and-test": "2.0.3",
-		"ncp": "2.0.0"
+		"ncp": "2.0.0",
+		"start-server-and-test": "2.0.3"
 	}
 }

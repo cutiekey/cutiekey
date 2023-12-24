@@ -8,6 +8,7 @@ import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
 import * as yaml from 'js-yaml';
 import type { RedisOptions } from 'ioredis';
+import { globSync } from 'glob';
 
 type RedisOptionsSource = Partial<RedisOptions> & {
 	host: string;
@@ -185,19 +186,26 @@ const dir = `${_dirname}/../../../.config`;
 /**
  * Path of configuration file
  */
-const path = process.env.MISSKEY_CONFIG_YML
-	? resolve(dir, process.env.MISSKEY_CONFIG_YML)
+const cfgDir = process.env.MISSKEY_CONFIG_DIR
+	? resolve(dir, process.env.MISSKEY_CONFIG_DIR)
 	: process.env.NODE_ENV === 'test'
-		? resolve(dir, 'test.yml')
-		: resolve(dir, 'default.yml');
+		? resolve(dir, './test/')
+		: dir;
 
 export function loadConfig(): Config {
 	const meta = JSON.parse(fs.readFileSync(`${_dirname}/../../../built/meta.json`, 'utf-8'));
-	const clientManifestExists = fs.existsSync(_dirname + '/../../../built/_vite_/manifest.json');
-	const clientManifest = clientManifestExists ?
-		JSON.parse(fs.readFileSync(`${_dirname}/../../../built/_vite_/manifest.json`, 'utf-8'))
+	const clientManifestExists = fs.existsSync(`${_dirname}/../../../built/_vite_/manifest.json`);
+	const clientManifest = clientManifestExists
+		? JSON.parse(fs.readFileSync(`${_dirname}/../../../built/_vite_/manifest.json`, 'utf-8'))
 		: { 'src/_boot_.ts': { file: 'src/_boot_.ts' } };
-	const config = yaml.load(fs.readFileSync(path, 'utf-8')) as Source;
+
+	const config = globSync(`${cfgDir}/*.{yaml,yml}`)
+		.map(path => fs.readFileSync(path, 'utf-8'))
+		.map(contents => yaml.load(contents) as Source)
+		.reduce(
+			(acc: Source, cur: Source) => Object.assign(acc, cur),
+			{} as Source,
+		) as Source;
 
 	const url = tryCreateUrl(config.url);
 	const version = meta.version;
