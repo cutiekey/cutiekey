@@ -149,7 +149,7 @@ const props = defineProps<{
 }
 
 .logYellow {
-	color: var(--warning);
+	color: var(--warn);
 }
 
 .logRed {
