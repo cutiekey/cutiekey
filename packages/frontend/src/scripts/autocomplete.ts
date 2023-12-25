@@ -101,7 +101,7 @@ export class Autocomplete {
 
 		if (isMention && this.onlyType.includes('user')) {
 			const username = text.substring(mentionIndex + 1);
-			if (username !== '' && username.match(/^[a-zA-Z0-9_.]+$/)) {
+			if (username !== '' && username.match(/^[a-zA-Z0-9_]+$/)) {
 				this.open('user', username);
 				opened = true;
 			} else if (username === '') {
