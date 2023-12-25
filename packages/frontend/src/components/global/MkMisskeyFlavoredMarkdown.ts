@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { VNode, h } from 'vue';
+import { VNode, h, defineAsyncComponent } from 'vue';
 import * as mfm from '@sharkey/sfm-js';
 import * as Misskey from 'misskey-js';
 import MkUrl from '@/components/global/MkUrl.vue';
@@ -60,6 +60,8 @@ export default function(props: MfmProps) {
 	};
 
 	const useAnim = defaultStore.state.advancedMfm && defaultStore.state.animatedMfm ? true : props.isAnim ? true : false;
+
+	const MkFormula = defineAsyncComponent(() => import('@/components/MkFormula.vue'));
 
 	/**
 	 * Gen Vue Elements from MFM AST
@@ -410,11 +412,17 @@ export default function(props: MfmProps) {
 			}
 
 			case 'mathInline': {
-				return [h('code', token.props.formula)];
+				return [h(MkFormula, {
+					formula: token.props.formula,
+					block: false,
+				})];
 			}
 
 			case 'mathBlock': {
-				return [h('code', token.props.formula)];
+				return [h(MkFormula, {
+					formula: token.props.formula,
+					block: true,
+				})];
 			}
 
 			case 'search': {
