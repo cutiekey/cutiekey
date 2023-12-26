@@ -82,7 +82,7 @@ const pagination = {
 			state.value === 'nsfw' ? { nsfw: true } :
 			{}),
 	})),
-} as Paging;
+} satisfies Paging;
 
 function getStatus(instance) {
 	if (instance.isSuspended) return 'Suspended';

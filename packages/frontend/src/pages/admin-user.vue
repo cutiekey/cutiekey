@@ -212,7 +212,7 @@ import { definePageMetadata } from '@/scripts/page-metadata.js';
 import { i18n } from '@/i18n.js';
 import { iAmAdmin, $i } from '@/account.js';
 import MkRolePreview from '@/components/MkRolePreview.vue';
-import MkPagination from '@/components/MkPagination.vue';
+import MkPagination, { Paging } from '@/components/MkPagination.vue';
 
 const props = withDefaults(defineProps<{
 	userId: string;
@@ -247,7 +247,7 @@ const announcementsPagination = {
 	params: computed(() => ({
 		userId: props.userId,
 	})),
-};
+} satisfies Paging;
 const expandedRoles = ref([]);
 
 function createFetcher() {
