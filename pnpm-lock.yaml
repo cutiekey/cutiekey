@@ -209,7 +209,7 @@ importers:
         specifier: 4.0.0
         version: 4.0.0
       glob:
-        specifier: ^10.3.10
+        specifier: 10.3.10
         version: 10.3.10
       got:
         specifier: 14.0.0
@@ -7224,7 +7224,7 @@ packages:
       ts-dedent: 2.2.0
       type-fest: 2.19.0
       vue: 3.3.12(typescript@5.3.3)
-      vue-component-type-helpers: 1.8.26
+      vue-component-type-helpers: 1.8.27
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -19627,8 +19627,8 @@ packages:
   /vscode-textmate@8.0.0:
     resolution: {integrity: sha512-AFbieoL7a5LMqcnOF04ji+rpXadgOXnZsxQr//r83kLPr7biP7am3g9zbaZIaBGwBRWeSvoMD4mgPdX3e4NWBg==}
 
-  /vue-component-type-helpers@1.8.26:
-    resolution: {integrity: sha512-CIwb7s8cqUuPpHDk+0DY8EJ/x8tzdzqw8ycX8hhw1GnbngTgSsIceHAqrrLjmv8zXi+j5XaiqYRQMw8sKyyjkw==}
+  /vue-component-type-helpers@1.8.27:
+    resolution: {integrity: sha512-0vOfAtI67UjeO1G6UiX5Kd76CqaQ67wrRZiOe7UAb9Jm6GzlUr/fC7CV90XfwapJRjpCMaZFhv1V0ajWRmE9Dg==}
     dev: true
 
   /vue-component-type-helpers@1.8.4:

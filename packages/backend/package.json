@@ -109,7 +109,7 @@
 		"file-type": "18.7.0",
 		"fluent-ffmpeg": "2.1.2",
 		"form-data": "4.0.0",
-		"glob": "^10.3.10",
+		"glob": "10.3.10",
 		"got": "14.0.0",
 		"happy-dom": "10.0.3",
 		"hpagent": "1.2.0",
