@@ -172,6 +172,12 @@ onMounted(() => {
 				el.appendChild(textBox);
 
 				pwsp.on('change', (a) => {
+					if (pwsp.currSlide?.data.comment) {
+						textBox.style.display = '';
+					} else {
+						textBox.style.display = 'none';
+					}
+
 					textBox.textContent = pwsp.currSlide.data.comment;
 				});
 			},
