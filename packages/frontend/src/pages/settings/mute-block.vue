@@ -216,11 +216,11 @@ async function toggleBlockItem(item) {
 }
 
 async function saveMutedWords(mutedWords: (string | string[])[]) {
-	await os.api('i/update', { mutedWords });
+	await os.apiWithDialog('i/update', { mutedWords });
 }
 
 async function saveHardMutedWords(hardMutedWords: (string | string[])[]) {
-	await os.api('i/update', { hardMutedWords });
+	await os.apiWithDialog('i/update', { hardMutedWords });
 }
 
 const headerActions = computed(() => []);
