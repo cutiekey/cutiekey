@@ -135,7 +135,7 @@ import { iAmModerator, iAmAdmin } from '@/account.js';
 import { definePageMetadata } from '@/scripts/page-metadata.js';
 import { i18n } from '@/i18n.js';
 import MkUserCardMini from '@/components/MkUserCardMini.vue';
-import MkPagination, { Paging } from '@/components/MkPagination.vue';
+import MkPagination from '@/components/MkPagination.vue';
 import { getProxiedImageUrlNullable } from '@/scripts/media-proxy.js';
 import { dateString } from '@/filters/date.js';
 
@@ -162,7 +162,7 @@ const usersPagination = {
 		hostname: props.host,
 	},
 	offsetMode: true,
-} satisfies Paging;
+};
 
 async function fetch(): Promise<void> {
 	if (iAmAdmin) {
