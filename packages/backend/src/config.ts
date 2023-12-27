@@ -183,14 +183,27 @@ const _dirname = dirname(_filename);
  */
 const dir = `${_dirname}/../../../.config`;
 
+function buildPath() {
+	const envVars = ['MISSKEY_CONFIG_YML', 'SHARKEY_CONFIG_YML', 'SHARKEY_CONFIG_FILE'];
+	const envCfgFile = envVars
+		.map(v => process.env[v])
+		.map(v => v ? resolve(dir, v) : undefined)
+		.find(v => !!v);
+
+	if (envCfgFile) {
+		return envCfgFile;
+	}
+	if (process.env.NODE_ENV === 'test') {
+		return resolve(dir, 'test.yml');
+	}
+
+	return resolve(dir, 'default.yml');
+}
+
 /**
- * Path of configuration file
+ * Path of configuration file. Supports loading multiple files using glob syntax
  */
-const cfgDir = process.env.MISSKEY_CONFIG_DIR
-	? resolve(dir, process.env.MISSKEY_CONFIG_DIR)
-	: process.env.NODE_ENV === 'test'
-		? resolve(dir, './test/')
-		: dir;
+const path = buildPath();
 
 export function loadConfig(): Config {
 	const meta = JSON.parse(fs.readFileSync(`${_dirname}/../../../built/meta.json`, 'utf-8'));
@@ -199,7 +212,7 @@ export function loadConfig(): Config {
 		? JSON.parse(fs.readFileSync(`${_dirname}/../../../built/_vite_/manifest.json`, 'utf-8'))
 		: { 'src/_boot_.ts': { file: 'src/_boot_.ts' } };
 
-	const config = globSync(`${cfgDir}/*.{yaml,yml}`)
+	const config = globSync(path)
 		.map(path => fs.readFileSync(path, 'utf-8'))
 		.map(contents => yaml.load(contents) as Source)
 		.reduce(
