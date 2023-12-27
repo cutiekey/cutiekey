@@ -46,7 +46,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 		<div v-else-if="tab === 'search'">
 			<div class="_gaps">
 				<div>
-					<MkInput v-model="searchQuery">
+					<MkInput v-model="searchQuery" @enter="search()">
 						<template #prefix><i class="ph-magnifying-glass ph-bold ph-lg"></i></template>
 					</MkInput>
 					<MkButton primary rounded style="margin-top: 8px;" @click="search()">{{ i18n.ts.search }}</MkButton>
