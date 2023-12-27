@@ -31,6 +31,22 @@ export class OAuth2ProviderService {
 		private config: Config,
 	) { }
 
+	// https://datatracker.ietf.org/doc/html/rfc8414.html
+	// https://indieauth.spec.indieweb.org/#indieauth-server-metadata
+	public generateRFC8414() {
+		return {
+			issuer: this.config.url,
+			authorization_endpoint: new URL('/oauth/authorize', this.config.url),
+			token_endpoint: new URL('/oauth/token', this.config.url),
+			scopes_supported: kinds,
+			response_types_supported: ['code'],
+			grant_types_supported: ['authorization_code'],
+			service_documentation: 'https://misskey-hub.net',
+			code_challenge_methods_supported: ['S256'],
+			authorization_response_iss_parameter_supported: true,
+		};
+	}
+
 	@bindThis
 	public async createServer(fastify: FastifyInstance): Promise<void> {
 		// https://datatracker.ietf.org/doc/html/rfc8414.html
@@ -150,5 +166,18 @@ export class OAuth2ProviderService {
 				reply.code(401).send(err.response.data);
 			}
 		});
+	}
+
+	@bindThis
+	public async createTokenServer(fastify: FastifyInstance): Promise<void> {
+		fastify.register(fastifyCors);
+		fastify.post('', async () => { });
+
+		await fastify.register(fastifyExpress);
+		// Clients may use JSON or urlencoded
+		fastify.use('', bodyParser.urlencoded({ extended: false }));
+		fastify.use('', bodyParser.json({ strict: true }));
+		fastify.use('', this.#server.token());
+		fastify.use('', this.#server.errorHandler());
 	}
 }
