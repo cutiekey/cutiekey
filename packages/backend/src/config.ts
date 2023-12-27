@@ -183,33 +183,20 @@ const _dirname = dirname(_filename);
  */
 const dir = `${_dirname}/../../../.config`;
 
-function buildPath() {
-	const envVars = ['MISSKEY_CONFIG_YML', 'SHARKEY_CONFIG_YML', 'SHARKEY_CONFIG_FILE'];
-	const envCfgFile = envVars
-		.map(v => process.env[v])
-		.map(v => v ? resolve(dir, v) : undefined)
-		.find(v => !!v);
-
-	if (envCfgFile) {
-		return envCfgFile;
-	}
-	if (process.env.NODE_ENV === 'test') {
-		return resolve(dir, 'test.yml');
-	}
-
-	return resolve(dir, 'default.yml');
-}
-
 /**
- * Path of configuration file. Supports loading multiple files using glob syntax
+ * Path of configuration file
  */
-const path = buildPath();
+const path = process.env.MISSKEY_CONFIG_YML
+	? resolve(dir, process.env.MISSKEY_CONFIG_YML)
+	: process.env.NODE_ENV === 'test'
+		? resolve(dir, 'test.yml')
+		: resolve(dir, 'default.yml');
 
 export function loadConfig(): Config {
 	const meta = JSON.parse(fs.readFileSync(`${_dirname}/../../../built/meta.json`, 'utf-8'));
 	const clientManifestExists = fs.existsSync(`${_dirname}/../../../built/_vite_/manifest.json`);
-	const clientManifest = clientManifestExists
-		? JSON.parse(fs.readFileSync(`${_dirname}/../../../built/_vite_/manifest.json`, 'utf-8'))
+	const clientManifest = clientManifestExists ?
+		JSON.parse(fs.readFileSync(`${_dirname}/../../../built/_vite_/manifest.json`, 'utf-8'))
 		: { 'src/_boot_.ts': { file: 'src/_boot_.ts' } };
 
 	const config = globSync(path)
