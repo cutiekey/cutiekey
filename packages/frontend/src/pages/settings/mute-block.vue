@@ -13,7 +13,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 	</MkFolder>
 
 	<MkFolder>
-		<template #icon><i class="ti ti-message-off"></i></template>
+		<template #icon><i class="ph-x-square ph-bold ph-lg"></i></template>
 		<template #label>{{ i18n.ts.hardWordMute }}</template>
 
 		<XWordMute :muted="$i!.hardMutedWords" @save="saveHardMutedWords"/>
