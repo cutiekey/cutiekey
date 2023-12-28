@@ -16,6 +16,41 @@ import type { Config } from '@/config.js';
 import { DI } from '@/di-symbols.js';
 import type { FastifyInstance } from 'fastify';
 
+const kinds = [
+	'read:account',
+	'write:account',
+	'read:blocks',
+	'write:blocks',
+	'read:drive',
+	'write:drive',
+	'read:favorites',
+	'write:favorites',
+	'read:following',
+	'write:following',
+	'read:messaging',
+	'write:messaging',
+	'read:mutes',
+	'write:mutes',
+	'write:notes',
+	'read:notifications',
+	'write:notifications',
+	'read:reactions',
+	'write:reactions',
+	'write:votes',
+	'read:pages',
+	'write:pages',
+	'write:page-likes',
+	'read:page-likes',
+	'read:user-groups',
+	'write:user-groups',
+	'read:channels',
+	'write:channels',
+	'read:gallery',
+	'write:gallery',
+	'read:gallery-likes',
+	'write:gallery-likes',
+];
+
 function getClient(BASE_URL: string, authorization: string | undefined): MegalodonInterface {
 	const accessTokenArr = authorization?.split(' ') ?? [null];
 	const accessToken = accessTokenArr[accessTokenArr.length - 1];
@@ -166,18 +201,5 @@ export class OAuth2ProviderService {
 				reply.code(401).send(err.response.data);
 			}
 		});
-	}
-
-	@bindThis
-	public async createTokenServer(fastify: FastifyInstance): Promise<void> {
-		fastify.register(fastifyCors);
-		fastify.post('', async () => { });
-
-		await fastify.register(fastifyExpress);
-		// Clients may use JSON or urlencoded
-		fastify.use('', bodyParser.urlencoded({ extended: false }));
-		fastify.use('', bodyParser.json({ strict: true }));
-		fastify.use('', this.#server.token());
-		fastify.use('', this.#server.errorHandler());
 	}
 }
