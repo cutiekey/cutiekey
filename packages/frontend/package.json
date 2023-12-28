@@ -22,7 +22,7 @@
 		"@rollup/plugin-json": "6.1.0",
 		"@rollup/plugin-replace": "5.0.5",
 		"@rollup/pluginutils": "5.1.0",
-		"@sharkey/sfm-js": "0.24.2",
+		"@sharkey/sfm-js": "0.24.3",
 		"@syuilo/aiscript": "0.16.0",
 		"@phosphor-icons/web": "^2.0.3",
 		"@twemoji/parser": "15.0.0",

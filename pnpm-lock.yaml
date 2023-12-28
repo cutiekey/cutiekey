@@ -110,8 +110,8 @@ importers:
         specifier: 1.7.0
         version: 1.7.0
       '@sharkey/sfm-js':
-        specifier: 0.24.2
-        version: 0.24.2
+        specifier: 0.24.3
+        version: 0.24.3
       '@simplewebauthn/server':
         specifier: 8.3.5
         version: 8.3.5
@@ -673,8 +673,8 @@ importers:
         specifier: 5.1.0
         version: 5.1.0(rollup@4.9.1)
       '@sharkey/sfm-js':
-        specifier: 0.24.2
-        version: 0.24.2
+        specifier: 0.24.3
+        version: 0.24.3
       '@syuilo/aiscript':
         specifier: 0.16.0
         version: 0.16.0
@@ -5853,8 +5853,8 @@ packages:
       string-argv: 0.3.1
     dev: true
 
-  /@sharkey/sfm-js@0.24.2:
-    resolution: {integrity: sha512-xaOIyy+NGlb6TjzB3nB+80UU5ASHjyl2JE/RcKrHQJxkhjPtvSWvnoyKlKrG2pUEBCMyLrrpYViHECdJ9jJteA==, tarball: https://git.joinsharkey.org/api/packages/Sharkey/npm/%40sharkey%2Fsfm-js/-/0.24.2/sfm-js-0.24.2.tgz}
+  /@sharkey/sfm-js@0.24.3:
+    resolution: {integrity: sha512-Fd2LWPYNVmnTg9AKdJm3MLMvYdxQafq/0eQlmJhUnQheRVm3f1xHrFFY12+yUWIq7rS0uxrKEmrVLnPzRqYG6Q==, tarball: https://git.joinsharkey.org/api/packages/Sharkey/npm/%40sharkey%2Fsfm-js/-/0.24.3/sfm-js-0.24.3.tgz}
     dependencies:
       '@twemoji/parser': 15.0.0
     dev: false
