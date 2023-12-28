@@ -14,7 +14,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 		<audio
 			ref="audioEl"
 			:src="media.url"
-			:title="media.name"
+			:title="media.comment ?? undefined"
 			controls
 			preload="metadata"
 		/>

@@ -161,7 +161,7 @@ watch(v, newValue => {
 	overflow-y: hidden;
 	box-sizing: border-box;
 	margin: 0;
-	border-radius: 6px;
+	border-radius: var(--radius-sm);
 	padding: 0;
 	color: var(--fg);
 	border: solid 1px var(--panel);
@@ -202,7 +202,7 @@ watch(v, newValue => {
 	caret-color: rgb(225, 228, 232);
 	background-color: transparent;
 	border: 0;
-	border-radius: 6px;
+	border-radius: var(--radius-sm);
 	outline: 0;
 	min-width: calc(100% - 24px);
 	height: 100%;

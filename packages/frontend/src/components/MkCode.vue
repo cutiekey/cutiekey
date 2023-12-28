@@ -56,7 +56,7 @@ const XCode = defineAsyncComponent(() => import('@/components/MkCode.core.vue'))
 	padding: 1em;
 	margin: .5em 0;
 	overflow: auto;
-	border-radius: 8px;
+	border-radius: var(--radius-sm);
 }
 
 .codeBlockFallbackCode {
@@ -74,7 +74,7 @@ const XCode = defineAsyncComponent(() => import('@/components/MkCode.core.vue'))
 	cursor: pointer;
 
 	box-sizing: border-box;
-	border-radius: 8px;
+	border-radius: var(--radius-sm);
 	padding: 24px;
 	margin-top: 4px;
 	color: #D4D4D4;

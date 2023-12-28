@@ -17,7 +17,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 		ref="videoEl"
 		:class="$style.video"
 		:poster="video.thumbnailUrl"
-		:title="video.comment"
+		:title="video.comment ?? undefined"
 		:alt="video.comment"
 		preload="none"
 		controls

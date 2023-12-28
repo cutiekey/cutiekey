@@ -6,7 +6,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 <template>
 <!-- このコンポーネントの要素のclassは親から利用されるのでむやみに弄らないこと -->
 <!-- フォルダの中にはカスタム絵文字だけ（Unicode絵文字もこっち） -->
-<section v-if="!hasChildSection" v-panel style="border-radius: 6px; border-bottom: 0.5px solid var(--divider);">
+<section v-if="!hasChildSection" v-panel style="border-radius: var(--radius-sm); border-bottom: 0.5px solid var(--divider);">
 	<header class="_acrylic" @click="shown = !shown">
 		<i class="toggle ti-fw" :class="shown ? 'ph-caret-down ph-bold ph-lg' : 'ph-caret-up ph-bold ph-lg'"></i> <slot></slot> (<i class="ph-bold ph-lg"></i>:{{ emojis.length }})
 	</header>
@@ -25,7 +25,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 	</div>
 </section>
 <!-- フォルダの中にはカスタム絵文字やフォルダがある -->
-<section v-else v-panel style="border-radius: 6px; border-bottom: 0.5px solid var(--divider);">
+<section v-else v-panel style="border-radius: var(--radius-sm); border-bottom: 0.5px solid var(--divider);">
 	<header class="_acrylic" @click="shown = !shown">
 		<i class="toggle ti-fw" :class="shown ? 'ph-caret-down ph-bold ph-lg' : 'ph-caret-up ph-bold ph-lg'"></i> <slot></slot> (<i class="ph-folder ph-bold ph-lg"></i>:{{ customEmojiTree.length }} <i class="ti ti-icons ti-fw"></i>:{{ emojis.length }})
 	</header>

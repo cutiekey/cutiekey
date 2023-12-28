@@ -923,12 +923,19 @@ onMounted(() => {
 		if (!props.instant && !props.mention && !props.specified && !props.mock) {
 			const draft = JSON.parse(miLocalStorage.getItem('drafts') ?? '{}')[draftKey.value];
 			if (draft) {
-				text.value = draft.data.text;
+				if (typeof draft.data.text === 'string' && draft.data.text.trim()) {
+					text.value = draft.data.text;
+				}
+
+				if (typeof draft.data.cw === 'string' && draft.data.cw.trim()) {
+					cw.value = draft.data.cw;
+				}
+
 				useCw.value = draft.data.useCw;
-				cw.value = draft.data.cw;
 				visibility.value = draft.data.visibility;
 				localOnly.value = draft.data.localOnly;
 				files.value = (draft.data.files || []).filter(draftFile => draftFile);
+
 				if (draft.data.poll) {
 					poll.value = draft.data.poll;
 				}
@@ -1052,7 +1059,7 @@ defineExpose({
 	left: 12px;
 	width: 5px;
 	height: 100% ;
-	border-radius: 999px;
+	border-radius: var(--radius-ellipse);
 	pointer-events: none;
 }
 

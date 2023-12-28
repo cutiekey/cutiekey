@@ -156,8 +156,8 @@ onMounted(() => {
 			[itemData.w, itemData.h] = [itemData.h, itemData.w];
 		}
 		itemData.msrc = file.thumbnailUrl;
-		itemData.alt = file.comment ?? file.name;
-		itemData.comment = file.comment ?? file.name;
+		itemData.alt = file.comment ?? undefined;
+		itemData.comment = file.comment;
 		itemData.thumbCropped = true;
 	});
 
@@ -172,6 +172,12 @@ onMounted(() => {
 				el.appendChild(textBox);
 
 				pwsp.on('change', (a) => {
+					if (pwsp.currSlide?.data.comment) {
+						textBox.style.display = '';
+					} else {
+						textBox.style.display = 'none';
+					}
+
 					textBox.textContent = pwsp.currSlide.data.comment;
 				});
 			},
