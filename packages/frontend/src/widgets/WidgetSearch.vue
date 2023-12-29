@@ -117,6 +117,16 @@ async function search() {
 		return;
 	}
 
+	if (query.match(/^@[a-z0-9_.-]+@[a-z0-9_.-]+$/i)) {
+		router.push(`/${query}`);
+		return;
+	}
+
+	if (query.startsWith('#')) {
+		router.push(`/tags/${encodeURIComponent(query.substring(1))}`);
+		return;
+	}
+
 	notePagination.value = {
 		endpoint: 'notes/search',
 		limit: 10,

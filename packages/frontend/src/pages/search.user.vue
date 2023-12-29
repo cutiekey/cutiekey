@@ -65,6 +65,11 @@ async function search() {
 		return;
 	}
 
+	if (query.match(/^@[a-z0-9_.-]+@[a-z0-9_.-]+$/i)) {
+		router.push(`/${query}`);
+		return;
+	}
+
 	userPagination.value = {
 		endpoint: 'users/search',
 		limit: 10,
