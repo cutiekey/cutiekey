@@ -13,12 +13,12 @@ import { NoteEntityService } from '@/core/entities/NoteEntityService.js';
 import { bindThis } from '@/decorators.js';
 import { RoleService } from '@/core/RoleService.js';
 import type { MiMeta } from '@/models/Meta.js';
-import Channel from '../channel.js';
+import Channel, { MiChannelService } from '../channel.js';
 
 class BubbleTimelineChannel extends Channel {
 	public readonly chName = 'bubbleTimeline';
 	public static shouldShare = false;
-	public static requireCredential = false;
+	public static requireCredential = false as const;
 	private withRenotes: boolean;
 	private withFiles: boolean;
 	private withBots: boolean;
@@ -100,9 +100,10 @@ class BubbleTimelineChannel extends Channel {
 }
 
 @Injectable()
-export class BubbleTimelineChannelService {
+export class BubbleTimelineChannelService implements MiChannelService<false> {
 	public readonly shouldShare = BubbleTimelineChannel.shouldShare;
 	public readonly requireCredential = BubbleTimelineChannel.requireCredential;
+	public readonly kind = BubbleTimelineChannel.kind;
 
 	constructor(
 		private metaService: MetaService,

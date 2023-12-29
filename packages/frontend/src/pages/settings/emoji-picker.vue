@@ -12,7 +12,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 
 		<div class="_gaps">
 			<div>
-				<div v-panel style="border-radius: 6px;">
+				<div v-panel style="border-radius: var(--radius-sm);">
 					<Sortable
 						v-model="pinnedEmojisForReaction"
 						:class="$style.emojis"
@@ -52,7 +52,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 
 		<div class="_gaps">
 			<div>
-				<div v-panel style="border-radius: 6px;">
+				<div v-panel style="border-radius: var(--radius-sm);">
 					<Sortable
 						v-model="pinnedEmojis"
 						:class="$style.emojis"

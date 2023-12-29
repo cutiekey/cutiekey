@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { VNode, h, defineAsyncComponent } from 'vue';
+import { VNode, h, defineAsyncComponent, SetupContext } from 'vue';
 import * as mfm from '@sharkey/sfm-js';
 import * as Misskey from 'misskey-js';
 import MkUrl from '@/components/global/MkUrl.vue';
@@ -44,8 +44,12 @@ type MfmProps = {
 	isAnim?: boolean;
 };
 
+type MfmEvents = {
+	clickEv(id: string): void;
+};
+
 // eslint-disable-next-line import/no-default-export
-export default function(props: MfmProps) {
+export default function(props: MfmProps, context: SetupContext<MfmEvents>) {
 	const isNote = props.isNote ?? true;
 	const shouldNyaize = props.nyaize ? props.nyaize === 'respect' ? props.author?.isCat ? props.author?.speakAsCat : false : false : false;
 
@@ -247,13 +251,13 @@ export default function(props: MfmProps) {
 					case 'fg': {
 						let color = token.props.args.color;
 						if (!/^[0-9a-f]{3,6}$/i.test(color)) color = 'f00';
-						style = `color: #${color};`;
+						style = `color: #${color}; overflow-wrap: anywhere;`;
 						break;
 					}
 					case 'bg': {
 						let color = token.props.args.color;
 						if (!/^[0-9a-f]{3,6}$/i.test(color)) color = 'f00';
-						style = `background-color: #${color};`;
+						style = `background-color: #${color}; overflow-wrap: anywhere;`;
 						break;
 					}
 					case 'ruby': {
@@ -277,7 +281,7 @@ export default function(props: MfmProps) {
 						const child = token.children[0];
 						const unixtime = parseInt(child.type === 'text' ? child.props.text : '');
 						return h('span', {
-							style: 'display: inline-block; font-size: 90%; border: solid 1px var(--divider); border-radius: 999px; padding: 4px 10px 4px 6px;',
+							style: 'display: inline-block; font-size: 90%; border: solid 1px var(--divider); border-radius: var(--radius-ellipse); padding: 4px 10px 4px 6px;',
 						}, [
 							h('i', {
 								class: 'ph-clock ph-bold ph-lg',
@@ -289,6 +293,13 @@ export default function(props: MfmProps) {
 								mode: 'detail',
 							}),
 						]);
+					}
+					case 'clickable': {
+						return h('span', { onClick(ev: MouseEvent): void {
+							ev.stopPropagation();
+							ev.preventDefault();
+							context.emit('clickEv', token.props.args.ev ?? '');
+						} }, genEl(token.children, scale));
 					}
 				}
 				if (style === undefined) {

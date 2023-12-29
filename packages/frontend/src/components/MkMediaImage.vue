@@ -8,10 +8,10 @@ SPDX-License-Identifier: AGPL-3.0-only
 	<component
 		:is="disableImageLink ? 'div' : 'a'"
 		v-bind="disableImageLink ? {
-			title: image.name,
+			title: image.comment,
 			class: $style.imageContainer,
 		} : {
-			title: image.name,
+			title: image.comment,
 			class: $style.imageContainer,
 			href: image.url,
 			style: 'cursor: zoom-in;'
@@ -22,8 +22,8 @@ SPDX-License-Identifier: AGPL-3.0-only
 			:src="(defaultStore.state.dataSaver.media && hide) ? null : url"
 			:forceBlurhash="hide"
 			:cover="hide || cover"
-			:alt="image.comment || image.name"
-			:title="image.comment || image.name"
+			:alt="image.comment"
+			:title="image.comment"
 			:width="image.properties.width"
 			:height="image.properties.height"
 			:style="hide ? 'filter: brightness(0.7);' : null"

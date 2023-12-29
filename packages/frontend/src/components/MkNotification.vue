@@ -37,7 +37,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 			<i v-else-if="notification.type === 'quote'" class="ph-quotes ph-bold ph-lg"></i>
 			<i v-else-if="notification.type === 'pollEnded'" class="ph-chart-bar-horizontal ph-bold ph-lg"></i>
 			<i v-else-if="notification.type === 'achievementEarned'" class="ph-trophy ph-bold ph-lg"></i>
-			<img v-else-if="notification.type === 'roleAssigned'" :src="notification.role.iconUrl" alt=""/>
+			<img v-else-if="notification.type === 'roleAssigned'" style="height: 1.3em; vertical-align: -22%;" :src="notification.role.iconUrl" alt=""/>
 			<!-- notification.reaction が null になることはまずないが、ここでoptional chaining使うと一部ブラウザで刺さるので念の為 -->
 			<MkReactionIcon
 				v-else-if="notification.type === 'reaction'"

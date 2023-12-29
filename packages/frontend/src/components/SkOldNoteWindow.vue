@@ -132,7 +132,7 @@ const isRenote = (
 );
 
 const el = shallowRef<HTMLElement>();
-let appearNote = computed(() => isRenote ? note.value.renote as Misskey.entities.Note : note);
+let appearNote = computed(() => isRenote ? note.value.renote as Misskey.entities.Note : note.value);
 const renoteUrl = appearNote.value.renote ? appearNote.value.renote.url : null;
 const renoteUri = appearNote.value.renote ? appearNote.value.renote.uri : null;
 

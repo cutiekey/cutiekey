@@ -228,7 +228,7 @@ function like(): void {
 		noteId: props.note.id,
 		override: defaultLike.value,
 	});
-	const el = reactButton.value as HTMLElement | null | undefined;
+	const el = likeButton.value as HTMLElement | null | undefined;
 	if (el) {
 		const rect = el.getBoundingClientRect();
 		const x = rect.left + (el.offsetWidth / 2);
