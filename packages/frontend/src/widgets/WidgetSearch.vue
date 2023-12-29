@@ -23,8 +23,6 @@ import { i18n } from '@/i18n.js';
 import * as os from '@/os.js';
 import { useRouter } from '@/router.js';
 import { GetFormResultType } from '@/scripts/form.js';
-import { $i } from '@/account.js';
-import { instance } from '@/instance.js';
 
 const name = 'search';
 
@@ -62,7 +60,6 @@ let notePagination = ref();
 let isLocalOnly = ref(false);
 let order = ref(true);
 let filetype = ref<null | string>(null);
-const notesSearchAvailable = (($i == null && instance.policies.canSearchNotes) || ($i != null && $i.policies.canSearchNotes));
 
 function options(ev) {
 	os.popupMenu([{
@@ -125,13 +122,10 @@ async function search() {
 		return;
 	}
 
-	if (!notesSearchAvailable && query.startsWith('#')) {
-		// can't really search, at least try handling hashtags
+	if (query.startsWith('#')) {
 		router.push(`/tags/${encodeURIComponent(query.substring(1))}`);
 		return;
 	}
-
-	// TODO: if !notesSearchAvailable pop up an error message
 
 	notePagination.value = {
 		endpoint: 'notes/search',
