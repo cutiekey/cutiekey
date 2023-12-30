@@ -85,6 +85,17 @@ SPDX-License-Identifier: AGPL-3.0-only
 		</div>
 	</MkFolder>
 
+	<FromSlot>
+		<template #label>{{ i18n.ts.defaultLike }}</template>
+		<MkCustomEmoji v-if="like && like.startsWith(':')" style="max-height: 3em; font-size: 1.1em;" :useOriginalSize="false" :class="$style.reaction" :name="like" :normal="true" :noStyle="true"/>
+		<MkEmoji v-else-if="like && !like.startsWith(':')" :emoji="like" style="max-height: 3em; font-size: 1.1em;" :normal="true" :noStyle="true"/>
+		<span v-else-if="!like">{{ i18n.ts.notSet }}</span>
+		<div class="_buttons" style="padding-top: 8px;">
+			<MkButton rounded :small="true" inline @click="chooseNewLike"><i class="ph-smiley ph-bold ph-lg"></i> Change</MkButton>
+			<MkButton rounded :small="true" inline @click="resetLike"><i class="ph-arrow-clockwise ph-bold ph-lg"></i> Reset</MkButton>
+		</div>
+	</FromSlot>
+
 	<FormSection>
 		<template #label>{{ i18n.ts.emojiPickerDisplay }}</template>
 
@@ -128,6 +139,7 @@ import Sortable from 'vuedraggable';
 import MkRadios from '@/components/MkRadios.vue';
 import MkButton from '@/components/MkButton.vue';
 import FormSection from '@/components/form/section.vue';
+import FromSlot from '@/components/form/slot.vue';
 import MkSwitch from '@/components/MkSwitch.vue';
 import * as os from '@/os.js';
 import { defaultStore } from '@/store.js';
@@ -136,6 +148,7 @@ import { definePageMetadata } from '@/scripts/page-metadata.js';
 import { deepClone } from '@/scripts/clone.js';
 import { reactionPicker } from '@/scripts/reaction-picker.js';
 import { emojiPicker } from '@/scripts/emoji-picker.js';
+import { unisonReload } from '@/scripts/unison-reload.js';
 import MkCustomEmoji from '@/components/global/MkCustomEmoji.vue';
 import MkEmoji from '@/components/global/MkEmoji.vue';
 import MkFolder from '@/components/MkFolder.vue';
@@ -151,6 +164,8 @@ const emojiPickerUseDrawerForMobile = computed(defaultStore.makeGetterSetter('em
 const removeReaction = (reaction: string, ev: MouseEvent) => remove(pinnedEmojisForReaction, reaction, ev);
 const chooseReaction = (ev: MouseEvent) => pickEmoji(pinnedEmojisForReaction, ev);
 const setDefaultReaction = () => setDefault(pinnedEmojisForReaction);
+
+const like = computed(defaultStore.makeGetterSetter('like'));
 
 const removeEmoji = (reaction: string, ev: MouseEvent) => remove(pinnedEmojis, reaction, ev);
 const chooseEmoji = (ev: MouseEvent) => pickEmoji(pinnedEmojis, ev);
@@ -218,6 +233,30 @@ async function pickEmoji(itemsRef: Ref<string[]>, ev: MouseEvent) {
 			itemsRef.value.push(emoji);
 		}
 	});
+}
+
+async function reloadAsk() {
+	const { canceled } = await os.confirm({
+		type: 'info',
+		text: i18n.ts.reloadToApplySetting,
+	});
+	if (canceled) return;
+
+	unisonReload();
+}
+
+function chooseNewLike(ev: MouseEvent) {
+	os.pickEmoji(getHTMLElement(ev), {
+		showPinned: false,
+	}).then(async emoji => {
+		defaultStore.set('like', emoji as string);
+		await reloadAsk();
+	});
+}
+
+async function resetLike() {
+	defaultStore.set('like', null);
+	await reloadAsk();
 }
 
 function getHTMLElement(ev: MouseEvent): HTMLElement {
