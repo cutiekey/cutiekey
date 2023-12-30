@@ -1275,7 +1275,7 @@ _initialTutorial:
     _visibility:
       description: "You can limit who can view your note."
       public: "Your note will be visible for all users."
-      home: "Public only on the Home timeline. People visiting your profile, via followers, and through boostss can see it."
+      home: "Public only on the Home timeline. People visiting your profile, via followers, and through boosts can see it."
       followers: "Visible to followers only. Only followers can see it and no one else, and it cannot be boosted by others."
       direct: "Visible only to specified users, and the recipient will be notified. It can be used as an alternative to direct messaging."
       doNotSendConfidencialOnDirect1: "Be careful when sending sensitive information!"
