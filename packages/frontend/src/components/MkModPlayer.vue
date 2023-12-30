@@ -8,7 +8,7 @@
 
 <div v-else class="mod-player-enabled">
 	<div class="pattern-display" @click="togglePattern()">
-		<div class="pattern-hide" v-if="patternHide">
+		<div v-if="patternHide" class="pattern-hide">
 			<b><i class="ph-eye ph-bold ph-lg"></i> Pattern Hidden</b>
 			<span>{{ i18n.ts.clickToShow }}</span>
 		</div>
@@ -166,32 +166,31 @@ function toggleVisible() {
 		firstFrame.value = true;
 		patternHide.value = false;
 	}
-	nextTick(() => {
-		stop(hide.value);
-	});
+	nextTick(() => { stop(hide.value); });
 }
 
 function togglePattern() {
 	patternHide.value = !patternHide.value;
 	if (!patternHide.value) {
-		if (player.value.getRow() == 0) {
+		if (player.value.getRow() === 0) {
 			try {
 				player.value.play(buffer);
 				display();
-			} catch (e) {
-				console.warn(e);
+			} catch (err) {
+				console.warn(err);
 			}
 			player.value.stop();
 		}
 	}
 }
+
 function display() {
 	if (!displayCanvas.value) {
 		stop();
 		return;
 	}
 
-	if (patternHide.value) { return; }
+	if (patternHide.value) return;
 
 	if (firstFrame.value) {
 		firstFrame.value = false;
