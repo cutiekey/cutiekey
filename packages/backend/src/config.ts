@@ -7,8 +7,8 @@ import * as fs from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
 import * as yaml from 'js-yaml';
-import type { RedisOptions } from 'ioredis';
 import { globSync } from 'glob';
+import type { RedisOptions } from 'ioredis';
 
 type RedisOptionsSource = Partial<RedisOptions> & {
 	host: string;
@@ -65,6 +65,7 @@ type Source = {
 	allowedPrivateNetworks?: string[];
 
 	maxFileSize?: number;
+	maxNoteLength?: number;
 
 	clusterLimit?: number;
 
@@ -133,6 +134,7 @@ export type Config = {
 	proxyBypassHosts: string[] | undefined;
 	allowedPrivateNetworks: string[] | undefined;
 	maxFileSize: number | undefined;
+	maxNoteLength: number;
 	clusterLimit: number | undefined;
 	id: string;
 	outgoingAddress: string | undefined;
@@ -249,6 +251,7 @@ export function loadConfig(): Config {
 		proxyBypassHosts: config.proxyBypassHosts,
 		allowedPrivateNetworks: config.allowedPrivateNetworks,
 		maxFileSize: config.maxFileSize,
+		maxNoteLength: config.maxNoteLength ?? 3000,
 		clusterLimit: config.clusterLimit,
 		outgoingAddress: config.outgoingAddress,
 		outgoingAddressFamily: config.outgoingAddressFamily,
