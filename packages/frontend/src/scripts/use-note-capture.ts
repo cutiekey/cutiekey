@@ -30,11 +30,15 @@ export function useNoteCapture(props: {
 			case 'replied': {
 				if (!props.onReplyCallback) break;
 
-				const replyNote = await os.api("notes/show", {
-					noteId: body.id,
-				});
+				// notes/show may throw if the current user can't see the note
+				try {
+					const replyNote = await os.api('notes/show', {
+						noteId: body.id,
+					});
 
-				await props.onReplyCallback(replyNote);
+					await props.onReplyCallback(replyNote);
+				} catch { /* empty */ }
+				
 				break;
 			}
 
@@ -95,17 +99,20 @@ export function useNoteCapture(props: {
 			}
 
 			case 'updated': {
-				const editedNote = await os.api("notes/show", {
-					noteId: id,
-				});
+				try {
+					const editedNote = await os.api('notes/show', {
+						noteId: id,
+					});
+					
+					const keys = new Set<string>();
+					Object.keys(editedNote)
+						.concat(Object.keys(note.value))
+						.forEach((key) => keys.add(key));
+					keys.forEach((key) => {
+						note.value[key] = editedNote[key];
+					});
+				} catch { /* empty */ }
 
-				const keys = new Set<string>();
-				Object.keys(editedNote)
-					.concat(Object.keys(note.value))
-					.forEach((key) => keys.add(key));
-				keys.forEach((key) => {
-					note.value[key] = editedNote[key];
-				});
 				break;
 			}
 		}
