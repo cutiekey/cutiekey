@@ -437,10 +437,11 @@ if (props.detail) {
 
 .line {
 	position: absolute;
-	height: 100%;
+	height: calc(100% - 58px); // 58px of avatar height (see SkNote)
 	left: 60px;
 	// using solid instead of dotted, stylelistic choice
 	border-left: 2.5px solid rgb(174, 174, 174);
+	top: 86px; // 28px of .root padding, plus 58px of avatar height (see SkNote)
 }
 
 .footer {
