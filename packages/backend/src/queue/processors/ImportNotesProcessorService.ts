@@ -1,5 +1,6 @@
 import * as fs from 'node:fs';
 import * as vm from 'node:vm';
+import * as crypto from 'node:crypto';
 import { Inject, Injectable } from '@nestjs/common';
 import { ZipReader } from 'slacc';
 import { DI } from '@/di-symbols.js';
@@ -472,7 +473,9 @@ export class ImportNotesProcessorService {
 
 			for await (const file of post.object.attachment) {
 				const slashdex = file.url.lastIndexOf('/');
-				const name = file.url.substring(slashdex + 1);
+				const filename = file.url.substring(slashdex + 1);
+				const hash = crypto.createHash('md5').update(file.url).digest('base64url');
+				const name = `${hash}-${filename}`;
 				const [filePath, cleanup] = await createTemp();
 
 				const exists = await this.driveFilesRepository.findOneBy({ name: name, userId: user.id }) ?? await this.driveFilesRepository.findOneBy({ name: name, userId: user.id, folderId: pleroFolder?.id });
@@ -487,6 +490,7 @@ export class ImportNotesProcessorService {
 						user: user,
 						path: filePath,
 						name: name,
+						comment: file.name,
 						folderId: pleroFolder?.id,
 					});
 					files.push(driveFile);
