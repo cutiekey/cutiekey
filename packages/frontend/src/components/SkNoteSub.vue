@@ -11,7 +11,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 		<!-- new avatar container with line (post section) -->
 		<div :class="$style.avatarContainer">
 			<MkAvatar :class="$style.avatar" :user="note.user" link preview/>
-			<template v-if="note.repliesCount > 0">
+			<template v-if="note.repliesCount > 0 && replies.length > 0">
 				<div v-if="hideLine" :class="$style.threadLine"></div>
 			</template>
 		</div>
