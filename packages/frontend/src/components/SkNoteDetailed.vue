@@ -970,7 +970,7 @@ function animatedMFM() {
 
 .quoteNote {
 	padding: 16px;
-	border: dashed 1px var(--renote);
+	border: solid 1px var(--renote);
 	border-radius: var(--radius-sm);
 	overflow: clip;
 }
