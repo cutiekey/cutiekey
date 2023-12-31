@@ -34,7 +34,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 							<template #label>Use Verifymail.io API</template>
 						</MkSwitch>
 						<MkInput v-model="verifymailAuthKey" @update:modelValue="save">
-							<template #prefix><i class="ti ti-key"></i></template>
+							<template #prefix><i class="ph-key ph-bold ph-lg"></i></template>
 							<template #label>Verifymail.io API Auth Key</template>
 						</MkInput>
 					</div>
@@ -47,7 +47,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 						<MkTextarea v-model="bannedEmailDomains">
 							<template #label>Banned Email Domains List</template>
 						</MkTextarea>
-						<MkButton primary @click="save"><i class="ti ti-device-floppy"></i> {{ i18n.ts.save }}</MkButton>
+						<MkButton primary @click="save"><i class="ph-floppy-disk ph-bold ph-lg"></i> {{ i18n.ts.save }}</MkButton>
 					</div>
 				</MkFolder>
 

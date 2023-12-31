@@ -96,7 +96,7 @@ async function chooseList(ev: MouseEvent): Promise<void> {
 		(lists.length === 0 ? undefined : { type: 'divider' }),
 		{
 			type: 'link' as const,
-			icon: 'ti ti-plus',
+			icon: 'ph-plus ph-bold ph-lg',
 			text: i18n.ts.createNew,
 			to: '/my/lists',
 		},
@@ -116,7 +116,7 @@ async function chooseAntenna(ev: MouseEvent): Promise<void> {
 		(antennas.length === 0 ? undefined : { type: 'divider' }),
 		{
 			type: 'link' as const,
-			icon: 'ti ti-plus',
+			icon: 'ph-plus ph-bold ph-lg',
 			text: i18n.ts.createNew,
 			to: '/my/antennas',
 		},
@@ -143,7 +143,7 @@ async function chooseChannel(ev: MouseEvent): Promise<void> {
 		(channels.length === 0 ? undefined : { type: 'divider' }),
 		{
 			type: 'link' as const,
-			icon: 'ti ti-plus',
+			icon: 'ph-plus ph-bold ph-lg',
 			text: i18n.ts.createNew,
 			to: '/channels',
 		},
