@@ -329,13 +329,11 @@ export class ActivityPubServerService {
 
 		if (profile.followersVisibility === 'private') {
 			reply.code(403);
-			if (!this.config.checkActivityPubGetSignature)
-				reply.header('Cache-Control', 'public, max-age=30');
+			if (!this.config.checkActivityPubGetSignature) reply.header('Cache-Control', 'public, max-age=30');
 			return;
 		} else if (profile.followersVisibility === 'followers') {
 			reply.code(403);
-			if (!this.config.checkActivityPubGetSignature)
-				reply.header('Cache-Control', 'public, max-age=30');
+			if (!this.config.checkActivityPubGetSignature) reply.header('Cache-Control', 'public, max-age=30');
 			return;
 		}
 		//#endregion
@@ -387,8 +385,7 @@ export class ActivityPubServerService {
 				user.followersCount,
 				`${partOf}?page=true`,
 			);
-			if (!this.config.checkActivityPubGetSignature)
-				reply.header('Cache-Control', 'public, max-age=180');
+			if (!this.config.checkActivityPubGetSignature) reply.header('Cache-Control', 'public, max-age=180');
 			this.setResponseType(request, reply);
 			return (this.apRendererService.addContext(rendered));
 		}
@@ -426,13 +423,11 @@ export class ActivityPubServerService {
 
 		if (profile.followingVisibility === 'private') {
 			reply.code(403);
-			if (!this.config.checkActivityPubGetSignature)
-				reply.header('Cache-Control', 'public, max-age=30');
+			if (!this.config.checkActivityPubGetSignature) reply.header('Cache-Control', 'public, max-age=30');
 			return;
 		} else if (profile.followingVisibility === 'followers') {
 			reply.code(403);
-			if (!this.config.checkActivityPubGetSignature)
-				reply.header('Cache-Control', 'public, max-age=30');
+			if (!this.config.checkActivityPubGetSignature) reply.header('Cache-Control', 'public, max-age=30');
 			return;
 		}
 		//#endregion
@@ -484,8 +479,7 @@ export class ActivityPubServerService {
 				user.followingCount,
 				`${partOf}?page=true`,
 			);
-			if (!this.config.checkActivityPubGetSignature)
-				reply.header('Cache-Control', 'public, max-age=180');
+			if (!this.config.checkActivityPubGetSignature) reply.header('Cache-Control', 'public, max-age=180');
 			this.setResponseType(request, reply);
 			return (this.apRendererService.addContext(rendered));
 		}
@@ -526,8 +520,7 @@ export class ActivityPubServerService {
 			renderedNotes,
 		);
 
-		if (!this.config.checkActivityPubGetSignature)
-			reply.header('Cache-Control', 'public, max-age=180');
+		if (!this.config.checkActivityPubGetSignature) reply.header('Cache-Control', 'public, max-age=180');
 		this.setResponseType(request, reply);
 		return (this.apRendererService.addContext(rendered));
 	}
@@ -618,8 +611,7 @@ export class ActivityPubServerService {
 				`${partOf}?page=true`,
 				`${partOf}?page=true&since_id=000000000000000000000000`,
 			);
-			if (!this.config.checkActivityPubGetSignature)
-				reply.header('Cache-Control', 'public, max-age=180');
+			if (!this.config.checkActivityPubGetSignature) reply.header('Cache-Control', 'public, max-age=180');
 			this.setResponseType(request, reply);
 			return (this.apRendererService.addContext(rendered));
 		}
@@ -632,8 +624,7 @@ export class ActivityPubServerService {
 			return;
 		}
 
-		if (!this.config.checkActivityPubGetSignature)
-			reply.header('Cache-Control', 'public, max-age=180');
+		if (!this.config.checkActivityPubGetSignature) reply.header('Cache-Control', 'public, max-age=180');
 		this.setResponseType(request, reply);
 		return (this.apRendererService.addContext(await this.apRendererService.renderPerson(user as MiLocalUser)));
 	}
@@ -723,8 +714,7 @@ export class ActivityPubServerService {
 				return;
 			}
 
-			if (!this.config.checkActivityPubGetSignature)
-				reply.header('Cache-Control', 'public, max-age=180');
+			if (!this.config.checkActivityPubGetSignature) reply.header('Cache-Control', 'public, max-age=180');
 			this.setResponseType(request, reply);
 			return this.apRendererService.addContext(await this.apRendererService.renderNote(note, false));
 		});
@@ -747,8 +737,7 @@ export class ActivityPubServerService {
 				return;
 			}
 
-			if (!this.config.checkActivityPubGetSignature)
-				reply.header('Cache-Control', 'public, max-age=180');
+			if (!this.config.checkActivityPubGetSignature) reply.header('Cache-Control', 'public, max-age=180');
 			this.setResponseType(request, reply);
 			return (this.apRendererService.addContext(await this.packActivity(note)));
 		});
@@ -793,8 +782,7 @@ export class ActivityPubServerService {
 			const keypair = await this.userKeypairService.getUserKeypair(user.id);
 
 			if (this.userEntityService.isLocalUser(user)) {
-				if (!this.config.checkActivityPubGetSignature)
-					reply.header('Cache-Control', 'public, max-age=180');
+				if (!this.config.checkActivityPubGetSignature) reply.header('Cache-Control', 'public, max-age=180');
 				this.setResponseType(request, reply);
 				return (this.apRendererService.addContext(this.apRendererService.renderKey(user, keypair)));
 			} else {
@@ -844,8 +832,7 @@ export class ActivityPubServerService {
 				return;
 			}
 
-			if (!this.config.checkActivityPubGetSignature)
-				reply.header('Cache-Control', 'public, max-age=180');
+			if (!this.config.checkActivityPubGetSignature) reply.header('Cache-Control', 'public, max-age=180');
 			this.setResponseType(request, reply);
 			return (this.apRendererService.addContext(await this.apRendererService.renderEmoji(emoji)));
 		});
@@ -868,8 +855,7 @@ export class ActivityPubServerService {
 				return;
 			}
 
-			if (!this.config.checkActivityPubGetSignature)
-				reply.header('Cache-Control', 'public, max-age=180');
+			if (!this.config.checkActivityPubGetSignature) reply.header('Cache-Control', 'public, max-age=180');
 			this.setResponseType(request, reply);
 			return (this.apRendererService.addContext(await this.apRendererService.renderLike(reaction, note)));
 		});
@@ -897,8 +883,7 @@ export class ActivityPubServerService {
 				return;
 			}
 
-			if (!this.config.checkActivityPubGetSignature)
-				reply.header('Cache-Control', 'public, max-age=180');
+			if (!this.config.checkActivityPubGetSignature) reply.header('Cache-Control', 'public, max-age=180');
 			this.setResponseType(request, reply);
 			return (this.apRendererService.addContext(this.apRendererService.renderFollow(follower, followee)));
 		});
@@ -935,8 +920,7 @@ export class ActivityPubServerService {
 				return;
 			}
 
-			if (!this.config.checkActivityPubGetSignature)
-				reply.header('Cache-Control', 'public, max-age=180');
+			if (!this.config.checkActivityPubGetSignature) reply.header('Cache-Control', 'public, max-age=180');
 			this.setResponseType(request, reply);
 			return (this.apRendererService.addContext(this.apRendererService.renderFollow(follower, followee)));
 		});
