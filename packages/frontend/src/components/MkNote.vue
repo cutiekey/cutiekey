@@ -986,8 +986,8 @@ function emitUpdReaction(emoji: string, delta: number) {
 	flex-shrink: 0;
 	display: block !important;
 	margin: 0 14px 0 0;
-	width: 58px;
-	height: 58px;
+	width: var(--avatar);
+	height: var(--avatar);
 	position: sticky !important;
 	top: calc(22px + var(--stickyTop, 0px));
 	left: 0;

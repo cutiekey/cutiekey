@@ -199,8 +199,8 @@ onMounted(() => {
 	right: 0;
 	margin: 0 auto;
 	z-index: 2;
-	width: 58px;
-	height: 58px;
+	width: var(--avatar);
+	height: var(--avatar);
 }
 
 .title {

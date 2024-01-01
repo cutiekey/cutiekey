@@ -120,8 +120,8 @@ onMounted(() => {
 
 .iconFrame {
 	position: relative;
-	width: 58px;
-	height: 58px;
+	width: var(--avatar);
+	height: var(--avatar);
 	padding: 6px;
 	border-radius: var(--radius-full);
 	box-sizing: border-box;
