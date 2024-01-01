@@ -46,7 +46,6 @@ const bg = {
 	align-items: center;
 	height: 1.5ex;
 	border-radius: var(--radius-xl);
-	margin-top: 5px;
 	padding: 4px;
 	overflow: clip;
 	color: #fff;
