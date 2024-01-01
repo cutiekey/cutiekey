@@ -5,7 +5,7 @@
 -
 
 ### Client
-- 
+- Enhance: Adjusted styling to be closer to Firefish
 
 ### Server
 -
