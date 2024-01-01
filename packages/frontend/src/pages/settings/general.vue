@@ -191,6 +191,23 @@ SPDX-License-Identifier: AGPL-3.0-only
 			</MkRange>
 
 			<MkFolder>
+				<template #label>Boost Settings</template>
+				<div class="_gaps_m">
+					<MkSwitch v-model="showVisibilitySelectorOnBoost">
+						Disable Visibility Selector
+						<template #caption>Disables the visiblity selector when clicking boost and uses the default visiblity defined</template>
+					</MkSwitch>
+					<MkSelect v-model="visibilityOnBoost">
+						<template #label>Default boost visibility</template>
+						<option value="public">{{ i18n.ts._visibility['public'] }}</option>
+						<option value="home">{{ i18n.ts._visibility['home'] }}</option>
+						<option value="followers">{{ i18n.ts._visibility['followers'] }}</option>
+						<option value="local">{{ i18n.ts._timelines.local }}</option>
+					</MkSelect>
+				</div>
+			</MkFolder>
+
+			<MkFolder>
 				<template #label>{{ i18n.ts.dataSaver }}</template>
 
 				<div class="_gaps_m">
@@ -326,6 +343,8 @@ const noteDesign = computed(defaultStore.makeGetterSetter('noteDesign'));
 const uncollapseCW = computed(defaultStore.makeGetterSetter('uncollapseCW'));
 const expandLongNote = computed(defaultStore.makeGetterSetter('expandLongNote'));
 const enableSeasonalScreenEffect = computed(defaultStore.makeGetterSetter('enableSeasonalScreenEffect'));
+const showVisibilitySelectorOnBoost = computed(defaultStore.makeGetterSetter('showVisibilitySelectorOnBoost'));
+const visibilityOnBoost = computed(defaultStore.makeGetterSetter('visibilityOnBoost'));
 
 watch(lang, () => {
 	miLocalStorage.setItem('lang', lang.value as string);
@@ -381,6 +400,8 @@ watch([
 	keepScreenOn,
 	disableStreamingTimeline,
 	enableSeasonalScreenEffect,
+	showVisibilitySelectorOnBoost,
+	visibilityOnBoost,
 ], async () => {
 	await reloadAsk();
 });

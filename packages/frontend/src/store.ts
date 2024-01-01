@@ -151,6 +151,14 @@ export const defaultStore = markRaw(new Storage('base', {
 		where: 'account',
 		default: true,
 	},
+	showVisibilitySelectorOnBoost: {
+		where: 'account',
+		default: true,
+	},
+	visibilityOnBoost: {
+		where: 'account',
+		default: 'public' as 'public' | 'home' | 'followers' | 'local',
+	},
 
 	menu: {
 		where: 'deviceAccount',
