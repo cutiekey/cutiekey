@@ -563,6 +563,7 @@ function reply(viaKeyboard = false): void {
 function like(): void {
 	pleaseLogin();
 	showMovedDialog();
+	sound.play('reaction');
 	if (props.mock) {
 		return;
 	}

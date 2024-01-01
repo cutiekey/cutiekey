@@ -636,6 +636,7 @@ function react(viaKeyboard = false): void {
 function like(): void {
 	pleaseLogin();
 	showMovedDialog();
+	sound.play('reaction');
 	os.api('notes/like', {
 		noteId: appearNote.value.id,
 		override: defaultLike.value,

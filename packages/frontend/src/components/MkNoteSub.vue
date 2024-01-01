@@ -224,6 +224,7 @@ function react(viaKeyboard = false): void {
 function like(): void {
 	pleaseLogin();
 	showMovedDialog();
+	sound.play('reaction');
 	os.api('notes/like', {
 		noteId: props.note.id,
 		override: defaultLike.value,
