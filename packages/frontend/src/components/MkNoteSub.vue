@@ -91,6 +91,7 @@ import MkSubNoteContent from '@/components/MkSubNoteContent.vue';
 import MkCwButton from '@/components/MkCwButton.vue';
 import { notePage } from '@/filters/note.js';
 import * as os from '@/os.js';
+import * as sound from '@/scripts/sound.js';
 import { i18n } from '@/i18n.js';
 import { $i } from '@/account.js';
 import { userPage } from '@/filters/user.js';
@@ -193,6 +194,7 @@ function reply(viaKeyboard = false): void {
 function react(viaKeyboard = false): void {
 	pleaseLogin();
 	showMovedDialog();
+	sound.play('reaction');
 	if (props.note.reactionAcceptance === 'likeOnly') {
 		os.api('notes/like', {
 			noteId: props.note.id,
