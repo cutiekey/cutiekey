@@ -279,7 +279,7 @@ const AllPagination = {
 	params: computed(() => ({
 		userId: props.user.id,
 		withRenotes: noteview.value === 'all',
-		withReplies: noteview.value === 'all' || noteview.value === 'files',
+		withReplies: noteview.value === 'all',
 		withChannelNotes: noteview.value === 'all',
 		withFiles: noteview.value === 'files',
 	})),
