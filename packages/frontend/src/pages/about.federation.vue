@@ -81,7 +81,7 @@ const pagination = {
 			state.value === 'silenced' ? { silenced: true } :
 			state.value === 'notResponding' ? { notResponding: true } :
 			state.value === 'nsfw' ? { nsfw: true } :
-			state.value === 'bubble' ? { nsfw: true } :
+			state.value === 'bubble' ? { bubble: true } :
 			{}),
 	})),
 } as Paging;
