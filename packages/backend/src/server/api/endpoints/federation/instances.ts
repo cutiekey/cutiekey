@@ -157,7 +157,7 @@ export default class extends Endpoint<typeof meta, typeof paramDef> { // eslint-
 						return [];
 					}
 					query.andWhere('instance.host IN (:...bubble)', {
-						silences: meta.bubbleInstances,
+						bubble: meta.bubbleInstances,
 					});
 				} else if (meta.bubbleInstances.length > 0) {
 					query.andWhere('instance.host NOT IN (:...bubble)', {
