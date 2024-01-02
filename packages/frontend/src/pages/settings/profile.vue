@@ -253,7 +253,7 @@ function changeAvatar(ev) {
 function changeBanner(ev) {
 	if ($i.bannerId) {
 		os.popupMenu([{
-			text: 'Update Banner',
+			text: i18n.ts._profile.updateBanner,
 			action: async () => {
 				selectFile(ev.currentTarget ?? ev.target, i18n.ts.banner).then(async (file) => {
 					let originalOrCropped = file;
@@ -279,7 +279,7 @@ function changeBanner(ev) {
 				});
 			},
 		}, {
-			text: 'Remove Banner',
+			text: i18n.ts._profile.removeBanner,
 			action: async () => {
 				const i = await os.apiWithDialog('i/update', {
 					bannerId: null,
@@ -317,7 +317,7 @@ function changeBanner(ev) {
 function changeBackground(ev) {
 	if ($i.backgroundId) {
 		os.popupMenu([{
-			text: 'Update Background',
+			text: i18n.ts._profile.updateBackground,
 			action: async () => {
 				selectFile(ev.currentTarget ?? ev.target, i18n.ts.background).then(async (file) => {
 					let originalOrCropped = file;
@@ -343,7 +343,7 @@ function changeBackground(ev) {
 				});
 			},
 		}, {
-			text: 'Remove Banner',
+			text: i18n.ts._profile.removeBackground,
 			action: async () => {
 				const i = await os.apiWithDialog('i/update', {
 					backgroundId: null,

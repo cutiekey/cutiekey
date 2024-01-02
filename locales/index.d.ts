@@ -962,6 +962,10 @@ export interface Locale {
     "numberOfPageCacheDescription": string;
     "numberOfReplies": string;
     "numberOfRepliesDescription": string;
+    "boostSettings": string;
+    "showVisibilitySelectorOnBoost": string;
+    "showVisibilitySelectorOnBoostDescription": string;
+    "visibilityOnBoost": string;
     "logoutConfirm": string;
     "lastActiveDate": string;
     "statusbar": string;
@@ -2287,7 +2291,11 @@ export interface Locale {
         "metadataContent": string;
         "changeAvatar": string;
         "changeBanner": string;
+        "updateBanner": string;
+        "removeBanner": string;
         "changeBackground": string;
+        "updateBackground": string;
+        "removeBackground": string;
         "verifiedLinkDescription": string;
         "avatarDecorationMax": string;
     };
