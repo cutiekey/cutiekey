@@ -251,53 +251,131 @@ function changeAvatar(ev) {
 }
 
 function changeBanner(ev) {
-	selectFile(ev.currentTarget ?? ev.target, i18n.ts.banner).then(async (file) => {
-		let originalOrCropped = file;
+	if ($i.bannerId) {
+		os.popupMenu([{
+			text: 'Update Banner',
+			action: async () => {
+				selectFile(ev.currentTarget ?? ev.target, i18n.ts.banner).then(async (file) => {
+					let originalOrCropped = file;
 
-		const { canceled } = await os.confirm({
-			type: 'question',
-			text: i18n.t('cropImageAsk'),
-			okText: i18n.ts.cropYes,
-			cancelText: i18n.ts.cropNo,
-		});
+					const { canceled } = await os.confirm({
+						type: 'question',
+						text: i18n.t('cropImageAsk'),
+						okText: i18n.ts.cropYes,
+						cancelText: i18n.ts.cropNo,
+					});
 
-		if (!canceled) {
-			originalOrCropped = await os.cropImage(file, {
-				aspectRatio: 2,
+					if (!canceled) {
+						originalOrCropped = await os.cropImage(file, {
+							aspectRatio: 2,
+						});
+					}
+
+					const i = await os.apiWithDialog('i/update', {
+						bannerId: originalOrCropped.id,
+					});
+					$i.bannerId = i.bannerId;
+					$i.bannerUrl = i.bannerUrl;
+				});
+			},
+		}, {
+			text: 'Remove Banner',
+			action: async () => {
+				const i = await os.apiWithDialog('i/update', {
+					bannerId: null,
+				});
+				$i.bannerId = i.bannerId;
+				$i.bannerUrl = i.bannerUrl;
+			},
+		}], ev.currentTarget ?? ev.target);
+	} else {
+		selectFile(ev.currentTarget ?? ev.target, i18n.ts.banner).then(async (file) => {
+			let originalOrCropped = file;
+
+			const { canceled } = await os.confirm({
+				type: 'question',
+				text: i18n.t('cropImageAsk'),
+				okText: i18n.ts.cropYes,
+				cancelText: i18n.ts.cropNo,
 			});
-		}
 
-		const i = await os.apiWithDialog('i/update', {
-			bannerId: originalOrCropped.id,
+			if (!canceled) {
+				originalOrCropped = await os.cropImage(file, {
+					aspectRatio: 2,
+				});
+			}
+
+			const i = await os.apiWithDialog('i/update', {
+				bannerId: originalOrCropped.id,
+			});
+			$i.bannerId = i.bannerId;
+			$i.bannerUrl = i.bannerUrl;
 		});
-		$i.bannerId = i.bannerId;
-		$i.bannerUrl = i.bannerUrl;
-	});
+	}
 }
 
 function changeBackground(ev) {
-	selectFile(ev.currentTarget ?? ev.target, i18n.ts.background).then(async (file) => {
-		let originalOrCropped = file;
+	if ($i.backgroundId) {
+		os.popupMenu([{
+			text: 'Update Background',
+			action: async () => {
+				selectFile(ev.currentTarget ?? ev.target, i18n.ts.background).then(async (file) => {
+					let originalOrCropped = file;
 
-		const { canceled } = await os.confirm({
-			type: 'question',
-			text: i18n.t('cropImageAsk'),
-			okText: i18n.ts.cropYes,
-			cancelText: i18n.ts.cropNo,
-		});
+					const { canceled } = await os.confirm({
+						type: 'question',
+						text: i18n.t('cropImageAsk'),
+						okText: i18n.ts.cropYes,
+						cancelText: i18n.ts.cropNo,
+					});
 
-		if (!canceled) {
-			originalOrCropped = await os.cropImage(file, {
-				aspectRatio: 1,
+					if (!canceled) {
+						originalOrCropped = await os.cropImage(file, {
+							aspectRatio: 1,
+						});
+					}
+
+					const i = await os.apiWithDialog('i/update', {
+						backgroundId: originalOrCropped.id,
+					});
+					$i.backgroundId = i.backgroundId;
+					$i.backgroundUrl = i.backgroundUrl;
+				});
+			},
+		}, {
+			text: 'Remove Banner',
+			action: async () => {
+				const i = await os.apiWithDialog('i/update', {
+					backgroundId: null,
+				});
+				$i.backgroundId = i.backgroundId;
+				$i.backgroundUrl = i.backgroundUrl;
+			},
+		}], ev.currentTarget ?? ev.target);
+	} else {
+		selectFile(ev.currentTarget ?? ev.target, i18n.ts.background).then(async (file) => {
+			let originalOrCropped = file;
+
+			const { canceled } = await os.confirm({
+				type: 'question',
+				text: i18n.t('cropImageAsk'),
+				okText: i18n.ts.cropYes,
+				cancelText: i18n.ts.cropNo,
 			});
-		}
 
-		const i = await os.apiWithDialog('i/update', {
-			backgroundId: originalOrCropped.id,
+			if (!canceled) {
+				originalOrCropped = await os.cropImage(file, {
+					aspectRatio: 1,
+				});
+			}
+
+			const i = await os.apiWithDialog('i/update', {
+				backgroundId: originalOrCropped.id,
+			});
+			$i.backgroundId = i.backgroundId;
+			$i.backgroundUrl = i.backgroundUrl;
 		});
-		$i.backgroundId = i.backgroundId;
-		$i.backgroundUrl = i.backgroundUrl;
-	});
+	}
 }
 
 const headerActions = computed(() => []);
