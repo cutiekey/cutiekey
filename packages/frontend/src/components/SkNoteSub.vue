@@ -478,7 +478,8 @@ if (props.detail) {
 		z-index: -1;
 	}
 	
-	&:hover::after {
+	&:hover::after,
+	&:focus-within::after {
 		opacity: 1;
 	}
 }
