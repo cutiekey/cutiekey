@@ -894,7 +894,7 @@ function emitUpdReaction(emoji: string, delta: number) {
 	position: relative;
 	display: flex;
 	align-items: center;
-	padding: 24px 32px 16px calc(32px + var(--avatar) + 14px);
+	padding: 24px 32px 0 calc(32px + var(--avatar) + 14px);
 	line-height: 28px;
 	white-space: pre;
 	color: var(--renote);
