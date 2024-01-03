@@ -1161,23 +1161,23 @@ defineExpose({
 @container (max-width: 580px) {
 	.root {
 		font-size: 0.95em;
+		--avatar: 46px;
 	}
 
 	.renote {
-		padding: 24px 28px 16px;
+		padding: 24px 26px 0 calc(26px + var(--avatar) + 14px);
+
+		&::before {
+			left: calc(26px + .5 * var(--avatar));
+		}
 	}
 
 	.collapsedRenoteTarget {
-		padding: 8px 28px 24px;
+		padding: 8px 26px 24px;
 	}
 
 	.article {
 		padding: 24px 26px;
-	}
-
-	.avatar {
-		width: 50px;
-		height: 50px;
 	}
 }
 
@@ -1195,9 +1195,23 @@ defineExpose({
 	}
 }
 
+@container (max-width: 500px) {
+	.renote {
+		padding: 23px 25px 0 calc(25px + var(--avatar) + 14px);
+
+		&::before {
+			left: calc(25px + .5 * var(--avatar));
+		}
+	}
+}
+
 @container (max-width: 480px) {
 	.renote {
-		padding: 20px 24px 8px;
+		padding: 22px 24px 0 calc(24px + var(--avatar) + 14px);
+
+		&::before {
+			left: calc(24px + .5 * var(--avatar));
+		}
 	}
 
 	.tip {
@@ -1215,10 +1229,12 @@ defineExpose({
 }
 
 @container (max-width: 450px) {
+	.root {
+		--avatar: 44px;
+	}
+
 	.avatar {
 		margin: 0 10px 0 0;
-		width: 46px;
-		height: 46px;
 		top: calc(14px + var(--stickyTop, 0px));
 	}
 }
@@ -1251,11 +1267,6 @@ defineExpose({
 }
 
 @container (max-width: 300px) {
-	.avatar {
-		width: 44px;
-		height: 44px;
-	}
-
 	.root:not(.showActionsOnlyHover) {
 		.footerButton {
 			&:not(:last-child) {
