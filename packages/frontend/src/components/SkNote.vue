@@ -776,6 +776,10 @@ function focusAfter() {
 	focusNext(el.value);
 }
 
+function scrollIntoView() {
+	el.value.scrollIntoView();
+}
+
 function readPromo() {
 	os.api('promo/read', {
 		noteId: appearNote.value.id,
@@ -790,6 +794,12 @@ function emitUpdReaction(emoji: string, delta: number) {
 		emit('reaction', emoji);
 	}
 }
+
+defineExpose({
+	focus,
+	blur,
+	scrollIntoView,
+});
 </script>
 
 <style lang="scss" module>
@@ -824,7 +834,7 @@ function emitUpdReaction(emoji: string, delta: number) {
 			margin: auto;
 			width: calc(100% - 8px);
 			height: calc(100% - 8px);
-			border: dashed 1px var(--focus);
+			border: solid 1px var(--focus);
 			border-radius: var(--radius);
 			box-sizing: border-box;
 		}
