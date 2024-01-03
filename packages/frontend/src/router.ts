@@ -550,7 +550,6 @@ let restoring = false;
 
 window.setInterval(() => {
 	if (!restoring) {
-		console.log('#########', window.history.state);
 		scrollPosStore.set(window.history.state?.key, window.scrollY);
 	}
 }, 1000);
