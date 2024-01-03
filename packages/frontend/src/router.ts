@@ -545,12 +545,49 @@ export const mainRouter = new Router(routes, location.pathname + location.search
 
 window.history.replaceState({ key: mainRouter.getCurrentKey() }, '', location.href);
 
+const scrollPosStore = new Map<string, number>();
+let restoring = false;
+
+window.setInterval(() => {
+	if (!restoring) {
+		console.log('#########', window.history.state);
+		scrollPosStore.set(window.history.state?.key, window.scrollY);
+	}
+}, 1000);
+
 mainRouter.addListener('push', ctx => {
 	window.history.pushState({ key: ctx.key }, '', ctx.path);
+
+	restoring = true;
+	const scrollPos = scrollPosStore.get(ctx.key) ?? 0;
+	window.scroll({ top: scrollPos, behavior: 'instant' });
+
+	if (scrollPos !== 0) {
+		window.setTimeout(() => {
+			// 遷移直後はタイミングによってはコンポーネントが復元し切ってない可能性も考えられるため少し時間を空けて再度スクロール
+			window.scroll({ top: scrollPos, behavior: 'instant' });
+		}, 100);
+		restoring = false;
+	} else {
+		restoring = false;
+	}
+});
+
+mainRouter.addListener('same', () => {
+	window.scroll({ top: 0, behavior: 'smooth' });
 });
 
 window.addEventListener('popstate', (event) => {
 	mainRouter.replace(location.pathname + location.search + location.hash, event.state?.key);
+
+	restoring = true;
+	const scrollPos = scrollPosStore.get(event.state?.key) ?? 0;
+	window.scroll({ top: scrollPos, behavior: 'instant' });
+	window.setTimeout(() => {
+		// 遷移直後はタイミングによってはコンポーネントが復元し切ってない可能性も考えられるため少し時間を空けて再度スクロール
+		window.scroll({ top: scrollPos, behavior: 'instant' });
+		restoring = false;
+	}, 100);
 });
 
 export function useRouter(): Router {
