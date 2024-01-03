@@ -43,7 +43,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 		<SkNoteSub v-for="note in conversation" :key="note.id" :class="$style.replyToMore" :note="note" :expandAllCws="props.expandAllCws"/>
 	</template>
 	<SkNoteSub v-if="appearNote.reply" :note="appearNote.reply" :class="$style.replyTo" :expandAllCws="props.expandAllCws"/>
-	<article :class="$style.note" @contextmenu.stop="onContextmenu">
+	<article :id="appearNote.id" ref="noteEl" :class="$style.note" tabindex="-1" @contextmenu.stop="onContextmenu">
 		<header :class="$style.noteHeader">
 			<MkAvatar :class="$style.noteHeaderAvatar" :user="appearNote.user" indicator link preview/>
 			<div style="display: flex; align-items: center; white-space: nowrap; overflow: hidden;">
@@ -228,7 +228,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 </template>
 
 <script lang="ts" setup>
-import { computed, inject, onMounted, provide, ref, shallowRef, watch } from 'vue';
+import { computed, inject, onMounted, onUnmounted, onUpdated, provide, ref, shallowRef, watch } from 'vue';
 import * as mfm from '@sharkey/sfm-js';
 import * as Misskey from 'misskey-js';
 import SkNoteSub from '@/components/SkNoteSub.vue';
@@ -301,6 +301,7 @@ const isRenote = (
 );
 
 const el = shallowRef<HTMLElement>();
+const noteEl = shallowRef<HTMLElement>();
 const menuButton = shallowRef<HTMLElement>();
 const menuVersionsButton = shallowRef<HTMLElement>();
 const renoteButton = shallowRef<HTMLElement>();
@@ -731,11 +732,11 @@ function showRenoteMenu(viaKeyboard = false): void {
 }
 
 function focus() {
-	el.value.focus();
+	noteEl.value?.focus();
 }
 
 function blur() {
-	el.value.blur();
+	noteEl.value?.blur();
 }
 
 const repliesLoaded = ref(false);
@@ -776,6 +777,7 @@ function loadConversation() {
 		noteId: appearNote.value.replyId,
 	}).then(res => {
 		conversation.value = res.reverse();
+		focus();
 	});
 }
 
@@ -792,6 +794,31 @@ function animatedMFM() {
 		}).then((res) => { if (!res.canceled) allowAnim.value = true; });
 	}
 }
+
+let isScrolling = false;
+
+function setScrolling() {
+	isScrolling = true;
+}
+
+onMounted(() => {
+	document.addEventListener('wheel', setScrolling);
+	isScrolling = false;
+	noteEl.value?.scrollIntoView({ block: 'center' });
+});
+
+onUpdated(() => {
+	if (!isScrolling) {
+		noteEl.value?.scrollIntoView({ block: 'center' });
+		if (location.hash) {
+			location.replace(location.hash); // Jump to highlighted reply
+		}
+	}
+});
+
+onUnmounted(() => {
+	document.removeEventListener('wheel', setScrolling);
+});
 </script>
 
 <style lang="scss" module>
@@ -863,12 +890,35 @@ function animatedMFM() {
 }
 
 .note {
+	position: relative;
 	padding: 32px;
 	font-size: 1.2em;
 	overflow: hidden;
 
 	&:hover > .main > .footer > .button {
 		opacity: 1;
+	}
+
+	&:focus-visible {
+		outline: none;
+
+		&:after {
+			content: "";
+			pointer-events: none;
+			display: block;
+			position: absolute;
+			z-index: 10;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			margin: auto;
+			width: calc(100% - 8px);
+			height: calc(100% - 8px);
+			border: solid 1px var(--focus);
+			border-radius: var(--radius);
+			box-sizing: border-box;
+		}
 	}
 }
 

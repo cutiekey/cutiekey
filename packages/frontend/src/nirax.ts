@@ -78,7 +78,7 @@ export class Router extends EventEmitter<{
 	public current: Resolved;
 	public currentRef: ShallowRef<Resolved> = shallowRef();
 	public currentRoute: ShallowRef<RouteDef> = shallowRef();
-	private currentPath: string;
+	private currentPath = '';
 	private isLoggedIn: boolean;
 	private notFoundPageComponent: Component;
 	private currentKey = Date.now().toString();
@@ -89,7 +89,7 @@ export class Router extends EventEmitter<{
 		super();
 
 		this.routes = routes;
-		this.currentPath = currentPath;
+		//this.currentPath = currentPath;
 		this.isLoggedIn = isLoggedIn;
 		this.notFoundPageComponent = notFoundPageComponent;
 		this.navigate(currentPath, null, false);

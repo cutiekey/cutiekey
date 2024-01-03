@@ -461,7 +461,27 @@ if (props.detail) {
 }
 
 .main {
-	display: flex;
+	position: relative;
+	display:  flex;
+
+	&::after {
+		content: "";
+		position: absolute;
+		top: -12px;
+		right: -12px;
+		left: -12px;
+		bottom: -12px;
+		background: var(--panelHighlight);
+		border-radius: var(--radius);
+		opacity: 0;
+		transition: opacity .2s, background .2s;
+		z-index: -1;
+	}
+	
+	&:hover::after,
+	&:focus-within::after {
+		opacity: 1;
+	}
 }
 
 .colorBar {
