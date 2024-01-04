@@ -42,7 +42,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 import { markRaw, ref, shallowRef, computed, onUpdated, onMounted, onBeforeUnmount, nextTick, watch } from 'vue';
 import sanitizeHtml from 'sanitize-html';
 import contains from '@/scripts/contains.js';
-import { char2twemojiFilePath, char2fluentEmojiFilePath } from '@/scripts/emoji-base.js';
+import { char2twemojiFilePath, char2fluentEmojiFilePath, char2tossfaceFilePath } from '@/scripts/emoji-base.js';
 import { acct } from '@/filters/user.js';
 import * as os from '@/os.js';
 import { defaultStore } from '@/store.js';
@@ -68,7 +68,7 @@ const lib = emojilist.filter(x => x.category !== 'flags');
 
 const emojiDb = computed(() => {
 	//#region Unicode Emoji
-	const char2path = defaultStore.reactiveState.emojiStyle.value === 'twemoji' ? char2twemojiFilePath : char2fluentEmojiFilePath;
+	const char2path = defaultStore.reactiveState.emojiStyle.value === 'twemoji' ? char2twemojiFilePath : defaultStore.reactiveState.emojiStyle.value === 'tossface' ? char2tossfaceFilePath : char2fluentEmojiFilePath;
 
 	const unicodeEmojiDB: EmojiDef[] = lib.map(x => ({
 		emoji: x.char,

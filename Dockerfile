@@ -44,6 +44,7 @@ COPY --from=build /sharkey/packages/megalodon/node_modules ./packages/megalodon/
 COPY --from=build /sharkey/packages/misskey-js/built ./packages/misskey-js/built
 COPY --from=build /sharkey/packages/misskey-js/node_modules ./packages/misskey-js/node_modules
 COPY --from=build /sharkey/fluent-emojis ./fluent-emojis
+COPY --from=build /sharkey/tossface-emojis/dist ./tossface-emojis/dist
 COPY --from=build /sharkey/sharkey-assets ./packages/frontend/assets
 
 COPY package.json ./package.json
