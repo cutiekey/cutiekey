@@ -112,16 +112,16 @@ SPDX-License-Identifier: AGPL-3.0-only
 			</div>
 			<MkA v-if="appearNote.channel && !inChannel" :class="$style.channel" :to="`/channels/${appearNote.channel.id}`"><i class="ph-television ph-bold ph-lg"></i> {{ appearNote.channel.name }}</MkA>
 		</div>
-		<footer :class="$style.footer">
-			<div :class="$style.noteFooterInfo">
-				<div v-if="appearNote.updatedAt">
-					{{ i18n.ts.edited }}: <MkTime :time="appearNote.updatedAt" mode="detail"/>
-				</div>
-				<MkA :to="notePage(appearNote)">
-					<MkTime :time="appearNote.createdAt" mode="detail" colored/>
-				</MkA>
+		<div :class="$style.noteFooterInfo">
+			<div v-if="appearNote.updatedAt">
+				{{ i18n.ts.edited }}: <MkTime :time="appearNote.updatedAt" mode="detail"/>
 			</div>
-			<MkReactionsViewer ref="reactionsViewer" :note="appearNote"/>
+			<MkA :to="notePage(appearNote)">
+				<MkTime :time="appearNote.createdAt" mode="detail" colored/>
+			</MkA>
+		</div>
+		<MkReactionsViewer ref="reactionsViewer" :note="appearNote"/>
+		<footer :class="$style.footer">
 			<button class="_button" :class="$style.noteFooterButton" @click="reply()">
 				<i class="ph-arrow-u-up-left ph-bold ph-lg"></i>
 				<p v-if="appearNote.repliesCount > 0" :class="$style.noteFooterButtonCount">{{ appearNote.repliesCount }}</p>
@@ -836,12 +836,13 @@ onUnmounted(() => {
 }
 
 .footer {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
 		position: relative;
 		z-index: 1;
 		margin-top: 0.4em;
-		width: max-content;
-		min-width: min-content;
-		max-width: fit-content;
+		max-width: 400px;
 }
 
 .replyTo {

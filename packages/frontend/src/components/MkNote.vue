@@ -854,12 +854,13 @@ function emitUpdReaction(emoji: string, delta: number) {
 	}
 
 	.footer {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
 		position: relative;
 		z-index: 1;
 		margin-top: 0.4em;
-		width: max-content;
-		min-width: min-content;
-		max-width: fit-content;
+		max-width: 400px;
 	}
 
 	&:hover > .article > .main > .footer > .footerButton {

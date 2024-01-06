@@ -27,8 +27,8 @@ SPDX-License-Identifier: AGPL-3.0-only
 					<MkSubNoteContent :class="$style.text" :note="note" :translating="translating" :translation="translation"/>
 				</div>
 			</div>
+			<MkReactionsViewer ref="reactionsViewer" :note="note"/>
 			<footer :class="$style.footer">
-				<MkReactionsViewer ref="reactionsViewer" :note="note"/>
 				<button class="_button" :class="$style.noteFooterButton" @click="reply()">
 					<i class="ph-arrow-u-up-left ph-bold ph-lg"></i>
 					<p v-if="note.repliesCount > 0" :class="$style.noteFooterButtonCount">{{ note.repliesCount }}</p>
@@ -460,12 +460,13 @@ if (props.detail) {
 }
 
 .footer {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 	position: relative;
 	z-index: 1;
 	margin-top: 0.4em;
-	width: max-content;
-	min-width: min-content;
-	max-width: fit-content;
+	max-width: 400px;
 }
 
 .main {
@@ -534,10 +535,6 @@ if (props.detail) {
 	padding: 8px;
 	padding-top: 10px;
 	opacity: 0.7;
-
-	&:not(:last-child) {
-		margin-right: 1.5em;
-	}
 
 	&:hover {
 		color: var(--fgHighlighted);
