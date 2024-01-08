@@ -281,8 +281,8 @@ const renoteUri = appearNote.value.renote ? appearNote.value.renote.uri : null;
 
 const isMyRenote = $i && ($i.id === note.value.userId);
 const showContent = ref(defaultStore.state.uncollapseCW);
-const parsed = computed(() => appearNote.value.text ? mfm.parse(appearNote.value.text).filter(u => u !== renoteUrl && u !== renoteUri) : null);
-const urls = computed(() => parsed.value ? extractUrlFromMfm(parsed.value) : null);
+const parsed = computed(() => appearNote.value.text ? mfm.parse(appearNote.value.text) : null);
+const urls = computed(() => parsed.value ? extractUrlFromMfm(parsed.value).filter(u => u !== renoteUrl && u !== renoteUri) : null);
 const isLong = shouldCollapsed(appearNote.value, urls.value ?? []);
 const collapsed = defaultStore.state.expandLongNote && appearNote.value.cw == null ? false : ref(appearNote.value.cw == null && isLong);
 const isDeleted = ref(false);
