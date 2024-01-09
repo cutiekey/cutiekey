@@ -102,7 +102,13 @@ export function openInstanceMenu(ev: MouseEvent) {
 		action: () => {
 			window.open(instance.privacyPolicyUrl, '_blank', 'noopener');
 		},
-	} : undefined, (!instance.impressumUrl && !instance.tosUrl && !instance.privacyPolicyUrl) ? undefined : { type: 'divider' }, {
+	} : undefined, (instance.donationUrl) ? {
+		text: i18n.ts.donation,
+		icon: 'ph-hand-coins ph-bold ph-lg',
+		action: () => {
+			window.open(instance.donationUrl, '_blank', 'noopener');
+		},
+	} : undefined, (!instance.impressumUrl && !instance.tosUrl && !instance.privacyPolicyUrl && !instance.donationUrl) ? undefined : { type: 'divider' }, {
 		text: i18n.ts.help,
 		icon: 'ph-question ph-bold ph-lg',
 		action: () => {

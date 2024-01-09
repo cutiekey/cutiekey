@@ -291,6 +291,10 @@ export const meta = {
 				type: 'string',
 				optional: false, nullable: true,
 			},
+			donationUrl: {
+				type: 'string',
+				optional: false, nullable: true,
+			},
 			logoImageUrl: {
 				type: 'string',
 				optional: false, nullable: true,
@@ -365,6 +369,7 @@ export default class extends Endpoint<typeof meta, typeof paramDef> { // eslint-
 				repositoryUrl: instance.repositoryUrl,
 				feedbackUrl: instance.feedbackUrl,
 				impressumUrl: instance.impressumUrl,
+				donationUrl: instance.donationUrl,
 				privacyPolicyUrl: instance.privacyPolicyUrl,
 				disableRegistration: instance.disableRegistration,
 				emailRequiredForSignup: instance.emailRequiredForSignup,

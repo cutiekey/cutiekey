@@ -47,6 +47,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 						</MkKeyValue>
 					</FormSplit>
 					<FormLink v-if="instance.impressumUrl" :to="instance.impressumUrl" external>{{ i18n.ts.impressum }}</FormLink>
+					<FormLink v-if="instance.donationUrl" :to="instance.donationUrl" external>{{ i18n.ts.donation }}</FormLink>
 					<div class="_gaps_s">
 						<MkFolder v-if="instance.serverRules.length > 0">
 							<template #label>{{ i18n.ts.serverRules }}</template>
