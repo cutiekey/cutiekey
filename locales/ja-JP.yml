@@ -1020,7 +1020,7 @@ neverShow: "今後表示しない"
 remindMeLater: "また後で"
 didYouLikeMisskey: "Sharkeyを気に入っていただけましたか？"
 pleaseDonate: "Sharkeyは{host}が使用している無料のソフトウェアです。これからも開発を続けられるように、ぜひ寄付をお願いします！"
-pleaseDonateInstance: インスタンス管理への寄付によって{host}を直接サポートすることもできます。
+pleaseDonateInstance: "インスタンス管理への寄付によって{host}を直接サポートすることもできます。"
 roles: "ロール"
 role: "ロール"
 noRole: "ロールはありません"
