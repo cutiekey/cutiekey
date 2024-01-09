@@ -31,7 +31,7 @@ function toolsMenuItems(): MenuItem[] {
 		type: 'link',
 		to: '/bubble-game',
 		text: i18n.ts.bubbleGame,
-		icon: 'ph-apple ph-bold ph-lg',
+		icon: 'ph-orange-slice ph-bold ph-lg',
 	}, ($i && ($i.isAdmin || $i.policies.canManageCustomEmojis)) ? {
 		type: 'link',
 		to: '/custom-emojis-manager',

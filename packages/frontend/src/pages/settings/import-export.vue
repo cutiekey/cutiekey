@@ -37,7 +37,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 		</MkFolder>
 	</FormSection>
 	<FormSection>
-		<template #label><i class="ph-clip ph-bold ph-lg"></i> {{ i18n.ts._exportOrImport.clips }}</template>
+		<template #label><i class="ph-paperclip ph-bold ph-lg"></i> {{ i18n.ts._exportOrImport.clips }}</template>
 		<MkFolder>
 			<template #label>{{ i18n.ts.export }}</template>
 			<template #icon><i class="ph-download ph-bold ph-lg"></i></template>
