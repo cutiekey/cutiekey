@@ -1023,6 +1023,7 @@ export interface Locale {
     "remindMeLater": string;
     "didYouLikeMisskey": string;
     "pleaseDonate": string;
+    "pleaseDonateInstance": string;
     "roles": string;
     "role": string;
     "noRole": string;
@@ -1209,6 +1210,8 @@ export interface Locale {
     "privacyPolicy": string;
     "privacyPolicyUrl": string;
     "tosAndPrivacyPolicy": string;
+    "donation": string;
+    "donationUrl": string;
     "avatarDecorations": string;
     "attach": string;
     "detach": string;

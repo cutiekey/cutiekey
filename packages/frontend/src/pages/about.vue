@@ -57,6 +57,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 						</MkFolder>
 						<FormLink v-if="instance.tosUrl" :to="instance.tosUrl" external>{{ i18n.ts.termsOfService }}</FormLink>
 						<FormLink v-if="instance.privacyPolicyUrl" :to="instance.privacyPolicyUrl" external>{{ i18n.ts.privacyPolicy }}</FormLink>
+						<FormLink v-if="instance.donationUrl" :to="instance.donationUrl" external>{{ i18n.ts.donation }}</FormLink>
 					</div>
 				</div>
 			</FormSection>

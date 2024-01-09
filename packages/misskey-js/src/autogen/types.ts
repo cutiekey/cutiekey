@@ -4631,6 +4631,7 @@ export type operations = {
             description: string | null;
             disableRegistration: boolean;
             impressumUrl: string | null;
+            donationUrl: string | null;
             maintainerEmail: string | null;
             maintainerName: string | null;
             name: string | null;
@@ -8650,6 +8651,7 @@ export type operations = {
           repositoryUrl?: string;
           feedbackUrl?: string;
           impressumUrl?: string | null;
+          donationUrl?: string | null;
           privacyPolicyUrl?: string | null;
           useObjectStorage?: boolean;
           objectStorageBaseUrl?: string | null;
@@ -19400,6 +19402,7 @@ export type operations = {
             };
             backgroundImageUrl: string | null;
             impressumUrl: string | null;
+            donationUrl: string | null;
             logoImageUrl: string | null;
             privacyPolicyUrl: string | null;
             serverRules: string[];
