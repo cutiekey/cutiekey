@@ -269,7 +269,7 @@ export async function mainBoot() {
 
 		main.on('unreadAntenna', () => {
 			updateAccount({ hasUnreadAntenna: true });
-			sound.play('antenna');
+			sound.playMisskeySfx('antenna');
 		});
 
 		main.on('readAllAnnouncements', () => {

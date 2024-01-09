@@ -204,7 +204,7 @@ function reply(viaKeyboard = false): void {
 function react(viaKeyboard = false): void {
 	pleaseLogin();
 	showMovedDialog();
-	sound.play('reaction');
+	sound.playMisskeySfx('reaction');
 	if (props.note.reactionAcceptance === 'likeOnly') {
 		misskeyApi('notes/like', {
 			noteId: props.note.id,
@@ -236,7 +236,7 @@ function react(viaKeyboard = false): void {
 function like(): void {
 	pleaseLogin();
 	showMovedDialog();
-	sound.play('reaction');
+	sound.playMisskeySfx('reaction');
 	misskeyApi('notes/like', {
 		noteId: props.note.id,
 		override: defaultLike.value,
