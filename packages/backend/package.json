@@ -83,7 +83,7 @@
 		"@nestjs/core": "10.2.10",
 		"@nestjs/testing": "10.2.10",
 		"@peertube/http-signature": "1.7.0",
-		"@sharkey/sfm-js": "0.24.3",
+		"@sharkey/sfm-js": "0.24.4",
 		"@simplewebauthn/server": "8.3.5",
 		"@sinonjs/fake-timers": "11.2.2",
 		"@smithy/node-http-handler": "2.1.10",

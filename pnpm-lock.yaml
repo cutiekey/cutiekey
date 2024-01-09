@@ -116,8 +116,8 @@ importers:
         specifier: 1.7.0
         version: 1.7.0
       '@sharkey/sfm-js':
-        specifier: 0.24.3
-        version: 0.24.3
+        specifier: 0.24.4
+        version: 0.24.4
       '@simplewebauthn/server':
         specifier: 8.3.5
         version: 8.3.5
@@ -694,8 +694,8 @@ importers:
         specifier: 5.1.0
         version: 5.1.0(rollup@4.9.1)
       '@sharkey/sfm-js':
-        specifier: 0.24.3
-        version: 0.24.3
+        specifier: 0.24.4
+        version: 0.24.4
       '@syuilo/aiscript':
         specifier: 0.16.0
         version: 0.16.0
@@ -894,10 +894,10 @@ importers:
         version: 7.6.5
       '@storybook/vue3':
         specifier: 7.6.5
-        version: 7.6.5(@vue/compiler-core@3.3.12)(vue@3.4.3)
+        version: 7.6.5(@vue/compiler-core@3.4.3)(vue@3.4.3)
       '@storybook/vue3-vite':
         specifier: 7.6.5
-        version: 7.6.5(@vue/compiler-core@3.3.12)(typescript@5.3.3)(vite@5.0.10)(vue@3.4.3)
+        version: 7.6.5(@vue/compiler-core@3.4.3)(typescript@5.3.3)(vite@5.0.10)(vue@3.4.3)
       '@testing-library/vue':
         specifier: 8.0.1
         version: 8.0.1(@vue/compiler-sfc@3.4.3)(vue@3.4.3)
@@ -5956,8 +5956,8 @@ packages:
       string-argv: 0.3.1
     dev: true
 
-  /@sharkey/sfm-js@0.24.3:
-    resolution: {integrity: sha512-Fd2LWPYNVmnTg9AKdJm3MLMvYdxQafq/0eQlmJhUnQheRVm3f1xHrFFY12+yUWIq7rS0uxrKEmrVLnPzRqYG6Q==, tarball: https://git.joinsharkey.org/api/packages/Sharkey/npm/%40sharkey%2Fsfm-js/-/0.24.3/sfm-js-0.24.3.tgz}
+  /@sharkey/sfm-js@0.24.4:
+    resolution: {integrity: sha512-m9reKRceS8kmFEPFlK2nhbN6mP9kE1I895WAc9OlFISMdT5L+IdvBW1NHv8dzjSPSTFZLeCfMHbys1oz+5uLuA==, tarball: https://git.joinsharkey.org/api/packages/Sharkey/npm/%40sharkey%2Fsfm-js/-/0.24.4/sfm-js-0.24.4.tgz}
     dependencies:
       '@twemoji/parser': 15.0.0
     dev: false
@@ -7282,7 +7282,7 @@ packages:
       file-system-cache: 2.3.0
     dev: true
 
-  /@storybook/vue3-vite@7.6.5(@vue/compiler-core@3.3.12)(typescript@5.3.3)(vite@5.0.10)(vue@3.4.3):
+  /@storybook/vue3-vite@7.6.5(@vue/compiler-core@3.4.3)(typescript@5.3.3)(vite@5.0.10)(vue@3.4.3):
     resolution: {integrity: sha512-7wUCq2Lrjlekftd5ha3hG0GSGbbzuc370cKkBqSmwFuOfI38z5+VeYt7nDtAlncxcpVSH7DejTGRuKTlC7NyYg==}
     engines: {node: ^14.18 || >=16}
     peerDependencies:
@@ -7290,7 +7290,7 @@ packages:
     dependencies:
       '@storybook/builder-vite': 7.6.5(typescript@5.3.3)(vite@5.0.10)
       '@storybook/core-server': 7.6.5
-      '@storybook/vue3': 7.6.5(@vue/compiler-core@3.3.12)(vue@3.4.3)
+      '@storybook/vue3': 7.6.5(@vue/compiler-core@3.4.3)(vue@3.4.3)
       '@vitejs/plugin-vue': 4.5.2(vite@5.0.10)(vue@3.4.3)
       magic-string: 0.30.5
       vite: 5.0.10(@types/node@20.10.5)(sass@1.69.5)(terser@5.26.0)
@@ -7307,7 +7307,7 @@ packages:
       - vue
     dev: true
 
-  /@storybook/vue3@7.6.5(@vue/compiler-core@3.3.12)(vue@3.4.3):
+  /@storybook/vue3@7.6.5(@vue/compiler-core@3.4.3)(vue@3.4.3):
     resolution: {integrity: sha512-tv/9rVc3XXDOJu5hfZtKhrhM8x4GTLKon62Rmaxlq06weqkGlfBi/V/g1EZ7OE71Pi+woKS/TX7p9qbRrvgahg==}
     engines: {node: '>=16.0.0'}
     peerDependencies:
@@ -7319,7 +7319,7 @@ packages:
       '@storybook/global': 5.0.0
       '@storybook/preview-api': 7.6.5
       '@storybook/types': 7.6.5
-      '@vue/compiler-core': 3.3.12
+      '@vue/compiler-core': 3.4.3
       lodash: 4.17.21
       ts-dedent: 2.2.0
       type-fest: 2.19.0
