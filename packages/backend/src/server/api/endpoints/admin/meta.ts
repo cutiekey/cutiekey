@@ -45,6 +45,18 @@ export const meta = {
 				type: 'string',
 				optional: false, nullable: true,
 			},
+			enableMcaptcha: {
+				type: 'boolean',
+				optional: false, nullable: false,
+			},
+			mcaptchaSiteKey: {
+				type: 'string',
+				optional: false, nullable: true,
+			},
+			mcaptchaInstanceUrl: {
+				type: 'string',
+				optional: false, nullable: true,
+			},
 			enableRecaptcha: {
 				type: 'boolean',
 				optional: false, nullable: false,
@@ -174,6 +186,10 @@ export const meta = {
 				type: 'string',
 				optional: false, nullable: true,
 			},
+			mcaptchaSecretKey: {
+				type: 'string',
+				optional: false, nullable: true,
+			},
 			recaptchaSecretKey: {
 				type: 'string',
 				optional: false, nullable: true,
@@ -296,6 +312,18 @@ export const meta = {
 				optional: false, nullable: false,
 			},
 			verifymailAuthKey: {
+				type: 'string',
+				optional: false, nullable: true,
+			},
+			enableTruemailApi: {
+				type: 'boolean',
+				optional: false, nullable: false,
+			},
+			truemailInstance: {
+				type: 'string',
+				optional: false, nullable: true,
+			},
+			truemailAuthKey: {
 				type: 'string',
 				optional: false, nullable: true,
 			},
@@ -476,6 +504,9 @@ export default class extends Endpoint<typeof meta, typeof paramDef> { // eslint-
 				approvalRequiredForSignup: instance.approvalRequiredForSignup,
 				enableHcaptcha: instance.enableHcaptcha,
 				hcaptchaSiteKey: instance.hcaptchaSiteKey,
+				enableMcaptcha: instance.enableMcaptcha,
+				mcaptchaSiteKey: instance.mcaptchaSitekey,
+				mcaptchaInstanceUrl: instance.mcaptchaInstanceUrl,
 				enableRecaptcha: instance.enableRecaptcha,
 				recaptchaSiteKey: instance.recaptchaSiteKey,
 				enableTurnstile: instance.enableTurnstile,
@@ -508,6 +539,7 @@ export default class extends Endpoint<typeof meta, typeof paramDef> { // eslint-
 				preservedUsernames: instance.preservedUsernames,
 				bubbleInstances: instance.bubbleInstances,
 				hcaptchaSecretKey: instance.hcaptchaSecretKey,
+				mcaptchaSecretKey: instance.mcaptchaSecretKey,
 				recaptchaSecretKey: instance.recaptchaSecretKey,
 				turnstileSecretKey: instance.turnstileSecretKey,
 				sensitiveMediaDetection: instance.sensitiveMediaDetection,
@@ -543,6 +575,9 @@ export default class extends Endpoint<typeof meta, typeof paramDef> { // eslint-
 				enableActiveEmailValidation: instance.enableActiveEmailValidation,
 				enableVerifymailApi: instance.enableVerifymailApi,
 				verifymailAuthKey: instance.verifymailAuthKey,
+				enableTruemailApi: instance.enableTruemailApi,
+				truemailInstance: instance.truemailInstance,
+				truemailAuthKey: instance.truemailAuthKey,
 				enableChartsForRemoteUser: instance.enableChartsForRemoteUser,
 				enableChartsForFederatedInstances: instance.enableChartsForFederatedInstances,
 				enableServerMachineStats: instance.enableServerMachineStats,

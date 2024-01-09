@@ -27,6 +27,11 @@ function toolsMenuItems(): MenuItem[] {
 		to: '/clicker',
 		text: '🍪👈',
 		icon: 'ph-cookie ph-bold ph-lg',
+	}, {
+		type: 'link',
+		to: '/bubble-game',
+		text: i18n.ts.bubbleGame,
+		icon: 'ph-apple ph-bold ph-lg',
 	}, ($i && ($i.isAdmin || $i.policies.canManageCustomEmojis)) ? {
 		type: 'link',
 		to: '/custom-emojis-manager',

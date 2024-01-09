@@ -8,6 +8,7 @@ import * as Misskey from 'misskey-js';
 import { useStream } from '@/stream.js';
 import { $i } from '@/account.js';
 import * as os from '@/os.js';
+import { misskeyApi } from './misskey-api.js';
 
 export function useNoteCapture(props: {
 	rootEl: Ref<HTMLElement>;
@@ -32,7 +33,7 @@ export function useNoteCapture(props: {
 
 				// notes/show may throw if the current user can't see the note
 				try {
-					const replyNote = await os.api('notes/show', {
+					const replyNote = await misskeyApi('notes/show', {
 						noteId: body.id,
 					});
 
@@ -100,7 +101,7 @@ export function useNoteCapture(props: {
 
 			case 'updated': {
 				try {
-					const editedNote = await os.api('notes/show', {
+					const editedNote = await misskeyApi('notes/show', {
 						noteId: id,
 					});
 					

@@ -48,6 +48,10 @@ type MfmEvents = {
 	clickEv(id: string): void;
 };
 
+type MfmEvents = {
+	clickEv(id: string): void;
+};
+
 // eslint-disable-next-line import/no-default-export
 export default function(props: MfmProps, context: SetupContext<MfmEvents>) {
 	const isNote = props.isNote ?? true;

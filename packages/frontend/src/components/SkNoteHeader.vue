@@ -82,7 +82,7 @@ import { getNoteVersionsMenu } from '@/scripts/get-note-versions-menu.js';
 import SkInstanceTicker from '@/components/SkInstanceTicker.vue';
 import { popupMenu } from '@/os.js';
 import { defaultStore } from '@/store.js';
-import { useRouter } from '@/router.js';
+import { useRouter } from '@/global/router/supplier.js';
 import { deviceKind } from '@/scripts/device-kind.js';
 
 const props = defineProps<{

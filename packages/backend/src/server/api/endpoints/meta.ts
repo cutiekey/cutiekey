@@ -115,6 +115,18 @@ export const meta = {
 				type: 'string',
 				optional: false, nullable: true,
 			},
+			enableMcaptcha: {
+				type: 'boolean',
+				optional: false, nullable: false,
+			},
+			mcaptchaSiteKey: {
+				type: 'string',
+				optional: false, nullable: true,
+			},
+			mcaptchaInstanceUrl: {
+				type: 'string',
+				optional: false, nullable: true,
+			},
 			enableRecaptcha: {
 				type: 'boolean',
 				optional: false, nullable: false,
@@ -359,6 +371,9 @@ export default class extends Endpoint<typeof meta, typeof paramDef> { // eslint-
 				approvalRequiredForSignup: instance.approvalRequiredForSignup,
 				enableHcaptcha: instance.enableHcaptcha,
 				hcaptchaSiteKey: instance.hcaptchaSiteKey,
+				enableMcaptcha: instance.enableMcaptcha,
+				mcaptchaSiteKey: instance.mcaptchaSitekey,
+				mcaptchaInstanceUrl: instance.mcaptchaInstanceUrl,
 				enableRecaptcha: instance.enableRecaptcha,
 				enableAchievements: instance.enableAchievements,
 				recaptchaSiteKey: instance.recaptchaSiteKey,

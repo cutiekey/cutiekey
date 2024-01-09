@@ -237,6 +237,7 @@ import { checkWordMute } from '@/scripts/check-word-mute.js';
 import { userPage } from '@/filters/user.js';
 import { notePage } from '@/filters/note.js';
 import * as os from '@/os.js';
+import { misskeyApi } from '@/scripts/misskey-api.js';
 import * as sound from '@/scripts/sound.js';
 import { defaultStore, noteViewInterruptors } from '@/store.js';
 import { reactionPicker } from '@/scripts/reaction-picker.js';
@@ -327,7 +328,7 @@ watch(() => props.expandAllCws, (expandAllCws) => {
 });
 
 if ($i) {
-	os.api('notes/renotes', {
+	misskeyApi('notes/renotes', {
 		noteId: appearNote.value.id,
 		userId: $i.id,
 		limit: 1,
@@ -346,7 +347,7 @@ const keymap = {
 };
 
 provide('react', (reaction: string) => {
-	os.api('notes/reactions/create', {
+	misskeyApi('notes/reactions/create', {
 		noteId: appearNote.value.id,
 		reaction: reaction,
 	});
@@ -394,7 +395,7 @@ useNoteCapture({
 });
 
 useTooltip(renoteButton, async (showing) => {
-	const renotes = await os.api('notes/renotes', {
+	const renotes = await misskeyApi('notes/renotes', {
 		noteId: appearNote.value.id,
 		limit: 11,
 	});
@@ -412,7 +413,7 @@ useTooltip(renoteButton, async (showing) => {
 });
 
 useTooltip(quoteButton, async (showing) => {
-	const renotes = await os.api('notes/renotes', {
+	const renotes = await misskeyApi('notes/renotes', {
 		noteId: appearNote.value.id,
 		limit: 11,
 		quote: true,
@@ -493,7 +494,7 @@ function renote(visibility: Visibility | 'local') {
 			os.popup(MkRippleEffect, { x, y }, {}, 'end');
 		}
 
-		os.api('notes/create', {
+		misskeyApi('notes/create', {
 			renoteId: appearNote.value.id,
 			channelId: appearNote.value.channelId,
 		}).then(() => {
@@ -517,7 +518,7 @@ function renote(visibility: Visibility | 'local') {
 			noteVisibility = smallerVisibility(visibility === 'local' || visibility === 'specified' ? appearNote.value.visibility : visibility, 'home');
 		}
 
-		os.api('notes/create', {
+		misskeyApi('notes/create', {
 			localOnly: visibility === 'local' ? true : localOnlySetting,
 			visibility: noteVisibility,
 			renoteId: appearNote.value.id,
@@ -537,7 +538,7 @@ function quote() {
 			renote: appearNote.value,
 			channel: appearNote.value.channel,
 		}).then(() => {
-			os.api('notes/renotes', {
+			misskeyApi('notes/renotes', {
 				noteId: appearNote.value.id,
 				userId: $i.id,
 				limit: 1,
@@ -559,7 +560,7 @@ function quote() {
 		os.post({
 			renote: appearNote.value,
 		}).then(() => {
-			os.api('notes/renotes', {
+			misskeyApi('notes/renotes', {
 				noteId: appearNote.value.id,
 				userId: $i.id,
 				limit: 1,
@@ -596,7 +597,7 @@ function react(viaKeyboard = false): void {
 	pleaseLogin();
 	showMovedDialog();
 	if (appearNote.value.reactionAcceptance === 'likeOnly') {
-		os.api('notes/like', {
+		misskeyApi('notes/like', {
 			noteId: appearNote.value.id,
 			override: defaultLike.value,
 		});
@@ -612,7 +613,7 @@ function react(viaKeyboard = false): void {
 		reactionPicker.show(reactButton.value, reaction => {
 			sound.play('reaction');
 
-			os.api('notes/reactions/create', {
+			misskeyApi('notes/reactions/create', {
 				noteId: appearNote.value.id,
 				reaction: reaction,
 			});
@@ -629,7 +630,7 @@ function like(): void {
 	pleaseLogin();
 	showMovedDialog();
 	sound.play('reaction');
-	os.api('notes/like', {
+	misskeyApi('notes/like', {
 		noteId: appearNote.value.id,
 		override: defaultLike.value,
 	});
@@ -645,14 +646,14 @@ function like(): void {
 function undoReact(note): void {
 	const oldReaction = note.myReaction;
 	if (!oldReaction) return;
-	os.api('notes/reactions/delete', {
+	misskeyApi('notes/reactions/delete', {
 		noteId: note.id,
 	});
 }
 
 function undoRenote() : void {
 	if (!renoted.value) return;
-	os.api('notes/unrenote', {
+	misskeyApi('notes/unrenote', {
 		noteId: appearNote.value.id,
 	});
 	os.toast(i18n.ts.rmboost);
@@ -712,7 +713,7 @@ function showRenoteMenu(viaKeyboard = false): void {
 		icon: 'ph-trash ph-bold ph-lg',
 		danger: true,
 		action: () => {
-			os.api('notes/delete', {
+			misskeyApi('notes/delete', {
 				noteId: note.value.id,
 			});
 			isDeleted.value = true;
@@ -734,7 +735,7 @@ const repliesLoaded = ref(false);
 
 function loadReplies() {
 	repliesLoaded.value = true;
-	os.api('notes/children', {
+	misskeyApi('notes/children', {
 		noteId: appearNote.value.id,
 		limit: 30,
 		showQuotes: false,
@@ -749,7 +750,7 @@ const quotesLoaded = ref(false);
 
 function loadQuotes() {
 	quotesLoaded.value = true;
-	os.api('notes/renotes', {
+	misskeyApi('notes/renotes', {
 		noteId: appearNote.value.id,
 		limit: 30,
 		quote: true,
@@ -764,7 +765,7 @@ const conversationLoaded = ref(false);
 
 function loadConversation() {
 	conversationLoaded.value = true;
-	os.api('notes/conversation', {
+	misskeyApi('notes/conversation', {
 		noteId: appearNote.value.replyId,
 	}).then(res => {
 		conversation.value = res.reverse();
