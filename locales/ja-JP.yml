@@ -1801,7 +1801,7 @@ _registry:
   createKey: "キーを作成"
 
 _aboutMisskey:
-  about: "Sharkeyは、2014年からsyuiloによって開発されているMisskeyをベースにしたオープンソースのソフトウェアです。"
+  about: "Sharkeyは、Misskeyをベースにしたオープンソースのソフトウェアです。"
   contributors: "主なコントリビューター"
   allContributors: "全てのコントリビューター"
   source: "ソースコード"
