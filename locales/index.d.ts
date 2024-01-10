@@ -648,6 +648,7 @@ export interface Locale {
     "small": string;
     "generateAccessToken": string;
     "permission": string;
+    "adminPermission": string;
     "enableAll": string;
     "disableAll": string;
     "tokenRequested": string;
@@ -1023,6 +1024,7 @@ export interface Locale {
     "remindMeLater": string;
     "didYouLikeMisskey": string;
     "pleaseDonate": string;
+    "pleaseDonateInstance": string;
     "roles": string;
     "role": string;
     "noRole": string;
@@ -1209,6 +1211,8 @@ export interface Locale {
     "privacyPolicy": string;
     "privacyPolicyUrl": string;
     "tosAndPrivacyPolicy": string;
+    "donation": string;
+    "donationUrl": string;
     "avatarDecorations": string;
     "attach": string;
     "detach": string;
@@ -1235,6 +1239,9 @@ export interface Locale {
     "bubbleGame": string;
     "sfx": string;
     "soundWillBePlayed": string;
+    "showReplay": string;
+    "replay": string;
+    "replaying": string;
     "_announcement": {
         "forExistingUsers": string;
         "forExistingUsersDescription": string;

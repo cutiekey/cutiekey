@@ -105,6 +105,7 @@ export const paramDef = {
 		repositoryUrl: { type: 'string' },
 		feedbackUrl: { type: 'string' },
 		impressumUrl: { type: 'string', nullable: true },
+		donationUrl: { type: 'string', nullable: true },
 		privacyPolicyUrl: { type: 'string', nullable: true },
 		useObjectStorage: { type: 'boolean' },
 		objectStorageBaseUrl: { type: 'string', nullable: true },
@@ -404,6 +405,10 @@ export default class extends Endpoint<typeof meta, typeof paramDef> { // eslint-
 
 			if (ps.impressumUrl !== undefined) {
 				set.impressumUrl = ps.impressumUrl;
+			}
+
+			if (ps.donationUrl !== undefined) {
+				set.donationUrl = ps.donationUrl;
 			}
 
 			if (ps.privacyPolicyUrl !== undefined) {
