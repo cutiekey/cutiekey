@@ -377,6 +377,8 @@ import * as ep___fetchRss from './endpoints/fetch-rss.js';
 import * as ep___fetchExternalResources from './endpoints/fetch-external-resources.js';
 import * as ep___retention from './endpoints/retention.js';
 import * as ep___sponsors from './endpoints/sponsors.js';
+import * as ep___bubbleGame_register from './endpoints/bubble-game/register.js';
+import * as ep___bubbleGame_ranking from './endpoints/bubble-game/ranking.js';
 import { GetterService } from './GetterService.js';
 import { ApiLoggerService } from './ApiLoggerService.js';
 import type { Provider } from '@nestjs/common';
@@ -752,6 +754,8 @@ const $fetchRss: Provider = { provide: 'ep:fetch-rss', useClass: ep___fetchRss.d
 const $fetchExternalResources: Provider = { provide: 'ep:fetch-external-resources', useClass: ep___fetchExternalResources.default };
 const $retention: Provider = { provide: 'ep:retention', useClass: ep___retention.default };
 const $sponsors: Provider = { provide: 'ep:sponsors', useClass: ep___sponsors.default };
+const $bubbleGame_register: Provider = { provide: 'ep:bubble-game/register', useClass: ep___bubbleGame_register.default };
+const $bubbleGame_ranking: Provider = { provide: 'ep:bubble-game/ranking', useClass: ep___bubbleGame_ranking.default };
 
 @Module({
 	imports: [
@@ -1131,6 +1135,8 @@ const $sponsors: Provider = { provide: 'ep:sponsors', useClass: ep___sponsors.de
 		$fetchExternalResources,
 		$retention,
 		$sponsors,
+		$bubbleGame_register,
+		$bubbleGame_ranking,
 	],
 	exports: [
 		$admin_meta,
@@ -1501,6 +1507,8 @@ const $sponsors: Provider = { provide: 'ep:sponsors', useClass: ep___sponsors.de
 		$fetchExternalResources,
 		$retention,
 		$sponsors,
+		$bubbleGame_register,
+		$bubbleGame_ranking,
 	],
 })
 export class EndpointsModule {}
