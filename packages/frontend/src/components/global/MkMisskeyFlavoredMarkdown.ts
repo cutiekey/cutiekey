@@ -48,10 +48,6 @@ type MfmEvents = {
 	clickEv(id: string): void;
 };
 
-type MfmEvents = {
-	clickEv(id: string): void;
-};
-
 // eslint-disable-next-line import/no-default-export
 export default function(props: MfmProps, context: SetupContext<MfmEvents>) {
 	const isNote = props.isNote ?? true;
@@ -68,6 +64,11 @@ export default function(props: MfmProps, context: SetupContext<MfmEvents>) {
 	};
 
 	const useAnim = defaultStore.state.advancedMfm && defaultStore.state.animatedMfm ? true : props.isAnim ? true : false;
+
+	const validColor = (c: string | null | undefined): string | null => {
+		if (c == null) return null;
+		return c.match(/^[0-9a-f]{3,6}$/i) ? c : null;
+	};
 
 	const MkFormula = defineAsyncComponent(() => import('@/components/MkFormula.vue'));
 
@@ -247,15 +248,28 @@ export default function(props: MfmProps, context: SetupContext<MfmEvents>) {
 						break;
 					}
 					case 'fg': {
-						let color = token.props.args.color;
-						if (!/^[0-9a-f]{3,6}$/i.test(color)) color = 'f00';
+						let color = validColor(token.props.args.color);
+						color = color ?? 'f00';
 						style = `color: #${color}; overflow-wrap: anywhere;`;
 						break;
 					}
 					case 'bg': {
-						let color = token.props.args.color;
-						if (!/^[0-9a-f]{3,6}$/i.test(color)) color = 'f00';
+						let color = validColor(token.props.args.color);
+						color = color ?? 'f00';
 						style = `background-color: #${color}; overflow-wrap: anywhere;`;
+						break;
+					}
+					case 'border': {
+						let color = validColor(token.props.args.color);
+						color = color ? `#${color}` : 'var(--accent)';
+						let b_style = token.props.args.style;
+						if (
+							!['hidden', 'dotted', 'dashed', 'solid', 'double', 'groove', 'ridge', 'inset', 'outset']
+								.includes(b_style)
+						) b_style = 'solid';
+						const width = parseFloat(token.props.args.width ?? '1');
+						const radius = parseFloat(token.props.args.radius ?? '0');
+						style = `border: ${width}px ${b_style} ${color}; border-radius: ${radius}px`;
 						break;
 					}
 					case 'ruby': {
