@@ -606,7 +606,7 @@ function react(viaKeyboard = false): void {
 			return;
 		}
 
-		misskeyApi('notes/reactions/create', {
+		misskeyApi('notes/like', {
 			noteId: appearNote.value.id,
 			override: defaultLike.value,
 		});
