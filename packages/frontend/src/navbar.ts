@@ -119,7 +119,7 @@ export const navbarItemDef = reactive({
 		to: '/my/achievements',
 	},
 	games: {
-		title: 'Misskey Games',
+		title: 'Games',
 		icon: 'ph-game-controller ph-bold ph-lg',
 		to: '/games',
 	},
