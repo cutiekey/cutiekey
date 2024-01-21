@@ -96,7 +96,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 						<div v-if="gameMode === 'sweets'"><b>おにぎり<MkNumber :value="score / 130"/>個分</b></div>
 					</div>
 				</div>
-				<div v-if="replaying" :class="$style.replayIndicator"><span :class="$style.replayIndicatorText"><i class="ti ti-player-play"></i> {{ i18n.ts.replaying }}</span></div>
+				<div v-if="replaying" :class="$style.replayIndicator"><span :class="$style.replayIndicatorText"><i class="ph-play ph-bold ph-lg"></i> {{ i18n.ts.replaying }}</span></div>
 			</div>
 
 			<div v-if="replaying" :class="$style.frame">
@@ -107,9 +107,9 @@ SPDX-License-Identifier: AGPL-3.0-only
 				</div>
 				<div :class="$style.frameInner">
 					<div class="_buttonsCenter">
-						<MkButton @click="endReplay"><i class="ti ti-player-stop"></i> END</MkButton>
-						<MkButton :primary="replayPlaybackRate === 4" @click="replayPlaybackRate = replayPlaybackRate === 4 ? 1 : 4"><i class="ti ti-player-track-next"></i> x4</MkButton>
-						<MkButton :primary="replayPlaybackRate === 16" @click="replayPlaybackRate = replayPlaybackRate === 16 ? 1 : 16"><i class="ti ti-player-track-next"></i> x16</MkButton>
+						<MkButton @click="endReplay"><i class="ph-stop ph-bold ph-lg"></i> END</MkButton>
+						<MkButton :primary="replayPlaybackRate === 4" @click="replayPlaybackRate = replayPlaybackRate === 4 ? 1 : 4"><i class="ph-skip-forward ph-bold ph-lg"></i> x4</MkButton>
+						<MkButton :primary="replayPlaybackRate === 16" @click="replayPlaybackRate = replayPlaybackRate === 16 ? 1 : 16"><i class="ph-skip-forward ph-bold ph-lg"></i> x16</MkButton>
 					</div>
 				</div>
 			</div>
@@ -135,7 +135,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 				</div>
 				<div :class="[$style.frame]" style="margin-left: auto;">
 					<div :class="$style.frameInner" style="text-align: center;">
-						<div @click="showConfig = !showConfig"><i class="ti ti-settings"></i></div>
+						<div @click="showConfig = !showConfig"><i class="ph-gear ph-bold ph-lg"></i></div>
 					</div>
 				</div>
 			</div>
@@ -159,7 +159,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 					<div>
 						<div v-for="(mono, i) in game.monoDefinitions.sort((a, b) => a.level - b.level)" :key="mono.id" style="display: inline-block;">
 							<img :src="getTextureImageUrl(mono)" style="width: 32px; vertical-align: bottom;"/>
-							<div v-if="i < game.monoDefinitions.length - 1" style="display: inline-block; margin-left: 4px; vertical-align: bottom;"><i class="ti ti-arrow-big-right"></i></div>
+							<div v-if="i < game.monoDefinitions.length - 1" style="display: inline-block; margin-left: 4px; vertical-align: bottom;"><i class="ph-arrow-fat-right ph-bold ph-lg"></i></div>
 						</div>
 					</div>
 				</div>
@@ -180,6 +180,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 import { computed, onDeactivated, onMounted, onUnmounted, ref, shallowRef, watch } from 'vue';
 import * as Matter from 'matter-js';
 import * as Misskey from 'misskey-js';
+import { DropAndFusionGame, Mono } from 'misskey-bubble-game';
 import { definePageMetadata } from '@/scripts/page-metadata.js';
 import MkRippleEffect from '@/components/MkRippleEffect.vue';
 import * as os from '@/os.js';
@@ -193,7 +194,6 @@ import { i18n } from '@/i18n.js';
 import { useInterval } from '@/scripts/use-interval.js';
 import { apiUrl } from '@/config.js';
 import { $i } from '@/account.js';
-import { DropAndFusionGame, Mono } from '@/scripts/drop-and-fusion-engine.js';
 import * as sound from '@/scripts/sound.js';
 import MkRange from '@/components/MkRange.vue';
 import copyToClipboard from '@/scripts/copy-to-clipboard.js';
@@ -496,7 +496,7 @@ const SWEETS_MONOS: FrontendMonoDefinition[] = [{
 }];
 
 const props = defineProps<{
-	gameMode: 'normal' | 'square' | 'yen' | 'sweets';
+	gameMode: 'normal' | 'square' | 'yen' | 'sweets' | 'space';
 	mute: boolean;
 }>();
 
@@ -509,6 +509,7 @@ const monoDefinitions = computed(() => {
 		props.gameMode === 'square' ? SQUARE_MONOS :
 		props.gameMode === 'yen' ? YEN_MONOS :
 		props.gameMode === 'sweets' ? SWEETS_MONOS :
+		props.gameMode === 'space' ? NORAML_MONOS :
 		[] as never;
 });
 
@@ -1206,7 +1207,7 @@ onDeactivated(() => {
 
 definePageMetadata({
 	title: i18n.ts.bubbleGame,
-	icon: 'ti ti-apple',
+	icon: 'ph-orange-slice ph-bold ph-lg',
 });
 </script>
 

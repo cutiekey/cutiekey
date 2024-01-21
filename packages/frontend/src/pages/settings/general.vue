@@ -17,6 +17,13 @@ SPDX-License-Identifier: AGPL-3.0-only
 		</template>
 	</MkSelect>
 
+	<MkRadios v-model="hemisphere">
+		<template #label>{{ i18n.ts.hemisphere }}</template>
+		<option value="N">{{ i18n.ts._hemisphere.N }}</option>
+		<option value="S">{{ i18n.ts._hemisphere.S }}</option>
+		<template #caption>{{ i18n.ts._hemisphere.caption }}</template>
+	</MkRadios>
+
 	<MkRadios v-model="overridedDeviceKind">
 		<template #label>{{ i18n.ts.overridedDeviceKind }}</template>
 		<option :value="null">{{ i18n.ts.auto }}</option>
@@ -87,9 +94,9 @@ SPDX-License-Identifier: AGPL-3.0-only
 			<MkRadios v-model="mediaListWithOneImageAppearance">
 				<template #label>{{ i18n.ts.mediaListWithOneImageAppearance }}</template>
 				<option value="expand">{{ i18n.ts.default }}</option>
-				<option value="16_9">{{ i18n.t('limitTo', { x: '16:9' }) }}</option>
-				<option value="1_1">{{ i18n.t('limitTo', { x: '1:1' }) }}</option>
-				<option value="2_3">{{ i18n.t('limitTo', { x: '2:3' }) }}</option>
+				<option value="16_9">{{ i18n.tsx.limitTo({ x: '16:9' }) }}</option>
+				<option value="1_1">{{ i18n.tsx.limitTo({ x: '1:1' }) }}</option>
+				<option value="2_3">{{ i18n.tsx.limitTo({ x: '2:3' }) }}</option>
 			</MkRadios>
 
 			<MkRange v-model="numberOfReplies" :min="2" :max="20" :step="1" easing>
@@ -179,6 +186,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 				<MkSwitch v-model="clickToOpen">{{ i18n.ts.clickToOpen }}</MkSwitch>
 				<MkSwitch v-model="showBots">{{ i18n.ts.showBots }}</MkSwitch>
 				<MkSwitch v-model="disableStreamingTimeline">{{ i18n.ts.disableStreamingTimeline }}</MkSwitch>
+				<MkSwitch v-model="enableHorizontalSwipe">{{ i18n.ts.enableHorizontalSwipe }}</MkSwitch>
 			</div>
 			<MkSelect v-model="serverDisconnectedBehavior">
 				<template #label>{{ i18n.ts.whenServerDisconnected }}</template>
@@ -301,6 +309,7 @@ async function reloadAsk() {
 	unisonReload();
 }
 
+const hemisphere = computed(defaultStore.makeGetterSetter('hemisphere'));
 const overridedDeviceKind = computed(defaultStore.makeGetterSetter('overridedDeviceKind'));
 const serverDisconnectedBehavior = computed(defaultStore.makeGetterSetter('serverDisconnectedBehavior'));
 const showNoteActionsOnlyHover = computed(defaultStore.makeGetterSetter('showNoteActionsOnlyHover'));
@@ -349,6 +358,7 @@ const expandLongNote = computed(defaultStore.makeGetterSetter('expandLongNote'))
 const enableSeasonalScreenEffect = computed(defaultStore.makeGetterSetter('enableSeasonalScreenEffect'));
 const showVisibilitySelectorOnBoost = computed(defaultStore.makeGetterSetter('showVisibilitySelectorOnBoost'));
 const visibilityOnBoost = computed(defaultStore.makeGetterSetter('visibilityOnBoost'));
+const enableHorizontalSwipe = computed(defaultStore.makeGetterSetter('enableHorizontalSwipe'));
 
 watch(lang, () => {
 	miLocalStorage.setItem('lang', lang.value as string);
@@ -387,6 +397,7 @@ watch(noteDesign, async (newval) => {
 });
 
 watch([
+	hemisphere,
 	lang,
 	fontSize,
 	cornerRadius,

@@ -38,7 +38,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 		<div v-else-if="!isActuallyPlaying" :class="$style.videoLoading">
 			<MkLoading/>
 		</div>
-		<i class="ti ti-eye-off" :class="$style.hide" @click="hide = true"></i>
+		<i class="ph-eye-closed ph-bold ph-lg" :class="$style.hide" @click="hide = true"></i>
 		<div :class="$style.indicators">
 			<div v-if="video.comment" :class="$style.indicator">ALT</div>
 			<div v-if="video.isSensitive" :class="$style.indicator" style="color: var(--warn);" :title="i18n.ts.sensitive"><i class="ph-warning ph-bold ph-lg"></i></div>
@@ -113,7 +113,7 @@ function showMenu(ev: MouseEvent) {
 		// TODO: 再生キューに追加
 		{
 			text: i18n.ts.hide,
-			icon: 'ti ti-eye-off',
+			icon: 'ph-eye-closed ph-bold ph-lg',
 			action: () => {
 				hide.value = true;
 			},
@@ -125,7 +125,7 @@ function showMenu(ev: MouseEvent) {
 			type: 'divider',
 		}, {
 			text: props.video.isSensitive ? i18n.ts.unmarkAsSensitive : i18n.ts.markAsSensitive,
-			icon: props.video.isSensitive ? 'ti ti-eye' : 'ti ti-eye-exclamation',
+			icon: props.video.isSensitive ? 'ph-eye ph-bold ph-lg' : 'ph-eye-slash ph-bold ph-lg',
 			danger: true,
 			action: () => toggleSensitive(props.video),
 		});
@@ -176,7 +176,7 @@ const rangePercent = computed({
 		videoEl.value.currentTime = to * durationMs.value / 1000;
 	},
 });
-const volume = ref(.5);
+const volume = ref(.25);
 const bufferedEnd = ref(0);
 const bufferedDataRatio = computed(() => {
 	if (!videoEl.value) return 0;
@@ -236,7 +236,7 @@ function toggleFullscreen() {
 
 function toggleMute() {
 	if (volume.value === 0) {
-		volume.value = .5;
+		volume.value = .25;
 	} else {
 		volume.value = 0;
 	}
@@ -535,6 +535,9 @@ onDeactivated(() => {
 
 .seekbarRoot {
 	grid-area: seekbar;
+	/* ▼シークバー操作をやりやすくするためにクリックイベントが伝播されないエリアを拡張する */
+	margin: -10px;
+	padding: 10px;
 }
 
 @container (min-width: 500px) {

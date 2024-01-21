@@ -13,8 +13,8 @@ SPDX-License-Identifier: AGPL-3.0-only
 >
 	<button v-if="hide" :class="$style.hidden" @click="hide = false">
 		<div :class="$style.hiddenTextWrapper">
-			<b v-if="audio.isSensitive" style="display: block;"><i class="ti ti-eye-exclamation"></i> {{ i18n.ts.sensitive }}{{ defaultStore.state.dataSaver.media ? ` (${i18n.ts.audio}${audio.size ? ' ' + bytes(audio.size) : ''})` : '' }}</b>
-			<b v-else style="display: block;"><i class="ti ti-music"></i> {{ defaultStore.state.dataSaver.media && audio.size ? bytes(audio.size) : i18n.ts.audio }}</b>
+			<b v-if="audio.isSensitive" style="display: block;"><i class="ph-eye-slash ph-bold ph-lg"></i> {{ i18n.ts.sensitive }}{{ defaultStore.state.dataSaver.media ? ` (${i18n.ts.audio}${audio.size ? ' ' + bytes(audio.size) : ''})` : '' }}</b>
+			<b v-else style="display: block;"><i class="ph-music-notes ph-bold ph-lg"></i> {{ defaultStore.state.dataSaver.media && audio.size ? bytes(audio.size) : i18n.ts.audio }}</b>
 			<span style="display: block;">{{ i18n.ts.clickToShow }}</span>
 		</div>
 	</button>
@@ -22,26 +22,25 @@ SPDX-License-Identifier: AGPL-3.0-only
 		<audio
 			ref="audioEl"
 			preload="metadata"
-			:class="$style.audio"
 		>
 			<source :src="audio.url">
 		</audio>
 		<div :class="[$style.controlsChild, $style.controlsLeft]">
 			<button class="_button" :class="$style.controlButton" @click="togglePlayPause">
-				<i v-if="isPlaying" class="ti ti-player-pause-filled"></i>
-				<i v-else class="ti ti-player-play-filled"></i>
+				<i v-if="isPlaying" class="ph-pause ph-bold ph-lg"></i>
+				<i v-else class="ph-play ph-bold ph-lg"></i>
 			</button>
 		</div>
 		<div :class="[$style.controlsChild, $style.controlsRight]">
 			<button class="_button" :class="$style.controlButton" @click="showMenu">
-				<i class="ti ti-settings"></i>
+				<i class="ph-gear ph-bold ph-lg"></i>
 			</button>
 		</div>
 		<div :class="[$style.controlsChild, $style.controlsTime]">{{ hms(elapsedTimeMs) }}</div>
 		<div :class="[$style.controlsChild, $style.controlsVolume]">
 			<button class="_button" :class="$style.controlButton" @click="toggleMute">
-				<i v-if="volume === 0" class="ti ti-volume-3"></i>
-				<i v-else class="ti ti-volume"></i>
+				<i v-if="volume === 0" class="ph-speaker-x ph-bold ph-lg"></i>
+				<i v-else class="ph-speaker-high ph-bold ph-lg"></i>
 			</button>
 			<MkMediaRange
 				v-model="volume"
@@ -88,7 +87,7 @@ function showMenu(ev: MouseEvent) {
 		// TODO: 再生キューに追加
 		{
 			text: i18n.ts.hide,
-			icon: 'ti ti-eye-off',
+			icon: 'ph-eye-closed ph-bold ph-lg',
 			action: () => {
 				hide.value = true;
 			},
@@ -100,7 +99,7 @@ function showMenu(ev: MouseEvent) {
 			type: 'divider',
 		}, {
 			text: props.audio.isSensitive ? i18n.ts.unmarkAsSensitive : i18n.ts.markAsSensitive,
-			icon: props.audio.isSensitive ? 'ti ti-eye' : 'ti ti-eye-exclamation',
+			icon: props.audio.isSensitive ? 'ph-eye ph-bold ph-lg' : 'ph-eye-slash ph-bold ph-lg',
 			danger: true,
 			action: () => toggleSensitive(props.audio),
 		});
@@ -138,7 +137,7 @@ const rangePercent = computed({
 		audioEl.value.currentTime = to * durationMs.value / 1000;
 	},
 });
-const volume = ref(.5);
+const volume = ref(.25);
 const bufferedEnd = ref(0);
 const bufferedDataRatio = computed(() => {
 	if (!audioEl.value) return 0;
@@ -161,7 +160,7 @@ function togglePlayPause() {
 
 function toggleMute() {
 	if (volume.value === 0) {
-		volume.value = .5;
+		volume.value = .25;
 	} else {
 		volume.value = 0;
 	}
@@ -207,7 +206,7 @@ function init() {
 				isActuallyPlaying.value = false;
 				isPlaying.value = false;
 			});
-			
+
 			durationMs.value = audioEl.value.duration * 1000;
 			audioEl.value.addEventListener('durationchange', () => {
 				if (audioEl.value) {

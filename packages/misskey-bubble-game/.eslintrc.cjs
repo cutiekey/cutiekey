@@ -4,6 +4,6 @@ module.exports = {
 		project: ['./tsconfig.json'],
 	},
 	extends: [
-		'../../packages/shared/.eslintrc.js',
+		'../shared/.eslintrc.js',
 	],
 };

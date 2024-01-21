@@ -97,7 +97,7 @@ function onClick(ev: MouseEvent) {
 			},
 		}] : []), {
 			text: i18n.ts.info,
-			icon: 'ti ti-info-circle',
+			icon: 'ph-info ph-bold ph-lg',
 			action: async () => {
 				os.popup(MkCustomEmojiDetailedDialog, {
 					emoji: await misskeyApiGet('emoji', {
