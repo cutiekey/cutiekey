@@ -294,7 +294,7 @@ const showContent = ref(defaultStore.state.uncollapseCW);
 const parsed = computed(() => appearNote.value.text ? mfm.parse(appearNote.value.text) : null);
 const urls = computed(() => parsed.value ? extractUrlFromMfm(parsed.value).filter(u => u !== renoteUrl && u !== renoteUri) : null);
 const isLong = shouldCollapsed(appearNote.value, urls.value ?? []);
-const collapsed = defaultStore.state.expandLongNote && appearNote.value.cw == null ? false : ref(appearNote.value.cw == null && isLong);
+const collapsed = ref(defaultStore.state.expandLongNote && appearNote.value.cw == null && isLong ? false : appearNote.value.cw == null && isLong);
 const isDeleted = ref(false);
 const renoted = ref(false);
 const muted = ref(checkMute(appearNote.value, $i?.mutedWords));
