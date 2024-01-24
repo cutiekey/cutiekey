@@ -253,6 +253,10 @@ rt {
 	line-height: inherit;
 	max-width: 100%;
 
+	&:hover {
+		text-decoration: none;
+	}
+
 	&:focus-visible {
 		outline: none;
 	}

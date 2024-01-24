@@ -32,6 +32,9 @@ SPDX-License-Identifier: AGPL-3.0-only
 			</button>
 		</div>
 		<div :class="[$style.controlsChild, $style.controlsRight]">
+			<a class="_button" :class="$style.controlButton" :href="audio.url" :download="audio.name" target="_blank">
+				<i class="ph-download ph-bold ph-lg"></i>
+			</a>
 			<button class="_button" :class="$style.controlButton" @click="showMenu">
 				<i class="ph-gear ph-bold ph-lg"></i>
 			</button>
