@@ -76,6 +76,7 @@ const emit = defineEmits<{
 
 const props = defineProps<{
 	includeSelf?: boolean;
+	local?: boolean;
 }>();
 
 const username = ref('');
@@ -90,6 +91,7 @@ function search() {
 		users.value = [];
 		return;
 	}
+	if (props.local) host.value = '.';
 	misskeyApi('users/search-by-username-and-host', {
 		username: username.value,
 		host: host.value,
