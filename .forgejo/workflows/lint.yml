@@ -90,6 +90,6 @@ jobs:
       if: ${{ matrix.workspace == 'backend' }}
     - run: pnpm --filter misskey-reversi run build:tsc
       if: ${{ matrix.workspace == 'backend' }}
-    - run: pnpm --filter misskey-bubble-game run build:tsc
+    - run: pnpm --filter misskey-bubble-game run build
       if: ${{ matrix.workspace == 'backend' }}
     - run: pnpm --filter ${{ matrix.workspace }} run typecheck
