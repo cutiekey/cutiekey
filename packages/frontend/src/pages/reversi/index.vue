@@ -193,7 +193,7 @@ async function matchHeatbeat() {
 }
 
 async function matchUser() {
-	const user = await os.selectUser({ local: true });
+	const user = await os.selectUser({ local: true, includeSelf: false });
 	if (user == null) return;
 
 	matchingUser.value = user;

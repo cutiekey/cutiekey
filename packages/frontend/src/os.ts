@@ -423,6 +423,7 @@ export async function selectUser(opts: { includeSelf?: boolean, local?: boolean 
 	return new Promise((resolve, reject) => {
 		popup(defineAsyncComponent(() => import('@/components/MkUserSelectDialog.vue')), {
 			includeSelf: opts.includeSelf,
+			local: opts.local,
 		}, {
 			ok: user => {
 				resolve(user);
