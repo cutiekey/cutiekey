@@ -123,6 +123,7 @@ export class FanoutTimelineEndpointService {
 					if (isUserRelated(note, userIdsWhoBlockingMe, ps.ignoreAuthorFromBlock)) return false;
 					if (isUserRelated(note, userIdsWhoMeMuting, ps.ignoreAuthorFromMute)) return false;
 					if (note.mentions.some(mention => userIdsWhoMeMuting.has(mention))) return false;
+					if (isPureRenote(note) && note.renote && note.renote.mentions.some(mention => userIdsWhoMeMuting.has(mention))) return false;
 					if (isPureRenote(note) && isUserRelated(note, userIdsWhoMeMutingRenotes, ps.ignoreAuthorFromMute)) return false;
 					if (isInstanceMuted(note, userMutedInstances)) return false;
 
