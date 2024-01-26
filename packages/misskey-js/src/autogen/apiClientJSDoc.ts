@@ -1,6 +1,6 @@
 /*
- * version: 2024.2.0-beta.6
- * generatedAt: 2024-01-24T07:32:10.455Z
+ * version: 2024.2.0-beta2
+ * generatedAt: 2024-01-26T20:30:18.423Z
  */
 
 import type { SwitchCaseResponseType } from '../api.js';
@@ -694,9 +694,64 @@ declare module '../api.js' {
     /**
      * No description provided.
      * 
+     * **Credential required**: *Yes* / **Permission**: *write:admin:nsfw-user*
+     */
+    request<E extends 'admin/nsfw-user', P extends Endpoints[E]['req']>(
+      endpoint: E,
+      params: P,
+      credential?: string | null,
+    ): Promise<SwitchCaseResponseType<E, P>>;
+
+    /**
+     * No description provided.
+     * 
+     * **Credential required**: *Yes* / **Permission**: *write:admin:unnsfw-user*
+     */
+    request<E extends 'admin/unnsfw-user', P extends Endpoints[E]['req']>(
+      endpoint: E,
+      params: P,
+      credential?: string | null,
+    ): Promise<SwitchCaseResponseType<E, P>>;
+
+    /**
+     * No description provided.
+     * 
+     * **Credential required**: *Yes* / **Permission**: *write:admin:silence-user*
+     */
+    request<E extends 'admin/silence-user', P extends Endpoints[E]['req']>(
+      endpoint: E,
+      params: P,
+      credential?: string | null,
+    ): Promise<SwitchCaseResponseType<E, P>>;
+
+    /**
+     * No description provided.
+     * 
+     * **Credential required**: *Yes* / **Permission**: *write:admin:unsilence-user*
+     */
+    request<E extends 'admin/unsilence-user', P extends Endpoints[E]['req']>(
+      endpoint: E,
+      params: P,
+      credential?: string | null,
+    ): Promise<SwitchCaseResponseType<E, P>>;
+
+    /**
+     * No description provided.
+     * 
      * **Credential required**: *Yes* / **Permission**: *write:admin:suspend-user*
      */
     request<E extends 'admin/suspend-user', P extends Endpoints[E]['req']>(
+      endpoint: E,
+      params: P,
+      credential?: string | null,
+    ): Promise<SwitchCaseResponseType<E, P>>;
+
+    /**
+     * No description provided.
+     * 
+     * **Credential required**: *Yes* / **Permission**: *write:admin:approve-user*
+     */
+    request<E extends 'admin/approve-user', P extends Endpoints[E]['req']>(
       endpoint: E,
       params: P,
       credential?: string | null,
@@ -2519,6 +2574,17 @@ declare module '../api.js' {
      * 
      * **Credential required**: *Yes* / **Permission**: *read:account*
      */
+    request<E extends 'i/registry/get-unsecure', P extends Endpoints[E]['req']>(
+      endpoint: E,
+      params: P,
+      credential?: string | null,
+    ): Promise<SwitchCaseResponseType<E, P>>;
+
+    /**
+     * No description provided.
+     * 
+     * **Credential required**: *Yes* / **Permission**: *read:account*
+     */
     request<E extends 'i/registry/get-detail', P extends Endpoints[E]['req']>(
       endpoint: E,
       params: P,
@@ -2988,6 +3054,17 @@ declare module '../api.js' {
      * **Credential required**: *No*
      */
     request<E extends 'notes/global-timeline', P extends Endpoints[E]['req']>(
+      endpoint: E,
+      params: P,
+      credential?: string | null,
+    ): Promise<SwitchCaseResponseType<E, P>>;
+
+    /**
+     * No description provided.
+     * 
+     * **Credential required**: *No*
+     */
+    request<E extends 'notes/bubble-timeline', P extends Endpoints[E]['req']>(
       endpoint: E,
       params: P,
       credential?: string | null,
@@ -4053,8 +4130,9 @@ declare module '../api.js' {
       params: P,
       credential?: string | null,
     ): Promise<SwitchCaseResponseType<E, P>>;
-    
-    /** No description provided.
+
+    /**
+     * No description provided.
      * 
      * **Credential required**: *Yes* / **Permission**: *write:account*
      */
