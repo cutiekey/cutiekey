@@ -25,6 +25,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 					<MkInput v-if="deeplFreeMode" v-model="deeplFreeInstance" :placeholder="'example.com/translate'">
 						<template #prefix>https://</template>
 						<template #label>DeepLX-JS URL</template>
+						<template #caption>Need Help? Check our documentation to know how to setup DeepLX-JS.</template>
 					</MkInput>
 				</div>
 			</FormSection>
