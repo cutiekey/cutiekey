@@ -395,6 +395,14 @@ export const meta = {
 				type: 'boolean',
 				optional: false, nullable: false,
 			},
+			deeplFreeMode: {
+				type: 'boolean',
+				optional: false, nullable: false,
+			},
+			deeplFreeInstance: {
+				type: 'string',
+				optional: false, nullable: true,
+			},
 			defaultDarkTheme: {
 				type: 'string',
 				optional: false, nullable: true,
@@ -576,6 +584,8 @@ export default class extends Endpoint<typeof meta, typeof paramDef> { // eslint-
 				objectStorageS3ForcePathStyle: instance.objectStorageS3ForcePathStyle,
 				deeplAuthKey: instance.deeplAuthKey,
 				deeplIsPro: instance.deeplIsPro,
+				deeplFreeMode: instance.deeplFreeMode,
+				deeplFreeInstance: instance.deeplFreeInstance,
 				enableIpLogging: instance.enableIpLogging,
 				enableActiveEmailValidation: instance.enableActiveEmailValidation,
 				enableVerifymailApi: instance.enableVerifymailApi,

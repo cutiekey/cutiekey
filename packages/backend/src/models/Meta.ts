@@ -353,6 +353,17 @@ export class MiMeta {
 	})
 	public deeplIsPro: boolean;
 
+	@Column('boolean', {
+		default: false,
+	})
+	public deeplFreeMode: boolean;
+
+	@Column('varchar', {
+		length: 1024,
+		nullable: true,
+	})
+	public deeplFreeInstance: string | null;
+
 	@Column('varchar', {
 		length: 1024,
 		nullable: true,
