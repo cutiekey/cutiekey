@@ -627,7 +627,7 @@ export class NoteEditService implements OnApplicationShutdown {
 
 					const muted = isUserRelated(note, userIdsWhoMeMuting);
 
-					if (!isThreadMuted || !muted) {
+					if (!isThreadMuted && !muted) {
 						nm.push(data.reply.userId, 'reply');
 						this.globalEventService.publishMainStream(data.reply.userId, 'reply', noteObj);
 
@@ -662,7 +662,7 @@ export class NoteEditService implements OnApplicationShutdown {
 
 					const muted = isUserRelated(note, userIdsWhoMeMuting);
 
-					if (!isThreadMuted || !muted) {
+					if (!isThreadMuted && !muted) {
 						nm.push(data.renote.userId, type);
 					}
 				}
