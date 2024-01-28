@@ -1081,10 +1081,17 @@ onUnmounted(() => {
 }
 
 .tab {
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	flex: 1;
 	padding: 12px 8px;
 	border-top: solid 2px transparent;
 	border-bottom: solid 2px transparent;
+
+	> i {
+		margin-right: 8px;
+	}
 }
 
 .tabActive {
