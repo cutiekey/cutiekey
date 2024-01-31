@@ -165,5 +165,6 @@ const collapsed = ref(isLong);
 
 .clickToOpen {
 	cursor: pointer;
+	-webkit-tap-highlight-color: transparent;
 }
 </style>

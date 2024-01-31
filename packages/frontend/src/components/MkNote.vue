@@ -1278,5 +1278,6 @@ function emitUpdReaction(emoji: string, delta: number) {
 
 .clickToOpen {
 	cursor: pointer;
+	-webkit-tap-highlight-color: transparent;
 }
 </style>
