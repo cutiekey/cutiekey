@@ -2,7 +2,7 @@ version: "3"
 
 services:
   web:
-#   image: git.joinsharkey.org/sharkey/sharkey:latest
+#   image: registry.activitypub.software/transfem-org/sharkey:latest
     build: .
     restart: always
     links:
