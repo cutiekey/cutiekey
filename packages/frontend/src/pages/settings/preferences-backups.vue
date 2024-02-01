@@ -98,6 +98,7 @@ const defaultStoreSaveKeys: (keyof typeof defaultStore['state'])[] = [
 	'showClipButtonInNoteFooter',
 	'reactionsDisplaySize',
 	'forceShowAds',
+	'oneko',
 	'numberOfReplies',
 	'aiChanMode',
 	'devMode',

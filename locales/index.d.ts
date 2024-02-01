@@ -4426,6 +4426,10 @@ export interface Locale extends ILocale {
      */
     "forceShowAds": string;
     /**
+     * 猫友達 :3
+     */
+    "oneko": string;
+    /**
      * メモを追加
      */
     "addMemo": string;
