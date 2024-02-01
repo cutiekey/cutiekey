@@ -28,6 +28,7 @@ testCommit:
      - packages/*/node_modules/
   only:
     - develop
+    - merge_requests
     - stable
 
 getImageTag:
