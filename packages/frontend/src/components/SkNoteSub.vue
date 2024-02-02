@@ -446,7 +446,8 @@ if (props.detail) {
 	}
 
 	&.replyRoot {
-		--avatar: 36px;
+		/* @link https://utopia.fyi/clamp/calculator?a=450,580,26—36 */
+		--avatar: clamp(26px, -8.6154px + 7.6923cqi, 36px);
 	}
 }
 
