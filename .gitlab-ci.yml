@@ -55,7 +55,6 @@ getImageTag:
   only:
     - stable
     - develop
-    - tags
 buildDocker:
   stage: deploy
   needs:
@@ -79,7 +78,6 @@ buildDocker:
   only:
     - stable
     - develop
-    - tags
 mergeManifests:
   stage: deploy
   needs:
@@ -105,4 +103,3 @@ mergeManifests:
   only:
     - stable
     - develop
-    - tags
