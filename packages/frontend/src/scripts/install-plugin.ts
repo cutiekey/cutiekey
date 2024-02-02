@@ -64,7 +64,11 @@ export async function parsePluginMeta(code: string): Promise<AiScriptPluginMeta>
 	try {
 		ast = parser.parse(code);
 	} catch (err) {
-		throw new Error('Aiscript syntax error');
+		if (err instanceof Error) {
+			throw new Error(`Aiscript syntax error\n${(err as Error).message}`);
+		} else {
+			throw new Error('Aiscript syntax error');
+		}
 	}
 
 	const meta = Interpreter.collectMetadata(ast);
