@@ -407,6 +407,10 @@ export const defaultStore = markRaw(new Storage('base', {
 		where: 'device',
 		default: false,
 	},
+	oneko: {
+		where: 'device',
+		default: false,
+	},
 	clickToOpen: {
 		where: 'device',
 		default: true,

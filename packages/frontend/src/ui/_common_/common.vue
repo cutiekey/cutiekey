@@ -42,6 +42,8 @@ SPDX-License-Identifier: AGPL-3.0-only
 <div v-if="dev" id="devTicker"><span>DEV BUILD</span></div>
 
 <div v-if="$i && $i.isBot" id="botWarn"><span>{{ i18n.ts.loggedInAsBot }}</span></div>
+
+<SkOneko v-if="defaultStore.state.oneko"/>
 </template>
 
 <script lang="ts" setup>
@@ -58,6 +60,8 @@ import { useStream } from '@/stream.js';
 import { i18n } from '@/i18n.js';
 import { defaultStore } from '@/store.js';
 import { globalEvents } from '@/events.js';
+
+const SkOneko = defineAsyncComponent(() => import('@/components/SkOneko.vue'));
 
 const XStreamIndicator = defineAsyncComponent(() => import('./stream-indicator.vue'));
 const XUpload = defineAsyncComponent(() => import('./upload.vue'));
