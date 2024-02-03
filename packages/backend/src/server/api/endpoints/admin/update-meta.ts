@@ -91,6 +91,8 @@ export const paramDef = {
 		summalyProxy: { type: 'string', nullable: true },
 		deeplAuthKey: { type: 'string', nullable: true },
 		deeplIsPro: { type: 'boolean' },
+		deeplFreeMode: { type: 'boolean' },
+		deeplFreeInstance: { type: 'string', nullable: true },
 		enableEmail: { type: 'boolean' },
 		email: { type: 'string', nullable: true },
 		smtpSecure: { type: 'boolean' },
@@ -477,6 +479,18 @@ export default class extends Endpoint<typeof meta, typeof paramDef> { // eslint-
 
 			if (ps.deeplIsPro !== undefined) {
 				set.deeplIsPro = ps.deeplIsPro;
+			}
+
+			if (ps.deeplFreeMode !== undefined) {
+				set.deeplFreeMode = ps.deeplFreeMode;
+			}
+
+			if (ps.deeplFreeInstance !== undefined) {
+				if (ps.deeplFreeInstance === '') {
+					set.deeplFreeInstance = null;
+				} else {
+					set.deeplFreeInstance = ps.deeplFreeInstance;
+				}
 			}
 
 			if (ps.enableIpLogging !== undefined) {

@@ -2,8 +2,8 @@
 /* eslint @typescript-eslint/no-explicit-any: 0 */
 
 /*
- * version: 2024.2.0-beta.6
- * generatedAt: 2024-01-24T07:32:10.370Z
+ * version: 2024.2.0-beta2
+ * generatedAt: 2024-01-26T20:30:18.319Z
  */
 
 /**
@@ -4784,6 +4784,8 @@ export type operations = {
             backgroundImageUrl: string | null;
             deeplAuthKey: string | null;
             deeplIsPro: boolean;
+            deeplFreeMode: boolean;
+            deeplFreeInstance: string | null;
             defaultDarkTheme: string | null;
             defaultLightTheme: string | null;
             description: string | null;
@@ -8795,6 +8797,8 @@ export type operations = {
           summalyProxy?: string | null;
           deeplAuthKey?: string | null;
           deeplIsPro?: boolean;
+          deeplFreeMode?: boolean;
+          deeplFreeInstance?: string | null;
           enableEmail?: boolean;
           email?: string | null;
           smtpSecure?: boolean;
@@ -14101,6 +14105,7 @@ export type operations = {
           subscribing?: boolean | null;
           publishing?: boolean | null;
           nsfw?: boolean | null;
+          bubble?: boolean | null;
           /** @default 30 */
           limit?: number;
           /** @default 0 */
@@ -26440,9 +26445,40 @@ export type operations = {
       204: {
         content: never;
       };
+      /** @description Client error */
+      400: {
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
+      /** @description Authentication error */
+      401: {
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
+      /** @description Forbidden error */
+      403: {
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
+      /** @description I'm Ai */
+      418: {
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
+      /** @description Internal server error */
+      500: {
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
     };
   };
-  /** bubble-game/register
+  /**
+   * bubble-game/register
    * @description No description provided.
    *
    * **Credential required**: *Yes* / **Permission**: *write:account*

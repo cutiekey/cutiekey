@@ -19,6 +19,14 @@ SPDX-License-Identifier: AGPL-3.0-only
 					<MkSwitch v-model="deeplIsPro">
 						<template #label>Pro account</template>
 					</MkSwitch>
+					<MkSwitch v-model="deeplFreeMode">
+						<template #label>{{ i18n.ts.deeplFreeMode }}</template>
+					</MkSwitch>
+					<MkInput v-if="deeplFreeMode" v-model="deeplFreeInstance" :placeholder="'example.com/translate'">
+						<template #prefix><i class="ph-globe-simple ph-bold ph-lg"></i></template>
+						<template #label>DeepLX-JS URL</template>
+						<template #caption>{{ i18n.ts.deeplFreeModeDescription }}</template>
+					</MkInput>
 				</div>
 			</FormSection>
 		</FormSuspense>
@@ -49,17 +57,23 @@ import { definePageMetadata } from '@/scripts/page-metadata.js';
 
 const deeplAuthKey = ref<string>('');
 const deeplIsPro = ref<boolean>(false);
+const deeplFreeMode = ref<boolean>(false);
+const deeplFreeInstance = ref<string>('');
 
 async function init() {
 	const meta = await misskeyApi('admin/meta');
 	deeplAuthKey.value = meta.deeplAuthKey;
 	deeplIsPro.value = meta.deeplIsPro;
+	deeplFreeMode.value = meta.deeplFreeMode;
+	deeplFreeInstance.value = meta.deeplFreeInstance;
 }
 
 function save() {
 	os.apiWithDialog('admin/update-meta', {
 		deeplAuthKey: deeplAuthKey.value,
 		deeplIsPro: deeplIsPro.value,
+		deeplFreeMode: deeplFreeMode.value,
+		deeplFreeInstance: deeplFreeInstance.value,
 	}).then(() => {
 		fetchInstance();
 	});
