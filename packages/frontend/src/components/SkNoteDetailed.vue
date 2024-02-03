@@ -262,7 +262,7 @@ import { checkAnimationFromMfm } from '@/scripts/check-animated-mfm.js';
 import MkRippleEffect from '@/components/MkRippleEffect.vue';
 import { showMovedDialog } from '@/scripts/show-moved-dialog.js';
 import MkUserCardMini from '@/components/MkUserCardMini.vue';
-import MkPagination from '@/components/MkPagination.vue';
+import MkPagination, { type Paging } from '@/components/MkPagination.vue';
 import MkReactionIcon from '@/components/MkReactionIcon.vue';
 import MkButton from '@/components/MkButton.vue';
 
@@ -365,7 +365,7 @@ provide('react', (reaction: string) => {
 const tab = ref('replies');
 const reactionTabType = ref<string | null>(null);
 
-const renotesPagination = computed(() => ({
+const renotesPagination = computed<Paging>(() => ({
 	endpoint: 'notes/renotes',
 	limit: 10,
 	params: {
@@ -373,7 +373,7 @@ const renotesPagination = computed(() => ({
 	},
 }));
 
-const reactionsPagination = computed(() => ({
+const reactionsPagination = computed<Paging>(() => ({
 	endpoint: 'notes/reactions',
 	limit: 10,
 	params: {
