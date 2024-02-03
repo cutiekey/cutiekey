@@ -39,7 +39,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 </template>
 
 <script lang="ts" setup>
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 import * as Misskey from 'misskey-js';
 import * as mfm from '@transfem-org/sfm-js';
 import MkMediaList from '@/components/MkMediaList.vue';
@@ -57,6 +57,7 @@ const props = defineProps<{
 	translating?: boolean;
 	translation?: any;
 	hideFiles?: boolean;
+	expandAllCws?: boolean;
 }>();
 
 const router = useRouter();
@@ -87,6 +88,10 @@ function animatedMFM() {
 }
 
 const collapsed = ref(isLong);
+
+watch(() => props.expandAllCws, (expandAllCws) => {
+	if (expandAllCws) collapsed.value = false;
+});
 </script>
 
 <style lang="scss" module>
