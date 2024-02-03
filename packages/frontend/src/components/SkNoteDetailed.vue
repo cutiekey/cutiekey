@@ -783,6 +783,7 @@ function loadConversation() {
 		noteId: appearNote.value.replyId,
 	}).then(res => {
 		conversation.value = res.reverse();
+		focus();
 	});
 }
 
