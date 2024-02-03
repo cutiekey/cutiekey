@@ -328,6 +328,9 @@ export class NoteCreateService implements OnApplicationShutdown {
 				data.text = data.text.slice(0, DB_MAX_NOTE_TEXT_LENGTH);
 			}
 			data.text = data.text.trim();
+			if (data.text === '') {
+				data.text = null;
+			}
 		} else {
 			data.text = null;
 		}
@@ -807,7 +810,7 @@ export class NoteCreateService implements OnApplicationShutdown {
 
 					const muted = isUserRelated(note, userIdsWhoMeMuting);
 
-					if (!isThreadMuted || !muted) {
+					if (!isThreadMuted && !muted) {
 						nm.push(data.reply.userId, 'reply');
 						this.globalEventService.publishMainStream(data.reply.userId, 'reply', noteObj);
 
@@ -842,7 +845,7 @@ export class NoteCreateService implements OnApplicationShutdown {
 
 					const muted = isUserRelated(note, userIdsWhoMeMuting);
 
-					if (!isThreadMuted || !muted) {
+					if (!isThreadMuted && !muted) {
 						nm.push(data.renote.userId, type);
 					}
 				}
