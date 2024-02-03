@@ -340,7 +340,7 @@ if ($i) {
 const keymap = {
 	'r': () => reply(true),
 	'e|a|plus': () => react(true),
-	'q': () => renote(true),
+	'q': () => renote(appearNote.value.visibility),
 	'esc': blur,
 	'm|o': () => showMenu(true),
 	's': () => showContent.value !== showContent.value,
@@ -540,7 +540,7 @@ function quote() {
 		}).then(() => {
 			misskeyApi('notes/renotes', {
 				noteId: appearNote.value.id,
-				userId: $i.id,
+				userId: $i?.id,
 				limit: 1,
 				quote: true,
 			}).then((res) => {
@@ -562,7 +562,7 @@ function quote() {
 		}).then(() => {
 			misskeyApi('notes/renotes', {
 				noteId: appearNote.value.id,
-				userId: $i.id,
+				userId: $i?.id,
 				limit: 1,
 				quote: true,
 			}).then((res) => {

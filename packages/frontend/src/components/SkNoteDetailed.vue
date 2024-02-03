@@ -7,7 +7,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 <div
 	v-if="!muted"
 	v-show="!isDeleted"
-	ref="el"
+	ref="rootEl"
 	v-hotkey="keymap"
 	:class="$style.root"
 >
@@ -96,7 +96,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 				<a v-if="appearNote.renote != null" :class="$style.rn">RN:</a>
 				<div v-if="translating || translation" :class="$style.translation">
 					<MkLoading v-if="translating" mini/>
-					<div v-else>
+					<div v-else-if="translation">
 						<b>{{ i18n.tsx.translatedFrom({ x: translation.sourceLang }) }}: </b>
 						<Mfm :text="translation.text" :author="appearNote.user" :nyaize="'respect'" :emojiUrls="appearNote.emojis"/>
 					</div>
@@ -281,7 +281,7 @@ if (noteViewInterruptors.length > 0) {
 		let result: Misskey.entities.Note | null = deepClone(note.value);
 		for (const interruptor of noteViewInterruptors) {
 			try {
-				result = await interruptor.handler(result);
+				result = await interruptor.handler(result!) as Misskey.entities.Note | null;
 				if (result === null) {
 					isDeleted.value = true;
 					return;
@@ -290,19 +290,18 @@ if (noteViewInterruptors.length > 0) {
 				console.error(err);
 			}
 		}
-		note.value = result;
+		note.value = result as Misskey.entities.Note;
 	});
 }
 
 const isRenote = (
 	note.value.renote != null &&
 	note.value.text == null &&
-	note.value.fileIds.length === 0 &&
+	note.value.fileIds && note.value.fileIds.length === 0 &&
 	note.value.poll == null
 );
 
-const el = shallowRef<HTMLElement>();
-const noteEl = shallowRef<HTMLElement>();
+const rootEl = shallowRef<HTMLElement>();
 const menuButton = shallowRef<HTMLElement>();
 const menuVersionsButton = shallowRef<HTMLElement>();
 const renoteButton = shallowRef<HTMLElement>();
@@ -349,9 +348,9 @@ if ($i) {
 const keymap = {
 	'r': () => reply(true),
 	'e|a|plus': () => react(true),
-	'q': () => renoteButton.value.renote(true),
+	'q': () => renote(appearNote.value.visibility),
 	'esc': blur,
-	'm|o': () => menu(true),
+	'm|o': () => showMenu(true),
 	's': () => showContent.value !== showContent.value,
 };
 
@@ -396,7 +395,7 @@ async function removeReply(id: Misskey.entities.Note['id']) {
 }
 
 useNoteCapture({
-	rootEl: el,
+	rootEl: rootEl,
 	note: appearNote,
 	pureNote: note,
 	isDeletedRef: isDeleted,
@@ -549,7 +548,7 @@ function quote() {
 		}).then(() => {
 			misskeyApi('notes/renotes', {
 				noteId: appearNote.value.id,
-				userId: $i.id,
+				userId: $i?.id,
 				limit: 1,
 				quote: true,
 			}).then((res) => {
@@ -571,7 +570,7 @@ function quote() {
 		}).then(() => {
 			misskeyApi('notes/renotes', {
 				noteId: appearNote.value.id,
-				userId: $i.id,
+				userId: $i?.id,
 				limit: 1,
 				quote: true,
 			}).then((res) => {
@@ -597,7 +596,7 @@ function reply(viaKeyboard = false): void {
 		reply: appearNote.value,
 		channel: appearNote.value.channel,
 		animation: !viaKeyboard,
-	}, () => {
+	}).then(() => {
 		focus();
 	});
 }
@@ -621,7 +620,7 @@ function react(viaKeyboard = false): void {
 		}
 	} else {
 		blur();
-		reactionPicker.show(reactButton.value, reaction => {
+		reactionPicker.show(reactButton.value ?? null, reaction => {
 			sound.playMisskeySfx('reaction');
 
 			misskeyApi('notes/reactions/create', {
@@ -680,20 +679,22 @@ function undoRenote() : void {
 }
 
 function onContextmenu(ev: MouseEvent): void {
-	const isLink = (el: HTMLElement) => {
+	const isLink = (el: HTMLElement): boolean => {
 		if (el.tagName === 'A') return true;
 		if (el.parentElement) {
 			return isLink(el.parentElement);
 		}
+		return false;
 	};
-	if (isLink(ev.target)) return;
-	if (window.getSelection().toString() !== '') return;
+
+	if (ev.target && isLink(ev.target as HTMLElement)) return;
+	if (window.getSelection()?.toString() !== '') return;
 
 	if (defaultStore.state.useReactionPickerForContextMenu) {
 		ev.preventDefault();
 		react();
 	} else {
-		const { menu, cleanup } = getNoteMenu({ note: note.value, translating, translation, menuButton, isDeleted });
+		const { menu, cleanup } = getNoteMenu({ note: note.value, translating, translation, isDeleted });
 		os.contextMenu(menu, ev).then(focus).finally(cleanup);
 	}
 }
@@ -735,11 +736,11 @@ function showRenoteMenu(viaKeyboard = false): void {
 }
 
 function focus() {
-	noteEl.value?.focus();
+	rootEl.value?.focus();
 }
 
 function blur() {
-	noteEl.value?.blur();
+	rootEl.value?.blur();
 }
 
 const repliesLoaded = ref(false);
@@ -776,11 +777,11 @@ const conversationLoaded = ref(false);
 
 function loadConversation() {
 	conversationLoaded.value = true;
+	if (appearNote.value.replyId == null) return;
 	misskeyApi('notes/conversation', {
 		noteId: appearNote.value.replyId,
 	}).then(res => {
 		conversation.value = res.reverse();
-		focus();
 	});
 }
 
@@ -807,12 +808,12 @@ function setScrolling() {
 onMounted(() => {
 	document.addEventListener('wheel', setScrolling);
 	isScrolling = false;
-	noteEl.value?.scrollIntoView({ block: 'center' });
+	rootEl.value?.scrollIntoView({ block: 'center' });
 });
 
 onUpdated(() => {
 	if (!isScrolling) {
-		noteEl.value?.scrollIntoView({ block: 'center' });
+		rootEl.value?.scrollIntoView({ block: 'center' });
 		if (location.hash) {
 			location.replace(location.hash); // Jump to highlighted reply
 		}

@@ -332,7 +332,7 @@ function checkMute(noteToCheck: Misskey.entities.Note, mutedWords: Array<string 
 const keymap = {
 	'r': () => reply(true),
 	'e|a|plus': () => react(true),
-	'q': () => renote(true),
+	'q': () => renote(appearNote.value.visibility),
 	'up|k|shift+tab': focusBefore,
 	'down|j|tab': focusAfter,
 	'esc': blur,
@@ -526,7 +526,7 @@ function quote() {
 		}).then(() => {
 			misskeyApi('notes/renotes', {
 				noteId: appearNote.value.id,
-				userId: $i.id,
+				userId: $i?.id,
 				limit: 1,
 				quote: true,
 			}).then((res) => {
@@ -548,7 +548,7 @@ function quote() {
 		}).then(() => {
 			misskeyApi('notes/renotes', {
 				noteId: appearNote.value.id,
-				userId: $i.id,
+				userId: $i?.id,
 				limit: 1,
 				quote: true,
 			}).then((res) => {

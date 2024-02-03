@@ -7,7 +7,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 <div
 	v-if="!hardMuted && muted === false"
 	v-show="!isDeleted"
-	ref="el"
+	ref="rootEl"
 	v-hotkey="keymap"
 	:class="[$style.root, { [$style.showActionsOnlyHover]: defaultStore.state.showNoteActionsOnlyHover }]"
 	:tabindex="!isDeleted ? '-1' : undefined"
@@ -76,7 +76,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 						/>
 						<div v-if="translating || translation" :class="$style.translation">
 							<MkLoading v-if="translating" mini/>
-							<div v-else>
+							<div v-else-if="translation">
 								<b>{{ i18n.tsx.translatedFrom({ x: translation.sourceLang }) }}: </b>
 								<Mfm :text="translation.text" :author="appearNote.user" :nyaize="'respect'" :emojiUrls="appearNote.emojis"/>
 							</div>
@@ -255,7 +255,7 @@ if (noteViewInterruptors.length > 0) {
 		let result: Misskey.entities.Note | null = deepClone(note.value);
 		for (const interruptor of noteViewInterruptors) {
 			try {
-				result = await interruptor.handler(result);
+				result = await interruptor.handler(result!) as Misskey.entities.Note | null;
 				if (result === null) {
 					isDeleted.value = true;
 					return;
@@ -264,7 +264,7 @@ if (noteViewInterruptors.length > 0) {
 				console.error(err);
 			}
 		}
-		note.value = result;
+		note.value = result as Misskey.entities.Note;
 	});
 }
 
@@ -272,11 +272,11 @@ const isRenote = (
 	note.value.renote != null &&
 	note.value.text == null &&
 	note.value.cw == null &&
-	note.value.fileIds.length === 0 &&
+	note.value.fileIds && note.value.fileIds.length === 0 &&
 	note.value.poll == null
 );
 
-const el = shallowRef<HTMLElement>();
+const rootEl = shallowRef<HTMLElement>();
 const menuButton = shallowRef<HTMLElement>();
 const menuVersionsButton = shallowRef<HTMLElement>();
 const renoteButton = shallowRef<HTMLElement>();
@@ -333,11 +333,11 @@ function checkMute(noteToCheck: Misskey.entities.Note, mutedWords: Array<string 
 const keymap = {
 	'r': () => reply(true),
 	'e|a|plus': () => react(true),
-	'q': () => renoteButton.value.renote(true),
+	'q': () => renote(appearNote.value.visibility),
 	'up|k|shift+tab': focusBefore,
 	'down|j|tab': focusAfter,
 	'esc': blur,
-	'm|o': () => menu(true),
+	'm|o': () => showMenu(true),
 	's': () => showContent.value !== showContent.value,
 };
 
@@ -354,7 +354,7 @@ if (props.mock) {
 	}, { deep: true });
 } else {
 	useNoteCapture({
-		rootEl: el,
+		rootEl: rootEl,
 		note: appearNote,
 		pureNote: note,
 		isDeletedRef: isDeleted,
@@ -527,7 +527,7 @@ function quote() {
 		}).then(() => {
 			misskeyApi('notes/renotes', {
 				noteId: appearNote.value.id,
-				userId: $i.id,
+				userId: $i?.id,
 				limit: 1,
 				quote: true,
 			}).then((res) => {
@@ -549,7 +549,7 @@ function quote() {
 		}).then(() => {
 			misskeyApi('notes/renotes', {
 				noteId: appearNote.value.id,
-				userId: $i.id,
+				userId: $i?.id,
 				limit: 1,
 				quote: true,
 			}).then((res) => {
@@ -577,7 +577,7 @@ function reply(viaKeyboard = false): void {
 		reply: appearNote.value,
 		channel: appearNote.value.channel,
 		animation: !viaKeyboard,
-	}, () => {
+	}).then(() => {
 		focus();
 	});
 }
@@ -616,7 +616,7 @@ function react(viaKeyboard = false): void {
 			noteId: appearNote.value.id,
 			override: defaultLike.value,
 		});
-		const el = reactButton.value as HTMLElement | null | undefined;
+		const el = reactButton.value;
 		if (el) {
 			const rect = el.getBoundingClientRect();
 			const x = rect.left + (el.offsetWidth / 2);
@@ -625,7 +625,7 @@ function react(viaKeyboard = false): void {
 		}
 	} else {
 		blur();
-		reactionPicker.show(reactButton.value, reaction => {
+		reactionPicker.show(reactButton.value ?? null, reaction => {
 			sound.playMisskeySfx('reaction');
 
 			if (props.mock) {
@@ -646,8 +646,8 @@ function react(viaKeyboard = false): void {
 	}
 }
 
-function undoReact(note): void {
-	const oldReaction = note.myReaction;
+function undoReact(targetNote: Misskey.entities.Note): void {
+	const oldReaction = targetNote.myReaction;
 	if (!oldReaction) return;
 
 	if (props.mock) {
@@ -656,7 +656,7 @@ function undoReact(note): void {
 	}
 
 	misskeyApi('notes/reactions/delete', {
-		noteId: note.id,
+		noteId: targetNote.id,
 	});
 }
 
@@ -684,22 +684,24 @@ function onContextmenu(ev: MouseEvent): void {
 		return;
 	}
 
-	const isLink = (el: HTMLElement) => {
+	const isLink = (el: HTMLElement): boolean => {
 		if (el.tagName === 'A') return true;
 		// 再生速度の選択などのために、Audio要素のコンテキストメニューはブラウザデフォルトとする。
 		if (el.tagName === 'AUDIO') return true;
 		if (el.parentElement) {
 			return isLink(el.parentElement);
 		}
+		return false;
 	};
-	if (isLink(ev.target)) return;
-	if (window.getSelection().toString() !== '') return;
+
+	if (ev.target && isLink(ev.target as HTMLElement)) return;
+	if (window.getSelection()?.toString() !== '') return;
 
 	if (defaultStore.state.useReactionPickerForContextMenu) {
 		ev.preventDefault();
 		react();
 	} else {
-		const { menu, cleanup } = getNoteMenu({ note: note.value, translating, translation, menuButton, isDeleted, currentClip: currentClip?.value });
+		const { menu, cleanup } = getNoteMenu({ note: note.value, translating, translation, isDeleted, currentClip: currentClip?.value });
 		os.contextMenu(menu, ev).then(focus).finally(cleanup);
 	}
 }
@@ -763,7 +765,7 @@ function showRenoteMenu(viaKeyboard = false): void {
 			getCopyNoteLinkMenu(note.value, i18n.ts.copyLinkRenote),
 			{ type: 'divider' },
 			getAbuseNoteMenu(note.value, i18n.ts.reportAbuseRenote),
-			$i.isModerator || $i.isAdmin ? getUnrenote() : undefined,
+			($i?.isModerator || $i?.isAdmin) ? getUnrenote() : undefined,
 		], renoteTime.value, {
 			viaKeyboard: viaKeyboard,
 		});
@@ -783,23 +785,19 @@ function animatedMFM() {
 }
 
 function focus() {
-	el.value.focus();
+	rootEl.value?.focus();
 }
 
 function blur() {
-	el.value.blur();
+	rootEl.value?.blur();
 }
 
 function focusBefore() {
-	focusPrev(el.value);
+	focusPrev(rootEl.value ?? null);
 }
 
 function focusAfter() {
-	focusNext(el.value);
-}
-
-function scrollIntoView() {
-	el.value.scrollIntoView();
+	focusNext(rootEl.value ?? null);
 }
 
 function readPromo() {
@@ -816,12 +814,6 @@ function emitUpdReaction(emoji: string, delta: number) {
 		emit('reaction', emoji);
 	}
 }
-
-defineExpose({
-	focus,
-	blur,
-	scrollIntoView,
-});
 </script>
 
 <style lang="scss" module>
