@@ -4,7 +4,7 @@
  */
 
 import { setImmediate } from 'node:timers/promises';
-import * as mfm from '@sharkey/sfm-js';
+import * as mfm from '@transfem-org/sfm-js';
 import { DataSource, In, IsNull, LessThan } from 'typeorm';
 import * as Redis from 'ioredis';
 import { Inject, Injectable, OnApplicationShutdown } from '@nestjs/common';
@@ -589,7 +589,7 @@ export class NoteEditService implements OnApplicationShutdown {
 			} else {
 				this.globalEventService.publishNoteStream(note.id, 'updated', {
 					cw: note.cw,
-					text: note.text!
+					text: note.text!,
 				});
 			}
 
