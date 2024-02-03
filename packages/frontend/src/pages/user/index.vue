@@ -96,7 +96,7 @@ const headerTabs = computed(() => user.value ? [{
 	key: 'achievements',
 	title: i18n.ts.achievements,
 	icon: 'ph-trophy ph-bold ph-lg',
-}] : []), ...($i && ($i.id === user.value.id)) || user.value.publicReactions ? [{
+}] : []), ...($i && ($i.id === user.value.id || $i.isAdmin || $i.isModerator)) || user.value.publicReactions ? [{
 	key: 'reactions',
 	title: i18n.ts.reaction,
 	icon: 'ph-smiley ph-bold ph-lg',

@@ -27,7 +27,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 <!-- フォルダの中にはカスタム絵文字やフォルダがある -->
 <section v-else v-panel style="border-radius: var(--radius-sm); border-bottom: 0.5px solid var(--divider);">
 	<header class="_acrylic" @click="shown = !shown">
-		<i class="toggle ti-fw" :class="shown ? 'ph-caret-down ph-bold ph-lg' : 'ph-caret-up ph-bold ph-lg'"></i> <slot></slot> (<i class="ph-folder ph-bold ph-lg"></i>:{{ customEmojiTree.length }} <i class="ph-smiley-sticker ph-bold ph-lg ti-fw"></i>:{{ emojis.length }})
+		<i class="toggle ti-fw" :class="shown ? 'ph-caret-down ph-bold ph-lg' : 'ph-caret-up ph-bold ph-lg'"></i> <slot></slot> (<i class="ph-folder ph-bold ph-lg"></i>:{{ customEmojiTree?.length }} <i class="ph-smiley-sticker ph-bold ph-lg ti-fw"></i>:{{ emojis.length }})
 	</header>
 	<div v-if="shown" style="padding-left: 9px;">
 		<MkEmojiPickerSection
@@ -60,8 +60,8 @@ SPDX-License-Identifier: AGPL-3.0-only
 
 <script lang="ts" setup>
 import { ref, computed, Ref } from 'vue';
-import { i18n } from '../i18n.js';
 import { CustomEmojiFolderTree, getEmojiName } from '@/scripts/emojilist.js';
+import { i18n } from '@/i18n.js';
 import { customEmojis } from '@/custom-emojis.js';
 import MkEmojiPickerSection from '@/components/MkEmojiPicker.section.vue';
 
@@ -87,7 +87,7 @@ function computeButtonTitle(ev: MouseEvent): void {
 	elm.title = getEmojiName(emoji) ?? emoji;
 }
 
-function nestedChosen(emoji: any, ev?: MouseEvent) {
+function nestedChosen(emoji: any, ev: MouseEvent) {
 	emit('chosen', emoji, ev);
 }
 </script>

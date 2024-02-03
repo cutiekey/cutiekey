@@ -535,10 +535,10 @@ export type Channels = {
             mention: (payload: Note) => void;
             reply: (payload: Note) => void;
             renote: (payload: Note) => void;
-            follow: (payload: User) => void;
-            followed: (payload: User) => void;
-            unfollow: (payload: User) => void;
-            meUpdated: (payload: MeDetailed) => void;
+            follow: (payload: UserDetailedNotMe) => void;
+            followed: (payload: UserDetailed | UserLite) => void;
+            unfollow: (payload: UserDetailed) => void;
+            meUpdated: (payload: UserDetailed) => void;
             pageEvent: (payload: PageEvent) => void;
             urlUploadFinished: (payload: {
                 marker: string;
@@ -571,6 +571,7 @@ export type Channels = {
         params: {
             withRenotes?: boolean;
             withFiles?: boolean;
+            withBots?: boolean;
         };
         events: {
             note: (payload: Note) => void;
@@ -582,6 +583,7 @@ export type Channels = {
             withRenotes?: boolean;
             withReplies?: boolean;
             withFiles?: boolean;
+            withBots?: boolean;
         };
         events: {
             note: (payload: Note) => void;
@@ -593,6 +595,7 @@ export type Channels = {
             withRenotes?: boolean;
             withReplies?: boolean;
             withFiles?: boolean;
+            withBots?: boolean;
         };
         events: {
             note: (payload: Note) => void;
@@ -603,6 +606,7 @@ export type Channels = {
         params: {
             withRenotes?: boolean;
             withFiles?: boolean;
+            withBots?: boolean;
         };
         events: {
             note: (payload: Note) => void;
@@ -610,7 +614,11 @@ export type Channels = {
         receives: null;
     };
     bubbleTimeline: {
-        params: null;
+        params: {
+            withRenotes?: boolean;
+            withFiles?: boolean;
+            withBots?: boolean;
+        };
         events: {
             note: (payload: Note) => void;
         };
@@ -620,6 +628,7 @@ export type Channels = {
         params: {
             listId: string;
             withFiles?: boolean;
+            withRenotes?: boolean;
         };
         events: {
             note: (payload: Note) => void;
@@ -670,7 +679,7 @@ export type Channels = {
             fileUpdated: (payload: DriveFile) => void;
             folderCreated: (payload: DriveFolder) => void;
             folderDeleted: (payload: DriveFolder['id']) => void;
-            folderUpdated: (payload: DriveFile) => void;
+            folderUpdated: (payload: DriveFolder) => void;
         };
         receives: null;
     };
@@ -711,6 +720,46 @@ export type Channels = {
             };
         };
         receives: null;
+    };
+    reversiGame: {
+        params: {
+            gameId: string;
+        };
+        events: {
+            started: (payload: {
+                game: ReversiGameDetailed;
+            }) => void;
+            ended: (payload: {
+                winnerId: User['id'] | null;
+                game: ReversiGameDetailed;
+            }) => void;
+            canceled: (payload: {
+                userId: User['id'];
+            }) => void;
+            changeReadyStates: (payload: {
+                user1: boolean;
+                user2: boolean;
+            }) => void;
+            updateSettings: (payload: {
+                userId: User['id'];
+                key: string;
+                value: any;
+            }) => void;
+            log: (payload: Record<string, any>) => void;
+        };
+        receives: {
+            putStone: {
+                pos: number;
+                id: string;
+            };
+            ready: boolean;
+            cancel: null | Record<string, never>;
+            updateSettings: {
+                key: string;
+                value: any;
+            };
+            claimTimeIsUp: null | Record<string, never>;
+        };
     };
 };
 
@@ -1697,6 +1746,7 @@ declare namespace entities {
         Hashtag,
         InviteCode,
         Page,
+        PageBlock,
         Channel,
         QueueCount,
         Antenna,
@@ -1709,6 +1759,7 @@ declare namespace entities {
         Signin,
         RoleLite,
         Role,
+        RolePolicies,
         ReversiGameLite,
         ReversiGameDetailed
     }
@@ -2235,7 +2286,7 @@ type ModerationLog = {
     id: ID;
     createdAt: DateString;
     userId: User['id'];
-    user: UserDetailed | null;
+    user: UserDetailedNotMe | null;
 } & ({
     type: 'updateServerSettings';
     info: ModerationLogPayloads['updateServerSettings'];
@@ -2578,6 +2629,9 @@ export const notificationTypes: readonly ["note", "follow", "mention", "reply", 
 type Page = components['schemas']['Page'];
 
 // @public (undocumented)
+type PageBlock = components['schemas']['PageBlock'];
+
+// @public (undocumented)
 type PageEvent = {
     pageId: Page['id'];
     event: string;
@@ -2724,6 +2778,9 @@ type Role = components['schemas']['Role'];
 
 // @public (undocumented)
 type RoleLite = components['schemas']['RoleLite'];
+
+// @public (undocumented)
+type RolePolicies = components['schemas']['RolePolicies'];
 
 // @public (undocumented)
 type RolesListResponse = operations['roles/list']['responses']['200']['content']['application/json'];

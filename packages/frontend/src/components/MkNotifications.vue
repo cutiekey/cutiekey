@@ -15,11 +15,11 @@ SPDX-License-Identifier: AGPL-3.0-only
 
 		<template #default="{ items: notifications }">
 			<MkDateSeparatedList v-if="defaultStore.state.noteDesign === 'misskey'" v-slot="{ item: notification }" :class="$style.list" :items="notifications" :noGap="true">
-				<MkNote v-if="['reply', 'quote', 'mention'].includes(notification.type)" :key="notification.id" :note="notification.note" :withHardMute="true"/>
+				<MkNote v-if="['reply', 'quote', 'mention'].includes(notification.type)" :key="notification.id + ':note'" :note="notification.note" :withHardMute="true"/>
 				<XNotification v-else :key="notification.id" :notification="notification" :withTime="true" :full="true" class="_panel"/>
 			</MkDateSeparatedList>
 			<MkDateSeparatedList v-else-if="defaultStore.state.noteDesign === 'sharkey'" v-slot="{ item: notification }" :class="$style.list" :items="notifications" :noGap="true">
-				<SkNote v-if="['reply', 'quote', 'mention'].includes(notification.type)" :key="notification.id" :note="notification.note" :withHardMute="true"/>
+				<SkNote v-if="['reply', 'quote', 'mention'].includes(notification.type)" :key="notification.id + ':note'" :note="notification.note" :withHardMute="true"/>
 				<XNotification v-else :key="notification.id" :notification="notification" :withTime="true" :full="true" class="_panel"/>
 			</MkDateSeparatedList>
 		</template>
@@ -68,7 +68,7 @@ function onNotification(notification) {
 	}
 
 	if (!isMuted) {
-		pagingComponent.value.prepend(notification);
+		pagingComponent.value?.prepend(notification);
 	}
 }
 

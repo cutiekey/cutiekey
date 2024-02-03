@@ -22,7 +22,7 @@ import MkContainer from '@/components/MkContainer.vue';
 import { i18n } from '@/i18n.js';
 import { misskeyApi } from '@/scripts/misskey-api.js';
 import * as os from '@/os.js';
-import { useRouter } from '@/global/router/supplier.js';
+import { useRouter } from '@/router/supplier.js';
 import { GetFormResultType } from '@/scripts/form.js';
 
 const name = 'search';
