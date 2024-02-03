@@ -4,7 +4,7 @@
  */
 
 import { VNode, h, defineAsyncComponent, SetupContext } from 'vue';
-import * as mfm from '@sharkey/sfm-js';
+import * as mfm from '@transfem-org/sfm-js';
 import * as Misskey from 'misskey-js';
 import MkUrl from '@/components/global/MkUrl.vue';
 import MkTime from '@/components/global/MkTime.vue';
@@ -52,7 +52,7 @@ type MfmEvents = {
 // eslint-disable-next-line import/no-default-export
 export default function(props: MfmProps, context: SetupContext<MfmEvents>) {
 	const isNote = props.isNote ?? true;
-	const shouldNyaize = props.nyaize ? props.nyaize === 'respect' ? props.author?.isCat ? props.author?.speakAsCat : false : false : false;
+	const shouldNyaize = props.nyaize ? props.nyaize === 'respect' ? props.author?.isCat ? props.author.speakAsCat : false : false : false;
 
 	// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
 	if (props.text == null || props.text === '') return;

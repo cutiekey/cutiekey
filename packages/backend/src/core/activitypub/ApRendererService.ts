@@ -6,7 +6,7 @@
 import { createPublicKey, randomUUID } from 'node:crypto';
 import { Inject, Injectable } from '@nestjs/common';
 import { In } from 'typeorm';
-import * as mfm from '@sharkey/sfm-js';
+import * as mfm from '@transfem-org/sfm-js';
 import { DI } from '@/di-symbols.js';
 import type { Config } from '@/config.js';
 import type { MiPartialLocalUser, MiLocalUser, MiPartialRemoteUser, MiRemoteUser, MiUser } from '@/models/User.js';
@@ -28,10 +28,10 @@ import { bindThis } from '@/decorators.js';
 import { CustomEmojiService } from '@/core/CustomEmojiService.js';
 import { isNotNull } from '@/misc/is-not-null.js';
 import { IdService } from '@/core/IdService.js';
+import { MetaService } from '../MetaService.js';
 import { LdSignatureService } from './LdSignatureService.js';
 import { ApMfmService } from './ApMfmService.js';
 import type { IAccept, IActivity, IAdd, IAnnounce, IApDocument, IApEmoji, IApHashtag, IApImage, IApMention, IBlock, ICreate, IDelete, IFlag, IFollow, IKey, ILike, IMove, IObject, IPost, IQuestion, IReject, IRemove, ITombstone, IUndo, IUpdate } from './type.js';
-import { MetaService } from '../MetaService.js';
 
 @Injectable()
 export class ApRendererService {
@@ -821,12 +821,12 @@ export class ApRendererService {
 					'_misskey_summary': 'misskey:_misskey_summary',
 					'isCat': 'misskey:isCat',
 					// Firefish
-					firefish: "https://joinfirefish.org/ns#",
-					speakAsCat: "firefish:speakAsCat",
+					firefish: 'https://joinfirefish.org/ns#',
+					speakAsCat: 'firefish:speakAsCat',
 					// Sharkey
-					sharkey: "https://joinsharkey.org/ns#",
-					backgroundUrl: "sharkey:backgroundUrl",
-					listenbrainz: "sharkey:listenbrainz",
+					sharkey: 'https://joinsharkey.org/ns#',
+					backgroundUrl: 'sharkey:backgroundUrl',
+					listenbrainz: 'sharkey:listenbrainz',
 					// vcard
 					vcard: 'http://www.w3.org/2006/vcard/ns#',
 				},
