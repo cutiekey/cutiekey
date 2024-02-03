@@ -737,11 +737,11 @@ function showRenoteMenu(viaKeyboard = false): void {
 }
 
 function focus() {
-	rootEl.value?.focus();
+	noteEl.value?.focus();
 }
 
 function blur() {
-	rootEl.value?.blur();
+	noteEl.value?.blur();
 }
 
 const repliesLoaded = ref(false);
