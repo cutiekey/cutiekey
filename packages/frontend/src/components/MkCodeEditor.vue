@@ -204,6 +204,8 @@ watch(v, newValue => {
 	min-width: calc(100% - 24px);
 	height: 100%;
 	padding: 12px;
+	// the +2.5 rem is because of the line numbers
+	padding-left: calc(12px + 2.5rem);
 	line-height: 1.5em;
 	font-size: 1em;
 	font-family: Consolas, Monaco, Andale Mono, Ubuntu Mono, monospace;

@@ -58,6 +58,21 @@ watch(() => props.lang, (to) => {
 </script>
 
 <style scoped lang="scss">
+.codeBlockRoot :deep(.shiki) > code {
+  counter-reset: step;
+  counter-increment: step 0;
+}
+
+.codeBlockRoot :deep(.shiki) > code > .line::before {
+  content: counter(step);
+  counter-increment: step;
+  width: 1rem;
+  margin-right: 1.5rem;
+  display: inline-block;
+  text-align: right;
+  color: rgba(115,138,148,.4)
+}
+
 .codeBlockRoot :deep(.shiki) {
 	padding: 1em;
 	margin: .5em 0;
