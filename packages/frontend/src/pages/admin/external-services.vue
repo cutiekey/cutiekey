@@ -23,7 +23,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 						<template #label>Use DeepLX-JS (No Auth Key)</template>
 					</MkSwitch>
 					<MkInput v-if="deeplFreeMode" v-model="deeplFreeInstance" :placeholder="'example.com/translate'">
-						<template #prefix>https://</template>
+						<template #prefix><i class="ph-globe-simple ph-bold ph-lg"></i></template>
 						<template #label>DeepLX-JS URL</template>
 						<template #caption>Need Help? Check our documentation to know how to setup DeepLX-JS.</template>
 					</MkInput>
