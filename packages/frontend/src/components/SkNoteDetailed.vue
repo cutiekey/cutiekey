@@ -302,6 +302,7 @@ const isRenote = (
 );
 
 const rootEl = shallowRef<HTMLElement>();
+const noteEl = shallowRef<HTMLElement>();
 const menuButton = shallowRef<HTMLElement>();
 const menuVersionsButton = shallowRef<HTMLElement>();
 const renoteButton = shallowRef<HTMLElement>();
@@ -808,12 +809,12 @@ function setScrolling() {
 onMounted(() => {
 	document.addEventListener('wheel', setScrolling);
 	isScrolling = false;
-	rootEl.value?.scrollIntoView({ block: 'center' });
+	noteEl.value?.scrollIntoView({ block: 'center' });
 });
 
 onUpdated(() => {
 	if (!isScrolling) {
-		rootEl.value?.scrollIntoView({ block: 'center' });
+		noteEl.value?.scrollIntoView({ block: 'center' });
 		if (location.hash) {
 			location.replace(location.hash); // Jump to highlighted reply
 		}
