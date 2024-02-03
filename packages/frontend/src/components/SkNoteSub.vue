@@ -4,7 +4,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 -->
 
 <template>
-<div v-show="!isDeleted" v-if="!muted" ref="el" :class="[$style.root, { [$style.children]: depth > 1, [$style.replyRoot]: props.reply }]">
+<div v-show="!isDeleted" v-if="!muted" ref="el" :class="[$style.root, { [$style.children]: depth > 1, [$style.replyRoot]: props.reply, [$style.detailed]: props.detailed }]">
 	<div v-if="!hideLine" :class="$style.line"></div>
 	<div :class="$style.main">
 		<div v-if="note.channel" :class="$style.colorBar" :style="{ background: note.channel.color }"></div>
@@ -127,9 +127,11 @@ const props = withDefaults(defineProps<{
 	depth?: number;
 
 	reply?: boolean;
+	detailed?: boolean;
 }>(), {
 	depth: 1,
 	reply: false,
+	detailed: false,
 });
 
 const el = shallowRef<HTMLElement>();
@@ -474,7 +476,7 @@ if (props.detail) {
 	position: relative;
 	display:  flex;
 
-	&::after {
+	:is(.detailed, .replyRoot) &::after {
 		content: "";
 		position: absolute;
 		top: -12px;
@@ -488,8 +490,8 @@ if (props.detail) {
 		z-index: -1;
 	}
 
-	&:hover::after,
-	&:focus-within::after {
+	:is(.detailed, .replyRoot) &:hover::after,
+	:is(.detailed, .replyRoot) &:focus-within::after {
 		opacity: 1;
 	}
 }

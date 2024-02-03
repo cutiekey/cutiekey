@@ -40,9 +40,9 @@ SPDX-License-Identifier: AGPL-3.0-only
 		</div>
 	</div>
 	<template v-if="appearNote.reply && appearNote.reply.replyId">
-		<SkNoteSub v-for="note in conversation" :key="note.id" :class="$style.replyToMore" :note="note" :expandAllCws="props.expandAllCws"/>
+		<SkNoteSub v-for="note in conversation" :key="note.id" :class="$style.replyToMore" :note="note" :expandAllCws="props.expandAllCws" detailed/>
 	</template>
-	<SkNoteSub v-if="appearNote.reply" :note="appearNote.reply" :class="$style.replyTo" :expandAllCws="props.expandAllCws"/>
+	<SkNoteSub v-if="appearNote.reply" :note="appearNote.reply" :class="$style.replyTo" :expandAllCws="props.expandAllCws" detailed/>
 	<article :id="appearNote.id" ref="noteEl" :class="$style.note" tabindex="-1" @contextmenu.stop="onContextmenu">
 		<header :class="$style.noteHeader">
 			<MkAvatar :class="$style.noteHeaderAvatar" :user="appearNote.user" indicator link preview/>
@@ -850,7 +850,7 @@ onUnmounted(() => {
 }
 
 .replyToMore {
-	
+
 }
 
 .renote {
