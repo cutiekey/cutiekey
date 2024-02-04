@@ -6,7 +6,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 <template>
 <div v-if="meta" :class="$style.root">
 	<div :class="[$style.main, $style.panel]">
-		<img :src="instance.iconUrl || instance.faviconUrl || '/apple-touch-icon.png'" alt="" :class="$style.mainIcon"/>
+		<img :src="instance.iconUrl || '/apple-touch-icon.png'" alt="" :class="$style.mainIcon"/>
 		<button class="_button _acrylic" :class="$style.mainMenu" @click="showMenu"><i class="ph-dots-three ph-bold ph-lg"></i></button>
 		<div :class="$style.mainFg">
 			<h1 :class="$style.mainTitle">
@@ -109,19 +109,19 @@ function showMenu(ev) {
 		text: i18n.ts.impressum,
 		icon: 'ph-newspaper-clipping ph-bold ph-lg',
 		action: () => {
-			window.open(instance.impressumUrl, '_blank', 'noopener');
+			window.open(instance.impressumUrl!, '_blank', 'noopener');
 		},
 	} : undefined, (instance.tosUrl) ? {
 		text: i18n.ts.termsOfService,
 		icon: 'ph-notebook ph-bold ph-lg',
 		action: () => {
-			window.open(instance.tosUrl, '_blank', 'noopener');
+			window.open(instance.tosUrl!, '_blank', 'noopener');
 		},
 	} : undefined, (instance.privacyPolicyUrl) ? {
 		text: i18n.ts.privacyPolicy,
 		icon: 'ph-shield ph-bold ph-lg',
 		action: () => {
-			window.open(instance.privacyPolicyUrl, '_blank', 'noopener');
+			window.open(instance.privacyPolicyUrl!, '_blank', 'noopener');
 		},
 	} : undefined, (instance.donationUrl) ? {
 		text: i18n.ts.donation,

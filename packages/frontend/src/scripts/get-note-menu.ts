@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { defineAsyncComponent, Ref } from 'vue';
+import { defineAsyncComponent, Ref, ShallowRef } from 'vue';
 import * as Misskey from 'misskey-js';
 import { claimAchievement } from './achievements.js';
 import { $i } from '@/account.js';
@@ -36,7 +36,7 @@ export async function getNoteClipMenu(props: {
 	const appearNote = isRenote ? props.note.renote as Misskey.entities.Note : props.note;
 
 	const clips = await clipsCache.fetch();
-	return [...clips.map(clip => ({
+	const menu: MenuItem[] = [...clips.map(clip => ({
 		text: clip.name,
 		action: () => {
 			claimAchievement('noteClipped1');
@@ -93,6 +93,8 @@ export async function getNoteClipMenu(props: {
 			os.apiWithDialog('clips/add-note', { clipId: clip.id, noteId: appearNote.id });
 		},
 	}];
+
+	return menu;
 }
 
 export function getAbuseNoteMenu(note: Misskey.entities.Note, text: string): MenuItem {
@@ -133,7 +135,6 @@ export function getCopyNoteOriginLinkMenu(note: misskey.entities.Note, text: str
 
 export function getNoteMenu(props: {
 	note: Misskey.entities.Note;
-	menuButton: Ref<HTMLElement>;
 	translation: Ref<Misskey.entities.NotesTranslateResponse | null>;
 	translating: Ref<boolean>;
 	isDeleted: Ref<boolean>;
@@ -505,7 +506,7 @@ function smallerVisibility(a: Visibility | string, b: Visibility | string): Visi
 
 export function getRenoteMenu(props: {
 	note: Misskey.entities.Note;
-	renoteButton: Ref<HTMLElement>;
+	renoteButton: ShallowRef<HTMLElement | undefined>;
 	mock?: boolean;
 }) {
 	const isRenote = (
@@ -525,7 +526,7 @@ export function getRenoteMenu(props: {
 			text: i18n.ts.inChannelRenote,
 			icon: 'ti ti-repeat',
 			action: () => {
-				const el = props.renoteButton.value as HTMLElement | null | undefined;
+				const el = props.renoteButton.value;
 				if (el) {
 					const rect = el.getBoundingClientRect();
 					const x = rect.left + (el.offsetWidth / 2);
@@ -561,7 +562,7 @@ export function getRenoteMenu(props: {
 			text: i18n.ts.renote,
 			icon: 'ti ti-repeat',
 			action: () => {
-				const el = props.renoteButton.value as HTMLElement | null | undefined;
+				const el = props.renoteButton.value;
 				if (el) {
 					const rect = el.getBoundingClientRect();
 					const x = rect.left + (el.offsetWidth / 2);
@@ -601,7 +602,7 @@ export function getRenoteMenu(props: {
 
 	const renoteItems = [
 		...normalRenoteItems,
-		...(channelRenoteItems.length > 0 && normalRenoteItems.length > 0) ? [{ type: 'divider' }] : [],
+		...(channelRenoteItems.length > 0 && normalRenoteItems.length > 0) ? [{ type: 'divider' }] as MenuItem[] : [],
 		...channelRenoteItems,
 	];
 

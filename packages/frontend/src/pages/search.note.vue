@@ -23,7 +23,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 					<option value="audio">Audio</option>
 				</MkSelect>
 
-				<MkFolder>
+				<MkFolder :defaultOpen="true">
 					<template #label>{{ i18n.ts.specifyUser }}</template>
 					<template v-if="user" #suffix>@{{ user.username }}</template>
 
@@ -61,7 +61,7 @@ import * as os from '@/os.js';
 import { misskeyApi } from '@/scripts/misskey-api.js';
 import MkFoldableSection from '@/components/MkFoldableSection.vue';
 import MkFolder from '@/components/MkFolder.vue';
-import { useRouter } from '@/global/router/supplier.js';
+import { useRouter } from '@/router/supplier.js';
 
 const router = useRouter();
 
@@ -75,7 +75,7 @@ const order = ref(false);
 const filetype = ref(null);
 
 function selectUser() {
-	os.selectUser().then(_user => {
+	os.selectUser({ includeSelf: true }).then(_user => {
 		user.value = _user;
 	});
 }

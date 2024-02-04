@@ -4,11 +4,12 @@
  */
 
 import { App, AsyncComponentLoader, defineAsyncComponent, provide } from 'vue';
+import type { RouteDef } from '@/nirax.js';
 import { IRouter, Router } from '@/nirax.js';
 import { $i, iAmModerator } from '@/account.js';
 import MkLoading from '@/pages/_loading_.vue';
 import MkError from '@/pages/_error_.vue';
-import { setMainRouter } from '@/global/router/main.js';
+import { setMainRouter } from '@/router/main.js';
 
 const page = (loader: AsyncComponentLoader<any>) => defineAsyncComponent({
 	loader: loader,
@@ -16,7 +17,7 @@ const page = (loader: AsyncComponentLoader<any>) => defineAsyncComponent({
 	errorComponent: MkError,
 });
 
-const routes = [{
+const routes: RouteDef[] = [{
 	path: '/@:initUser/pages/:initPageName/view-source',
 	component: page(() => import('@/pages/page-editor/page-editor.vue')),
 }, {
@@ -333,8 +334,7 @@ const routes = [{
 	component: page(() => import('@/pages/registry.vue')),
 }, {
 	path: '/install-extentions',
-	// Note: This path is kept for compatibility. It may be deleted.
-	component: page(() => import('@/pages/install-extensions.vue')),
+	redirect: '/install-extensions',
 	loginRequired: true,
 }, {
 	path: '/install-extensions',
@@ -562,6 +562,11 @@ const routes = [{
 	component: $i ? page(() => import('@/pages/timeline.vue')) : page(() => import('@/pages/welcome.vue')),
 	globalCacheKey: 'index',
 }, {
+	// テスト用リダイレクト設定。ログイン中ユーザのプロフィールにリダイレクトする
+	path: '/redirect-test',
+	redirect: $i ? `@${$i.username}` : '/',
+	loginRequired: true,
+}, {
 	path: '/:(*)',
 	component: page(() => import('@/pages/not-found.vue')),
 }];
@@ -579,51 +584,23 @@ export function setupRouter(app: App) {
 
 	const mainRouter = createRouterImpl(location.pathname + location.search + location.hash);
 
-	window.history.replaceState({ key: mainRouter.getCurrentKey() }, '', location.href);
-
-	const scrollPosStore = new Map<string, number>();
-	let restoring = false;
-
-	window.setInterval(() => {
-		if (!restoring) {
-			scrollPosStore.set(window.history.state?.key, window.scrollY);
-		}
-	}, 1000);
-
 	window.addEventListener('popstate', (event) => {
 		mainRouter.replace(location.pathname + location.search + location.hash, event.state?.key);
-
-		restoring = true;
-		const scrollPos = scrollPosStore.get(event.state?.key) ?? 0;
-		window.scroll({ top: scrollPos, behavior: 'instant' });
-		window.setTimeout(() => {
-			// 遷移直後はタイミングによってはコンポーネントが復元し切ってない可能性も考えられるため少し時間を空けて再度スクロール
-			window.scroll({ top: scrollPos, behavior: 'instant' });
-			restoring = false;
-		}, 100);
 	});
 
 	mainRouter.addListener('push', ctx => {
 		window.history.pushState({ key: ctx.key }, '', ctx.path);
-
-		restoring = true;
-		const scrollPos = scrollPosStore.get(ctx.key) ?? 0;
-		window.scroll({ top: scrollPos, behavior: 'instant' });
-
-		if (scrollPos !== 0) {
-			window.setTimeout(() => {
-				// 遷移直後はタイミングによってはコンポーネントが復元し切ってない可能性も考えられるため少し時間を空けて再度スクロール
-				window.scroll({ top: scrollPos, behavior: 'instant' });
-			}, 100);
-			restoring = false;
-		} else {
-			restoring = false;
-		}
 	});
 
 	mainRouter.addListener('same', () => {
 		window.scroll({ top: 0, behavior: 'smooth' });
 	});
+
+	mainRouter.addListener('replace', ctx => {
+		window.history.replaceState({ key: ctx.key }, '', ctx.path);
+	});
+
+	mainRouter.init();
 
 	setMainRouter(mainRouter);
 }

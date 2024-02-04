@@ -15,7 +15,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 			</MkA>
 			<div v-if="note.user.isBot" :class="$style.isBot">bot</div>
 			<div v-if="note.user.badgeRoles" :class="$style.badgeRoles">
-				<img v-for="role in note.user.badgeRoles" :key="role.id" v-tooltip="role.name" :class="$style.badgeRole" :src="role.iconUrl"/>
+				<img v-for="(role, i) in note.user.badgeRoles" :key="i" v-tooltip="role.name" :class="$style.badgeRole" :src="role.iconUrl!"/>
 			</div>
 		</div>
 		<div :class="$style.username"><MkAcct :user="note.user"/></div>
@@ -82,7 +82,7 @@ import { getNoteVersionsMenu } from '@/scripts/get-note-versions-menu.js';
 import SkInstanceTicker from '@/components/SkInstanceTicker.vue';
 import { popupMenu } from '@/os.js';
 import { defaultStore } from '@/store.js';
-import { useRouter } from '@/global/router/supplier.js';
+import { useRouter } from '@/router/supplier.js';
 import { deviceKind } from '@/scripts/device-kind.js';
 
 const props = defineProps<{
