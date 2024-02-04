@@ -40,9 +40,9 @@ SPDX-License-Identifier: AGPL-3.0-only
 		</div>
 	</div>
 	<template v-if="appearNote.reply && appearNote.reply.replyId">
-		<SkNoteSub v-for="note in conversation" :key="note.id" :class="$style.replyToMore" :note="note" :expandAllCws="props.expandAllCws"/>
+		<SkNoteSub v-for="note in conversation" :key="note.id" :class="$style.replyToMore" :note="note" :expandAllCws="props.expandAllCws" detailed/>
 	</template>
-	<SkNoteSub v-if="appearNote.reply" :note="appearNote.reply" :class="$style.replyTo" :expandAllCws="props.expandAllCws"/>
+	<SkNoteSub v-if="appearNote.reply" :note="appearNote.reply" :class="$style.replyTo" :expandAllCws="props.expandAllCws" detailed/>
 	<article :id="appearNote.id" ref="noteEl" :class="$style.note" tabindex="-1" @contextmenu.stop="onContextmenu">
 		<header :class="$style.noteHeader">
 			<MkAvatar :class="$style.noteHeaderAvatar" :user="appearNote.user" indicator link preview/>
@@ -112,16 +112,16 @@ SPDX-License-Identifier: AGPL-3.0-only
 			</div>
 			<MkA v-if="appearNote.channel && !inChannel" :class="$style.channel" :to="`/channels/${appearNote.channel.id}`"><i class="ph-television ph-bold ph-lg"></i> {{ appearNote.channel.name }}</MkA>
 		</div>
-		<footer :class="$style.footer">
-			<div :class="$style.noteFooterInfo">
-				<div v-if="appearNote.updatedAt">
-					{{ i18n.ts.edited }}: <MkTime :time="appearNote.updatedAt" mode="detail"/>
-				</div>
-				<MkA :to="notePage(appearNote)">
-					<MkTime :time="appearNote.createdAt" mode="detail" colored/>
-				</MkA>
+		<div :class="$style.noteFooterInfo">
+			<div v-if="appearNote.updatedAt">
+				{{ i18n.ts.edited }}: <MkTime :time="appearNote.updatedAt" mode="detail"/>
 			</div>
-			<MkReactionsViewer ref="reactionsViewer" :note="appearNote"/>
+			<MkA :to="notePage(appearNote)">
+				<MkTime :time="appearNote.createdAt" mode="detail" colored/>
+			</MkA>
+		</div>
+		<MkReactionsViewer ref="reactionsViewer" :note="appearNote"/>
+		<footer :class="$style.footer">
 			<button class="_button" :class="$style.noteFooterButton" @click="reply()">
 				<i class="ph-arrow-u-up-left ph-bold ph-lg"></i>
 				<p v-if="appearNote.repliesCount > 0" :class="$style.noteFooterButtonCount">{{ appearNote.repliesCount }}</p>
@@ -178,7 +178,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 			<div v-if="!repliesLoaded" style="padding: 16px">
 				<MkButton style="margin: 0 auto;" primary rounded @click="loadReplies">{{ i18n.ts.loadReplies }}</MkButton>
 			</div>
-			<SkNoteSub v-for="note in replies" :key="note.id" :note="note" :class="$style.reply" :detail="true" :expandAllCws="props.expandAllCws" :onDeleteCallback="removeReply"/>
+			<SkNoteSub v-for="note in replies" :key="note.id" :note="note" :class="$style.reply" :detail="true" :expandAllCws="props.expandAllCws" :onDeleteCallback="removeReply" :isReply="true"/>
 		</div>
 		<div v-else-if="tab === 'renotes'" :class="$style.tab_renotes">
 			<MkPagination :pagination="renotesPagination" :disableAutoLoad="true">
@@ -195,7 +195,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 			<div v-if="!quotesLoaded" style="padding: 16px">
 				<MkButton style="margin: 0 auto;" primary rounded @click="loadQuotes">{{ i18n.ts.loadReplies }}</MkButton>
 			</div>
-			<SkNoteSub v-for="note in quotes" :key="note.id" :note="note" :class="$style.reply" :detail="true" :expandAllCws="props.expandAllCws"/>
+			<SkNoteSub v-for="note in quotes" :key="note.id" :note="note" :class="$style.reply" :detail="true" :expandAllCws="props.expandAllCws" :reply="true"/>
 		</div>
 		<div v-else-if="tab === 'reactions'" :class="$style.tab_reactions">
 			<div :class="$style.reactionTabs">
@@ -836,12 +836,13 @@ onUnmounted(() => {
 }
 
 .footer {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
 		position: relative;
 		z-index: 1;
 		margin-top: 0.4em;
-		width: max-content;
-		min-width: min-content;
-		max-width: fit-content;
+		max-width: 400px;
 }
 
 .replyTo {
@@ -849,7 +850,7 @@ onUnmounted(() => {
 }
 
 .replyToMore {
-	
+
 }
 
 .renote {
@@ -1081,10 +1082,17 @@ onUnmounted(() => {
 }
 
 .tab {
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	flex: 1;
 	padding: 12px 8px;
 	border-top: solid 2px transparent;
 	border-bottom: solid 2px transparent;
+
+	> i {
+		margin-right: 8px;
+	}
 }
 
 .tabActive {

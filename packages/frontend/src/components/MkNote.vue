@@ -49,7 +49,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 	<article v-else :class="$style.article" @contextmenu.stop="onContextmenu">
 		<div v-if="appearNote.channel" :class="$style.colorBar" :style="{ background: appearNote.channel.color }"></div>
 		<MkAvatar :class="$style.avatar" :user="appearNote.user" :link="!mock" :preview="!mock"/>
-		<div :class="[$style.main, { [$style.clickToOpen]: defaultStore.state.clickToOpen }]" @click="defaultStore.state.clickToOpen ? noteclick(appearNote.id) : undefined">
+		<div :class="[$style.main, { [$style.clickToOpen]: defaultStore.state.clickToOpen }]" @click.stop="defaultStore.state.clickToOpen ? noteclick(appearNote.id) : undefined">
 			<MkNoteHeader :note="appearNote" :mini="true" @click.stop/>
 			<MkInstanceTicker v-if="showTicker" :instance="appearNote.user.instance"/>
 			<div style="container-type: inline-size;">
@@ -854,12 +854,13 @@ function emitUpdReaction(emoji: string, delta: number) {
 	}
 
 	.footer {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
 		position: relative;
 		z-index: 1;
 		margin-top: 0.4em;
-		width: max-content;
-		min-width: min-content;
-		max-width: fit-content;
+		max-width: 400px;
 	}
 
 	&:hover > .article > .main > .footer > .footerButton {
@@ -1278,5 +1279,6 @@ function emitUpdReaction(emoji: string, delta: number) {
 
 .clickToOpen {
 	cursor: pointer;
+	-webkit-tap-highlight-color: transparent;
 }
 </style>

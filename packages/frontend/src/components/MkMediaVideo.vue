@@ -51,8 +51,11 @@ SPDX-License-Identifier: AGPL-3.0-only
 				</button>
 			</div>
 			<div :class="[$style.controlsChild, $style.controlsRight]">
+				<a class="_button" :class="$style.controlButton" :href="video.url" :download="video.name" target="_blank">
+					<i class="ph-download ph-bold ph-lg"></i>
+				</a>
 				<button class="_button" :class="$style.controlButton" @click="showMenu">
-					<i class="ph-settings ph-bold ph-lg"></i>
+					<i class="ph-gear ph-bold ph-lg"></i>
 				</button>
 				<button class="_button" :class="$style.controlButton" @click="toggleFullscreen">
 					<i v-if="isFullscreen" class="ph-arrows-in ph-bold ph-lg"></i>
@@ -427,7 +430,6 @@ onDeactivated(() => {
 	display: block;
 	height: 100%;
 	width: 100%;
-	pointer-events: none;
 }
 
 .videoOverlayPlayButton {

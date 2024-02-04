@@ -51,6 +51,7 @@ const avatarUrl = computed(() => defaultStore.state.disableShowingAnimatedImages
 	padding: 4px 8px 4px 4px;
 	border-radius: var(--radius-ellipse);
 	color: var(--mention);
+	white-space: nowrap;
 
 	&.isMe {
 		color: var(--mentionMe);

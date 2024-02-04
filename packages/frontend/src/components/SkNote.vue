@@ -54,7 +54,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 				<SkNoteHeader :note="appearNote" :mini="true"/>
 			</div>
 		</div>
-		<div :class="[{ [$style.clickToOpen]: defaultStore.state.clickToOpen }]" @click="defaultStore.state.clickToOpen ? noteclick(appearNote.id) : undefined">
+		<div :class="[{ [$style.clickToOpen]: defaultStore.state.clickToOpen }]" @click.stop="defaultStore.state.clickToOpen ? noteclick(appearNote.id) : undefined">
 			<div style="container-type: inline-size;">
 				<p v-if="appearNote.cw != null" :class="$style.cw">
 					<Mfm v-if="appearNote.cw != ''" style="margin-right: 8px;" :text="appearNote.cw" :author="appearNote.user" :nyaize="'respect'"/>
@@ -855,12 +855,13 @@ function emitUpdReaction(emoji: string, delta: number) {
 	}
 
 	.footer {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
 		position: relative;
 		z-index: 1;
 		margin-top: 0.4em;
-		width: max-content;
-		min-width: min-content;
-		max-width: fit-content;
+		max-width: 400px;
 	}
 
 	&:hover > .article > .main > .footer > .footerButton {
@@ -1312,5 +1313,6 @@ function emitUpdReaction(emoji: string, delta: number) {
 
 .clickToOpen {
 	cursor: pointer;
+	-webkit-tap-highlight-color: transparent;
 }
 </style>

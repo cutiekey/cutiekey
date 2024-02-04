@@ -5,7 +5,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 
 <template>
 <div :class="[$style.root, { [$style.collapsed]: collapsed }]">
-	<div :class="{ [$style.clickToOpen]: defaultStore.state.clickToOpen }" @click="defaultStore.state.clickToOpen ? noteclick(note.id) : undefined">
+	<div :class="{ [$style.clickToOpen]: defaultStore.state.clickToOpen }" @click.stop="defaultStore.state.clickToOpen ? noteclick(note.id) : undefined">
 		<span v-if="note.isHidden" style="opacity: 0.5">({{ i18n.ts.private }})</span>
 		<span v-if="note.deletedAt" style="opacity: 0.5">({{ i18n.ts.deletedNote }})</span>
 		<MkA v-if="note.replyId" :class="$style.reply" :to="`/notes/${note.replyId}`" @click.stop><i class="ph-arrow-bend-left-up ph-bold ph-lg"></i></MkA>
@@ -29,17 +29,17 @@ SPDX-License-Identifier: AGPL-3.0-only
 		<summary>{{ i18n.ts.poll }}</summary>
 		<MkPoll :noteId="note.id" :poll="note.poll"/>
 	</details>
-	<button v-if="isLong && collapsed" :class="$style.fade" class="_button" @click="collapsed = false">
+	<button v-if="isLong && collapsed" :class="$style.fade" class="_button" @click.stop="collapsed = false">
 		<span :class="$style.fadeLabel">{{ i18n.ts.showMore }}</span>
 	</button>
-	<button v-else-if="isLong && !collapsed" :class="$style.showLess" class="_button" @click="collapsed = true">
+	<button v-else-if="isLong && !collapsed" :class="$style.showLess" class="_button" @click.stop="collapsed = true">
 		<span :class="$style.showLessLabel">{{ i18n.ts.showLess }}</span>
 	</button>
 </div>
 </template>
 
 <script lang="ts" setup>
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 import * as Misskey from 'misskey-js';
 import * as mfm from '@transfem-org/sfm-js';
 import MkMediaList from '@/components/MkMediaList.vue';
@@ -57,6 +57,7 @@ const props = defineProps<{
 	translating?: boolean;
 	translation?: any;
 	hideFiles?: boolean;
+	expandAllCws?: boolean;
 }>();
 
 const router = useRouter();
@@ -87,6 +88,10 @@ function animatedMFM() {
 }
 
 const collapsed = ref(isLong);
+
+watch(() => props.expandAllCws, (expandAllCws) => {
+	if (expandAllCws) collapsed.value = false;
+});
 </script>
 
 <style lang="scss" module>
@@ -165,5 +170,6 @@ const collapsed = ref(isLong);
 
 .clickToOpen {
 	cursor: pointer;
+	-webkit-tap-highlight-color: transparent;
 }
 </style>
