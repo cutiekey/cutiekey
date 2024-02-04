@@ -4,7 +4,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 -->
 
 <template>
-<div v-show="!isDeleted" v-if="!muted" ref="el" :class="[$style.root, { [$style.children]: depth > 1, [$style.replyRoot]: props.reply, [$style.detailed]: props.detailed }]">
+<div v-show="!isDeleted" v-if="!muted" ref="el" :class="[$style.root, { [$style.children]: depth > 1, [$style.isReply]: props.isReply, [$style.detailed]: props.detailed }]">
 	<div v-if="!hideLine" :class="$style.line"></div>
 	<div :class="$style.main">
 		<div v-if="note.channel" :class="$style.colorBar" :style="{ background: note.channel.color }"></div>
@@ -73,7 +73,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 		</div>
 	</div>
 	<template v-if="depth < numberOfReplies">
-		<SkNoteSub v-for="reply in replies" :key="reply.id" :note="reply" :class="[$style.reply, { [$style.single]: replies.length === 1 }]" :detail="true" :depth="depth + 1" :expandAllCws="props.expandAllCws" :onDeleteCallback="removeReply" :reply="props.reply"/>
+		<SkNoteSub v-for="reply in replies" :key="reply.id" :note="reply" :class="[$style.reply, { [$style.single]: replies.length === 1 }]" :detail="true" :depth="depth + 1" :expandAllCws="props.expandAllCws" :onDeleteCallback="removeReply" :isReply="props.isReply"/>
 	</template>
 	<div v-else :class="$style.more">
 		<MkA class="_link" :to="notePage(note)">{{ i18n.ts.continueThread }} <i class="ph-caret-double-right ph-bold ph-lg"></i></MkA>
@@ -126,11 +126,11 @@ const props = withDefaults(defineProps<{
 	// how many notes are in between this one and the note being viewed in detail
 	depth?: number;
 
-	reply?: boolean;
+	isReply?: boolean;
 	detailed?: boolean;
 }>(), {
 	depth: 1,
-	reply: false,
+	isReply: false,
 	detailed: false,
 });
 
@@ -447,7 +447,7 @@ if (props.detail) {
 		padding: 10px 0 0 8px;
 	}
 
-	&.replyRoot {
+	&.isReply {
 		/* @link https://utopia.fyi/clamp/calculator?a=450,580,26—36 */
 		--avatar: clamp(26px, -8.6154px + 7.6923cqi, 36px);
 	}
