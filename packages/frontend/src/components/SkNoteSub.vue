@@ -476,7 +476,7 @@ if (props.detail) {
 	position: relative;
 	display:  flex;
 
-	:is(.detailed, .replyRoot) &::after {
+	:is(.detailed, .isReply) &::after {
 		content: "";
 		position: absolute;
 		top: -12px;
@@ -490,8 +490,8 @@ if (props.detail) {
 		z-index: -1;
 	}
 
-	:is(.detailed, .replyRoot) &:hover::after,
-	:is(.detailed, .replyRoot) &:focus-within::after {
+	:is(.detailed, .isReply) &:hover::after,
+	:is(.detailed, .isReply) &:focus-within::after {
 		opacity: 1;
 	}
 }
