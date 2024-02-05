@@ -406,20 +406,20 @@ $widgets-hide-threshold: 1090px;
 .navButton {
 	position: relative;
 	padding: 0;
-	aspect-ratio: 1;
+	height: 32px;
 	width: 100%;
 	max-width: 60px;
 	margin: auto;
-	border-radius: var(--radius-full);
-	background: var(--panel);
+	border-radius: var(--radius-lg);
+	background: transparent;
 	color: var(--fg);
 
 	&:hover {
-		background: var(--panelHighlight);
+		color: var(--accent);
 	}
 
 	&:active {
-		background: var(--X2);
+		color: var(--accent);
 	}
 }
 
@@ -430,15 +430,17 @@ $widgets-hide-threshold: 1090px;
 
 	&:hover {
 		background: linear-gradient(90deg, var(--X8), var(--X8));
+		color: var(--fgOnAccent);
 	}
 
 	&:active {
 		background: linear-gradient(90deg, var(--X8), var(--X8));
+		color: var(--fgOnAccent);
 	}
 }
 
 .navButtonIcon {
-	font-size: 18px;
+	font-size: 16px;
 	vertical-align: middle;
 }
 
