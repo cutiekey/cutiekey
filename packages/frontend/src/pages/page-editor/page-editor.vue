@@ -292,7 +292,7 @@ definePageMetadata(computed(() => {
 	}
 	return {
 		title: title,
-		icon: 'ph-pencil ph-bold ph-lg',
+		icon: 'ph-pencil-simple ph-bold ph-lg',
 	};
 }));
 </script>

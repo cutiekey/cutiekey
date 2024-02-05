@@ -11,7 +11,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 
 	<template v-if="column.channelId">
 		<div style="padding: 8px; text-align: center;">
-			<MkButton primary gradate rounded inline @click="post"><i class="ph-pencil ph-bold ph-lg"></i></MkButton>
+			<MkButton primary gradate rounded inline @click="post"><i class="ph-pencil-simple ph-bold ph-lg"></i></MkButton>
 		</div>
 		<MkTimeline ref="timeline" src="channel" :channel="column.channelId"/>
 	</template>
@@ -72,7 +72,7 @@ async function post() {
 }
 
 const menu = [{
-	icon: 'ph-pencil ph-bold ph-lg',
+	icon: 'ph-pencil-simple ph-bold ph-lg',
 	text: i18n.ts.selectChannel,
 	action: setChannel,
 }];

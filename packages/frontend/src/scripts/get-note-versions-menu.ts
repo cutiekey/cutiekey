@@ -40,9 +40,9 @@ export async function getNoteVersionsMenu(props: {
 			const _time = edit.oldDate == null ? NaN :
 				typeof edit.oldDate === 'number' ? edit.oldDate :
 				(edit.oldDate instanceof Date ? edit.oldDate : new Date(edit.oldDate)).getTime();
-			
+
 			menu.push({
-				icon: 'ph-pencil ph-bold ph-lg',
+				icon: 'ph-pencil-simple ph-bold ph-lg',
 				text: _time ? dateTimeFormat.format(_time) : dateTimeFormat.format(new Date(edit.updatedAt)),
 				action: () => openVersion(edit),
 			});

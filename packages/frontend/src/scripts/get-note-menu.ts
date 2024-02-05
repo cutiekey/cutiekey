@@ -298,7 +298,7 @@ export function getNoteMenu(props: {
 				text: i18n.ts.copyContent,
 				action: copyContent,
 			}, getCopyNoteLinkMenu(appearNote, i18n.ts.copyLink)
-			, (appearNote.url || appearNote.uri) ? 
+			, (appearNote.url || appearNote.uri) ?
 				getCopyNoteOriginLinkMenu(appearNote, 'Copy link (Origin)')
 			: undefined,
 			(appearNote.url || appearNote.uri) ? {
@@ -418,16 +418,16 @@ export function getNoteMenu(props: {
 			...(appearNote.userId === $i.id || $i.isModerator || $i.isAdmin ? [
 				{ type: 'divider' },
 				appearNote.userId === $i.id ? {
-					icon: 'ph-pencil ph-bold ph-lg',
+					icon: 'ph-pencil-simple ph-bold ph-lg',
 					text: i18n.ts.edit,
 					action: edit,
 				} : undefined,
 				{
-					icon: 'ph-pencil-line ph-bold ph-lg',
+					icon: 'ph-pencil-simple-line ph-bold ph-lg',
 					text: i18n.ts.deleteAndEdit,
 					danger: true,
 					action: delEdit,
-				}, 
+				},
 				{
 					icon: 'ph-trash ph-bold ph-lg',
 					text: i18n.ts.delete,
@@ -447,7 +447,7 @@ export function getNoteMenu(props: {
 			text: i18n.ts.copyContent,
 			action: copyContent,
 		}, getCopyNoteLinkMenu(appearNote, i18n.ts.copyLink)
-		, (appearNote.url || appearNote.uri) ? 
+		, (appearNote.url || appearNote.uri) ?
 			getCopyNoteOriginLinkMenu(appearNote, 'Copy link (Origin)')
 		: undefined,
 		(appearNote.url || appearNote.uri) ? {
