@@ -149,7 +149,7 @@ const headerTabs = computed(() => [{
 }, {
 	key: 'owned',
 	title: i18n.ts._channel.owned,
-	icon: 'ph-pencil-line ph-bold ph-lg',
+	icon: 'ph-pencil-simple-line ph-bold ph-lg',
 }]);
 
 definePageMetadata(computed(() => ({

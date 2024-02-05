@@ -310,7 +310,7 @@ function lookup(ev: MouseEvent) {
 		},
 	}, {
 		text: i18n.ts.note,
-		icon: 'ph-pencil ph-bold ph-lg',
+		icon: 'ph-pencil-simple ph-bold ph-lg',
 		action: () => {
 			alert('TODO');
 		},

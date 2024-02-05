@@ -38,7 +38,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 			</button>
 			<div class="post" @click="os.post()">
 				<MkButton class="button" gradate full rounded>
-					<i class="ph-pencil ph-bold ph-lg ti-fw"></i>
+					<i class="ph-pencil-simple ph-bold ph-lg ti-fw"></i>
 				</MkButton>
 			</div>
 		</div>

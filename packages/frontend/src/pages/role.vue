@@ -89,7 +89,7 @@ const headerTabs = computed(() => [{
 	title: i18n.ts.users,
 }, {
 	key: 'timeline',
-	icon: 'ph-pencil ph-bold ph-lg',
+	icon: 'ph-pencil-simple ph-bold ph-lg',
 	title: i18n.ts.timeline,
 }]);
 
