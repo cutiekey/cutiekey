@@ -278,7 +278,7 @@ export class MastoConverters {
 			reactions: status.emoji_reactions,
 			emoji_reactions: status.emoji_reactions,
 			bookmarked: false,
-			quote: isQuote ? await this.convertReblog(status.reblog) : null,
+			quote: isQuote ? await this.convertReblog(status.reblog) : false,
 			edited_at: note.updatedAt?.toISOString(),
 		});
 	}
