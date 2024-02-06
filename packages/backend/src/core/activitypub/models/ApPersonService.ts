@@ -225,23 +225,42 @@ export class ApPersonService implements OnModuleInit {
 		return null;
 	}
 
-	private async resolveAvatarAndBanner(user: MiRemoteUser, icon: any, image: any, bgimg: any): Promise<Pick<MiRemoteUser, 'avatarId' | 'bannerId' | 'backgroundId' | 'avatarUrl' | 'bannerUrl' | 'backgroundUrl' | 'avatarBlurhash' | 'bannerBlurhash' | 'backgroundBlurhash'>> {
+	private async resolveAvatarAndBanner(user: MiRemoteUser, icon: any, image: any, bgimg: any): Promise<Partial<Pick<MiRemoteUser, 'avatarId' | 'bannerId' | 'backgroundId' | 'avatarUrl' | 'bannerUrl' | 'backgroundUrl' | 'avatarBlurhash' | 'bannerBlurhash' | 'backgroundBlurhash'>>> {
+		if (user == null) throw new Error('failed to create user: user is null');
+
 		const [avatar, banner, background] = await Promise.all([icon, image, bgimg].map(img => {
-			if (img == null) return null;
-			if (user == null) throw new Error('failed to create user: user is null');
+			// if we have an explicitly missing image, return an
+			// explicitly-null set of values
+			if ((img == null) || (typeof img === 'object' && img.url == null)) {
+				return { id: null, url: null, blurhash: null };
+			}
+
 			return this.apImageService.resolveImage(user, img).catch(() => null);
 		}));
 
+		/*
+			we don't want to return nulls on errors! if the database fields
+			are already null, nothing changes; if the database has old
+			values, we should keep those. The exception is if the remote has
+			actually removed the images: in that case, the block above
+			returns the special {id:null}&c value, and we return those
+		*/
 		return {
-			avatarId: avatar?.id ?? null,
-			bannerId: banner?.id ?? null,
-			backgroundId: background?.id ?? null,
-			avatarUrl: avatar ? this.driveFileEntityService.getPublicUrl(avatar, 'avatar') : null,
-			bannerUrl: banner ? this.driveFileEntityService.getPublicUrl(banner) : null,
-			backgroundUrl: background ? this.driveFileEntityService.getPublicUrl(background) : null,
-			avatarBlurhash: avatar?.blurhash ?? null,
-			bannerBlurhash: banner?.blurhash ?? null,
-			backgroundBlurhash: background?.blurhash ?? null
+			...( avatar ? {
+				avatarId: avatar.id,
+				avatarUrl: avatar.url ? this.driveFileEntityService.getPublicUrl(avatar, 'avatar') : null,
+				avatarBlurhash: avatar.blurhash,
+			} : {}),
+			...( banner ? {
+				bannerId: banner.id,
+				bannerUrl: banner.url ? this.driveFileEntityService.getPublicUrl(banner) : null,
+				bannerBlurhash: banner.blurhash,
+			} : {}),
+			...( background ? {
+				backgroundId: background.id,
+				backgroundUrl: background.url ? this.driveFileEntityService.getPublicUrl(background) : null,
+				backgroundBlurhash: background.blurhash,
+			} : {}),
 		};
 	}
 
