@@ -93,6 +93,7 @@ watch(() => props.lang, (to) => {
 	overflow: auto;
 	border-radius: var(--radius-sm);
 	border: 1px solid var(--divider);
+	font-family: Consolas, Monaco, Andale Mono, Ubuntu Mono, monospace;
 
 	color: var(--shiki-fallback);
 	background-color: var(--shiki-fallback-bg);
