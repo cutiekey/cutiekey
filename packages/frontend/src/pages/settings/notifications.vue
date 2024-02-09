@@ -21,7 +21,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 					}}
 				</template>
 
-				<XNotificationConfig :userLists="userLists" :value="$i.notificationRecieveConfig[type] ?? { type: 'all' }" @update="(res) => updateReceiveConfig(type, res)"/>
+				<XNotificationConfig :userLists="userLists" :value="$i.notificationRecieveConfig[type] ?? { type: 'all' }" :hasSender="!(notificationTypesWithoutSender.includes(type))" @update="(res) => updateReceiveConfig(type, res)"/>
 			</MkFolder>
 		</div>
 	</FormSection>
@@ -71,7 +71,8 @@ import { notificationTypes } from '@/const.js';
 
 const $i = signinRequired();
 
-const nonConfigurableNotificationTypes = ['note', 'roleAssigned', 'followRequestAccepted', 'achievementEarned'];
+const nonConfigurableNotificationTypes = ['note', 'roleAssigned', 'followRequestAccepted'];
+const notificationTypesWithoutSender = ['achievementEarned'];
 
 const allowButton = shallowRef<InstanceType<typeof MkPushNotificationAllowButton>>();
 const pushRegistrationInServer = computed(() => allowButton.value?.pushRegistrationInServer);
