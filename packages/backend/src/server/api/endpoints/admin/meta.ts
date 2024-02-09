@@ -160,6 +160,13 @@ export const meta = {
 					type: 'string',
 				},
 			},
+			prohibitedWords: {
+				type: 'array',
+				optional: false, nullable: false,
+				items: {
+					type: 'string',
+				},
+			},
 			bannedEmailDomains: {
 				type: 'array',
 				optional: true, nullable: false,
@@ -549,6 +556,7 @@ export default class extends Endpoint<typeof meta, typeof paramDef> { // eslint-
 				blockedHosts: instance.blockedHosts,
 				silencedHosts: instance.silencedHosts,
 				sensitiveWords: instance.sensitiveWords,
+				prohibitedWords: instance.prohibitedWords,
 				preservedUsernames: instance.preservedUsernames,
 				bubbleInstances: instance.bubbleInstances,
 				hcaptchaSecretKey: instance.hcaptchaSecretKey,

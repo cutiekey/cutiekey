@@ -114,7 +114,7 @@ export class NoteEntityService implements OnModuleInit {
 				hide = false;
 			} else {
 				if (packedNote.renote) {
-					const isFollowing = await this.followingsRepository.exist({
+					const isFollowing = await this.followingsRepository.exists({
 						where: {
 							followeeId: packedNote.renote.userId,
 							followerId: meId,
@@ -124,7 +124,7 @@ export class NoteEntityService implements OnModuleInit {
 					hide = !isFollowing;
 				} else {
 					// フォロワーかどうか
-					const isFollowing = await this.followingsRepository.exist({
+					const isFollowing = await this.followingsRepository.exists({
 						where: {
 							followeeId: packedNote.userId,
 							followerId: meId,

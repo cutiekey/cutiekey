@@ -612,7 +612,7 @@ export class NoteEditService implements OnApplicationShutdown {
 			if (data.reply) {
 				// 通知
 				if (data.reply.userHost === null) {
-					const isThreadMuted = await this.noteThreadMutingsRepository.exist({
+					const isThreadMuted = await this.noteThreadMutingsRepository.exists({
 						where: {
 							userId: data.reply.userId,
 							threadId: data.reply.threadId ?? data.reply.id,
@@ -647,7 +647,7 @@ export class NoteEditService implements OnApplicationShutdown {
 
 				// Notify
 				if (data.renote.userHost === null) {
-					const isThreadMuted = await this.noteThreadMutingsRepository.exist({
+					const isThreadMuted = await this.noteThreadMutingsRepository.exists({
 						where: {
 							userId: data.renote.userId,
 							threadId: data.renote.threadId ?? data.renote.id,
@@ -751,7 +751,7 @@ export class NoteEditService implements OnApplicationShutdown {
 	@bindThis
 	private async createMentionedEvents(mentionedUsers: MinimumUser[], note: MiNote, nm: NotificationManager) {
 		for (const u of mentionedUsers.filter(u => this.userEntityService.isLocalUser(u))) {
-			const isThreadMuted = await this.noteThreadMutingsRepository.exist({
+			const isThreadMuted = await this.noteThreadMutingsRepository.exists({
 				where: {
 					userId: u.id,
 					threadId: note.threadId ?? note.id,
