@@ -31,15 +31,15 @@ SPDX-License-Identifier: AGPL-3.0-only
 			</template>
 			<template v-else-if="provider === 'mcaptcha'">
 				<MkInput v-model="mcaptchaSiteKey">
-					<template #prefix><i class="ti ti-key"></i></template>
+					<template #prefix><i class="ph-key ph-bold ph-lg"></i></template>
 					<template #label>{{ i18n.ts.mcaptchaSiteKey }}</template>
 				</MkInput>
 				<MkInput v-model="mcaptchaSecretKey">
-					<template #prefix><i class="ti ti-key"></i></template>
+					<template #prefix><i class="ph-key ph-bold ph-lg"></i></template>
 					<template #label>{{ i18n.ts.mcaptchaSecretKey }}</template>
 				</MkInput>
 				<MkInput v-model="mcaptchaInstanceUrl">
-					<template #prefix><i class="ti ti-link"></i></template>
+					<template #prefix><i class="ph-globe-simple ph-bold ph-lg"></i></template>
 					<template #label>{{ i18n.ts.mcaptchaInstanceUrl }}</template>
 				</MkInput>
 				<FormSlot v-if="mcaptchaSiteKey && mcaptchaInstanceUrl">

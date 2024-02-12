@@ -1,12 +1,12 @@
 {
 	"name": "sharkey",
-	"version": "2024.2.0-beta.9",
+	"version": "2024.2.0-beta.11",
 	"codename": "shonk",
 	"repository": {
 		"type": "git",
 		"url": "https://git.joinsharkey.org/Sharkey/Sharkey.git"
 	},
-	"packageManager": "pnpm@8.12.1",
+	"packageManager": "pnpm@8.15.1",
 	"workspaces": [
 		"packages/frontend",
 		"packages/backend",

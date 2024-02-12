@@ -172,7 +172,7 @@ const chooseEmoji = (ev: MouseEvent) => pickEmoji(pinnedEmojis, ev);
 const setDefaultEmoji = () => setDefault(pinnedEmojis);
 
 function previewReaction(ev: MouseEvent) {
-	reactionPicker.show(getHTMLElement(ev));
+	reactionPicker.show(getHTMLElement(ev), null);
 }
 
 function previewEmoji(ev: MouseEvent) {
