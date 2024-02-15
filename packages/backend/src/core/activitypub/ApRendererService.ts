@@ -700,17 +700,15 @@ export class ApRendererService {
 			poll = await this.pollsRepository.findOneBy({ noteId: note.id });
 		}
 
-		let apText = text;
+		let apAppend = '';
 
 		if (quote) {
-			apText += `\n\nRE: ${quote}`;
+			apAppend += `\n\nRE: ${quote}`;
 		}
 
 		const summary = note.cw === '' ? String.fromCharCode(0x200B) : note.cw;
 
-		const content = this.apMfmService.getNoteHtml(Object.assign({}, note, {
-			text: apText,
-		}));
+		const { content, noMisskeyContent } = this.apMfmService.getNoteHtml(note, apAppend);
 
 		const emojis = await this.getEmojis(note.emojis);
 		const apemojis = emojis.filter(emoji => !emoji.localOnly).map(emoji => this.renderEmoji(emoji));
@@ -723,9 +721,6 @@ export class ApRendererService {
 
 		const asPoll = poll ? {
 			type: 'Question',
-			content: this.apMfmService.getNoteHtml(Object.assign({}, note, {
-				text: text,
-			})),
 			[poll.expiresAt && poll.expiresAt < new Date() ? 'closed' : 'endTime']: poll.expiresAt,
 			[poll.multiple ? 'anyOf' : 'oneOf']: poll.choices.map((text, i) => ({
 				type: 'Note',
@@ -744,11 +739,13 @@ export class ApRendererService {
 			summary: summary ?? undefined,
 			content: content ?? undefined,
 			updated: note.updatedAt?.toISOString(),
-			_misskey_content: text,
-			source: {
-				content: text,
-				mediaType: 'text/x.misskeymarkdown',
-			},
+			...(noMisskeyContent ? {} : {
+				_misskey_content: text,
+				source: {
+					content: text,
+					mediaType: 'text/x.misskeymarkdown',
+				},
+			}),
 			_misskey_quote: quote,
 			quoteUrl: quote,
 			quoteUri: quote,
