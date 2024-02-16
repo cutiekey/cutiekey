@@ -1,0 +1,46 @@
+{
+  "name": "cutiekey-bubble-game",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "files": [
+    "./built"
+  ],
+  "exports": {
+    ".": {
+      "import": "./built/esm/index.js",
+      "types": "./built/dts/index.d.ts"
+    },
+    "./*": {
+      "import": "./built/esm/*",
+      "types": "./built/dts/*"
+    }
+  },
+  "scripts": {
+    "build": "yarn build:esm && yarn build:dts",
+    "build:dts": "tsc --declaration true --declarationMap true --emitDeclarationOnly true --outDir \"./built/dts\" -p \"./tsconfig.json\" && tsc-alias --outDir \"./built/dts\" -p \"./tsconfig.json\"",
+    "build:esm": "tsc --outDir \"./built/esm\" -p \"./tsconfig.json\" && tsc-alias --outDir \"./built/esm\" -p \"./tsconfig.json\"",
+    "lint": "yarn lint:types && yarn lint:eslint",
+    "lint:eslint": "eslint --ext \".js,.jsx,.ts,.tsx\" \"./src/**/*\"",
+    "lint:types": "tsc --noEmit",
+    "watch": "nodemon -e \"cjs,js,json,mjs,ts\" --exec \"yarn build\" -w \"./src\""
+  },
+  "dependencies": {
+    "eventemitter3": "^5.0.1",
+    "matter-js": "^0.19.0",
+    "seedrandom": "^3.0.5"
+  },
+  "devDependencies": {
+    "@types/matter-js": "^0.19.6",
+    "@types/node": "^20.11.19",
+    "@types/seedrandom": "^3.0.8",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
+    "esbuild": "^0.20.0",
+    "eslint": "^8.56.0",
+    "glob": "^10.3.10",
+    "nodemon": "^3.0.3",
+    "tsc-alias": "^1.8.8",
+    "typescript": "^5.3.3"
+  }
+}

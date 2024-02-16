@@ -25,6 +25,7 @@
 /data
 /files
 /meili
+/packages/api-generator/api.json
 /packages/frontend/src/**/*.stories.ts
 /redis
 /various

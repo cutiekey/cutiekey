@@ -1,0 +1,55 @@
+{
+  "name": "cutiekey",
+  "private": true,
+  "version": "0.1.0",
+  "packageManager": "yarn@3.8.0",
+  "repository": {
+    "type": "git",
+    "url": "https://activitypub.software/cutiekey/cutiekey.git"
+  },
+  "scripts": {
+    "build": "yarn build:pre && yarn workspaces foreach -Apt run build && yarn build:assets",
+    "build:assets": "node --no-warnings ./scripts/build-assets.mjs",
+    "build:pre": "node ./scripts/build-pre.js",
+    "check:connect": "yarn workspace backend run check:connect",
+    "clean": "node ./scripts/clean.js",
+    "clean:all": "node ./scripts/clean-all.js",
+    "cy:open": "cypress open --browser --config-file=./cypress.config.ts --e2e",
+    "cy:run": "cypress run",
+    "dev": "node ./scripts/dev.mjs",
+    "e2e": "start-server-and-test start:test http://localhost:61812 cy:run",
+    "jest": "yarn workspace backend run jest",
+    "jest:coverage": "yarn workspace backend run jest:coverage",
+    "lint": "yarn workspaces foreach -p run lint",
+    "migrate": "yarn workspace backend run migrate",
+    "migrate:start": "yarn migrate && yarn start",
+    "revert": "yarn workspace backend run revert",
+    "start": "yarn check:connect && yarn workspace backend run start",
+    "start:test": "yarn workspace backend run start:test",
+    "test": "yarn workspaces -p run test",
+    "test:coverage": "yarn workspaces -p run test:coverage"
+  },
+  "resolutions": {
+    "chokidar": "3.5.3",
+    "lodash": "4.17.21"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^20.11.10",
+    "cross-env": "^7.0.3",
+    "cssnano": "^6.0.3",
+    "cypress": "^13.6.3",
+    "execa": "^8.0.1",
+    "js-yaml": "^4.1.0",
+    "ncp": "^2.0.0",
+    "postcss": "^8.4.33",
+    "terser": "^5.27.0",
+    "typescript": "^5.3.3"
+  },
+  "workspaces": [
+    "./packages/api-generator",
+    "./packages/cutiekey.js",
+    "./packages/cutiekey-bubble-game",
+    "./packages/sw"
+  ]
+}
