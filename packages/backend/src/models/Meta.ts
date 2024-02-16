@@ -377,14 +377,14 @@ export class MiMeta {
 
 	@Column('varchar', {
 		length: 1024,
-		default: 'https://github.com/misskey-dev/misskey',
+		default: 'https://activitypub.software/TransFem-org/Sharkey/',
 		nullable: false,
 	})
 	public repositoryUrl: string;
 
 	@Column('varchar', {
 		length: 1024,
-		default: 'https://github.com/misskey-dev/misskey/issues/new',
+		default: 'https://activitypub.software/TransFem-org/Sharkey/-/issues/new',
 		nullable: true,
 	})
 	public feedbackUrl: string | null;
