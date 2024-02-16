@@ -105,6 +105,7 @@ import { reactionPicker } from '@/scripts/reaction-picker.js';
 import { claimAchievement } from '@/scripts/achievements.js';
 import { getNoteMenu } from '@/scripts/get-note-menu.js';
 import { useNoteCapture } from '@/scripts/use-note-capture.js';
+import { boostMenuItems, type Visibility } from '@/scripts/boost-quote.js';
 
 const canRenote = computed(() => ['public', 'home'].includes(props.note.visibility) || props.note.userId === $i.id);
 
@@ -276,43 +277,11 @@ function boostVisibility() {
 	if (!defaultStore.state.showVisibilitySelectorOnBoost) {
 		renote(defaultStore.state.visibilityOnBoost);
 	} else {
-		os.popupMenu([
-			{
-				type: 'button',
-				icon: 'ph-globe-hemisphere-west ph-bold ph-lg',
-				text: i18n.ts._visibility['public'],
-				action: () => {
-					renote('public');
-				},
-			},
-			{
-				type: 'button',
-				icon: 'ph-house ph-bold ph-lg',
-				text: i18n.ts._visibility['home'],
-				action: () => {
-					renote('home');
-				},
-			},
-			{
-				type: 'button',
-				icon: 'ph-lock ph-bold ph-lg',
-				text: i18n.ts._visibility['followers'],
-				action: () => {
-					renote('followers');
-				},
-			},
-			{
-				type: 'button',
-				icon: 'ph-planet ph-bold ph-lg',
-				text: i18n.ts._timelines.local,
-				action: () => {
-					renote('local');
-				},
-			}], renoteButton.value);
+		os.popupMenu(boostMenuItems(appearNote, renote), renoteButton.value);
 	}
 }
 
-function renote(visibility: 'public' | 'home' | 'followers' | 'specified' | 'local') {
+function renote(visibility: Visibility, localOnly: boolean = false) {
 	pleaseLogin();
 	showMovedDialog();
 
@@ -326,8 +295,8 @@ function renote(visibility: 'public' | 'home' | 'followers' | 'specified' | 'loc
 		}
 
 		misskeyApi('notes/create', {
-			renoteId: props.note.id,
-			channelId: props.note.channelId,
+			renoteId: appearNote.value.id,
+			channelId: appearNote.value.channelId,
 		}).then(() => {
 			os.toast(i18n.ts.renoted);
 			renoted.value = true;
@@ -342,9 +311,9 @@ function renote(visibility: 'public' | 'home' | 'followers' | 'specified' | 'loc
 		}
 
 		misskeyApi('notes/create', {
-			renoteId: props.note.id,
-			localOnly: visibility === 'local' ? true : false,
-			visibility: visibility === 'local' || visibility === 'specified' ? props.note.visibility : visibility,
+			renoteId: appearNote.value.id,
+			localOnly: localOnly,
+			visibility: visibility,
 		}).then(() => {
 			os.toast(i18n.ts.renoted);
 			renoted.value = true;
