@@ -108,10 +108,17 @@ export function promiseDialog<T extends Promise<any>>(
 		if (onFailure) {
 			onFailure(err);
 		} else {
-			alert({
-				type: 'error',
-				text: err,
-			});
+			if (err.message) {
+				alert({
+					type: 'error',
+					text: err.message,
+				});
+			} else {
+				alert({
+					type: 'error',
+					text: err,
+				});
+			}
 		}
 	});
 
