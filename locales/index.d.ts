@@ -4222,6 +4222,18 @@ export interface Locale extends ILocale {
      */
     "thisPostMayBeAnnoyingIgnore": string;
     /**
+     * Cancel
+     */
+    "thisPostIsMissingAltTextCancel": string;
+    /**
+     * Post anyway
+     */
+    "thisPostIsMissingAltTextIgnore": string;
+    /**
+     * One of the files attached to this post is missing alt text. Please ensure all the attachments have alt text.
+     */
+    "thisPostIsMissingAltText": string;
+    /**
      * 見たことのあるブーストを省略して表示
      */
     "collapseRenotes": string;
