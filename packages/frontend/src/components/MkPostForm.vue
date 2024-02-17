@@ -765,6 +765,7 @@ async function post(ev?: MouseEvent) {
 
 				if (canceled) return;
 				if (result === 'cancel') return;
+				break;
 			}
 		}
 	}
