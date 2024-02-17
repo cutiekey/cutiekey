@@ -765,15 +765,6 @@ async function post(ev?: MouseEvent) {
 
 				if (canceled) return;
 				if (result === 'cancel') return;
-				if (result === 'home') {
-					visibility.value = 'home';
-				}
-
-				// await os.alert({
-				// 	type: 'info',
-				// 	text: i18n.ts.thisPostIsMissingAltText,
-				// });
-				// return;
 			}
 		}
 	}
