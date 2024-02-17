@@ -4222,15 +4222,15 @@ export interface Locale extends ILocale {
      */
     "thisPostMayBeAnnoyingIgnore": string;
     /**
-     * Cancel
+     * やめる
      */
     "thisPostIsMissingAltTextCancel": string;
     /**
-     * Post anyway
+     * このまま投稿
      */
     "thisPostIsMissingAltTextIgnore": string;
     /**
-     * One of the files attached to this post is missing alt text. Please ensure all the attachments have alt text.
+     * この投稿に添付されたファイルの 1 つに代替テキストがありません。すべての添付ファイルに代替テキストが含まれていることを確認してください。
      */
     "thisPostIsMissingAltText": string;
     /**
