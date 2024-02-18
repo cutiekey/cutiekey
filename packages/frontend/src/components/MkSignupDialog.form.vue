@@ -265,6 +265,7 @@ async function onSubmit(): Promise<void> {
 			'hcaptcha-response': hCaptchaResponse.value,
 			'm-captcha-response': mCaptchaResponse.value,
 			'g-recaptcha-response': reCaptchaResponse.value,
+			'turnstile-response': turnstileResponse.value,
 		});
 		if (instance.emailRequiredForSignup) {
 			os.alert({
