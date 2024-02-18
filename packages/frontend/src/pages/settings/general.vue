@@ -212,7 +212,6 @@ SPDX-License-Identifier: AGPL-3.0-only
 						<option value="public">{{ i18n.ts._visibility['public'] }}</option>
 						<option value="home">{{ i18n.ts._visibility['home'] }}</option>
 						<option value="followers">{{ i18n.ts._visibility['followers'] }}</option>
-						<option value="local">{{ i18n.ts._timelines.local }}</option>
 					</MkSelect>
 				</div>
 			</MkFolder>
