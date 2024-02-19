@@ -1,5 +1,5 @@
 <!--
-SPDX-FileCopyrightText: syuilo and other misskey contributors
+SPDX-FileCopyrightText: syuilo and misskey-project
 SPDX-License-Identifier: AGPL-3.0-only
 -->
 
@@ -83,6 +83,16 @@ SPDX-License-Identifier: AGPL-3.0-only
 						<template #caption>{{ i18n.ts.instanceDefaultThemeDescription }}</template>
 					</MkTextarea>
 
+					<MkInput v-model="repositoryUrl" type="url">
+						<template #prefix><i class="ph-link ph-bold ph-lg"></i></template>
+						<template #label>{{ i18n.ts.repositoryUrl }}</template>
+					</MkInput>
+
+					<MkInput v-model="feedbackUrl" type="url">
+						<template #prefix><i class="ph-link ph-bold ph-lg"></i></template>
+						<template #label>{{ i18n.ts.feedbackUrl }}</template>
+					</MkInput>
+
 					<MkTextarea v-model="manifestJsonOverride">
 						<template #label>{{ i18n.ts._serverSettings.manifestJsonOverride }}</template>
 					</MkTextarea>
@@ -129,6 +139,8 @@ const defaultLike = ref<string>('');
 const serverErrorImageUrl = ref<string | null>(null);
 const infoImageUrl = ref<string | null>(null);
 const notFoundImageUrl = ref<string | null>(null);
+const repositoryUrl = ref<string | null>(null);
+const feedbackUrl = ref<string | null>(null);
 const manifestJsonOverride = ref<string>('{}');
 
 async function init() {
@@ -145,6 +157,8 @@ async function init() {
 	serverErrorImageUrl.value = meta.serverErrorImageUrl;
 	infoImageUrl.value = meta.infoImageUrl;
 	notFoundImageUrl.value = meta.notFoundImageUrl;
+	repositoryUrl.value = meta.repositoryUrl;
+	feedbackUrl.value = meta.feedbackUrl;
 	manifestJsonOverride.value = meta.manifestJsonOverride === '' ? '{}' : JSON.stringify(JSON.parse(meta.manifestJsonOverride), null, '\t');
 }
 
@@ -161,6 +175,8 @@ function save() {
 		infoImageUrl: infoImageUrl.value === '' ? null : infoImageUrl.value,
 		notFoundImageUrl: notFoundImageUrl.value === '' ? null : notFoundImageUrl.value,
 		serverErrorImageUrl: serverErrorImageUrl.value === '' ? null : serverErrorImageUrl.value,
+		repositoryUrl: repositoryUrl.value === '' ? null : repositoryUrl.value,
+		feedbackUrl: feedbackUrl.value === '' ? null : feedbackUrl.value,
 		manifestJsonOverride: manifestJsonOverride.value === '' ? '{}' : JSON.stringify(JSON5.parse(manifestJsonOverride.value)),
 	}).then(() => {
 		fetchInstance();
@@ -182,10 +198,10 @@ function chooseNewLike(ev: MouseEvent) {
 
 const headerTabs = computed(() => []);
 
-definePageMetadata({
+definePageMetadata(() => ({
 	title: i18n.ts.branding,
 	icon: 'ph-paint-roller ph-bold ph-lg',
-});
+}));
 </script>
 
 <style lang="scss" module>
