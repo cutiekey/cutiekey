@@ -1,5 +1,5 @@
 <!--
-SPDX-FileCopyrightText: syuilo and other misskey contributors
+SPDX-FileCopyrightText: syuilo and misskey-project
 SPDX-License-Identifier: AGPL-3.0-only
 -->
 
@@ -140,10 +140,10 @@ const headerTabs = computed(() => [{
 	icon: 'ph-code ph-bold ph-lg',
 }]);
 
-definePageMetadata(computed(() => ({
-	title: file.value ? i18n.ts.file + ': ' + file.value.name : i18n.ts.file,
+definePageMetadata(() => ({
+	title: file.value ? `${i18n.ts.file}: ${file.value.name}` : i18n.ts.file,
 	icon: 'ph-file ph-bold ph-lg',
-})));
+}));
 </script>
 
 <style lang="scss" scoped>

@@ -1,5 +1,5 @@
 <!--
-SPDX-FileCopyrightText: syuilo and other misskey contributors
+SPDX-FileCopyrightText: syuilo and misskey-project
 SPDX-License-Identifier: AGPL-3.0-only
 -->
 
@@ -283,17 +283,11 @@ const headerTabs = computed(() => [{
 	icon: 'ph-note ph-bold ph-lg',
 }]);
 
-definePageMetadata(computed(() => {
-	let title = i18n.ts._pages.newPage;
-	if (props.initPageId) {
-		title = i18n.ts._pages.editPage;
-	} else if (props.initPageName && props.initUser) {
-		title = i18n.ts._pages.readPage;
-	}
-	return {
-		title: title,
-		icon: 'ph-pencil-simple ph-bold ph-lg',
-	};
+definePageMetadata(() => ({
+	title: props.initPageId ? i18n.ts._pages.editPage
+				: props.initPageName && props.initUser ? i18n.ts._pages.readPage
+				: i18n.ts._pages.newPage,
+	icon: 'ph-pencil-simple ph-bold ph-lg',
 }));
 </script>
 

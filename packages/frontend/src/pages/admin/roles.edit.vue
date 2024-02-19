@@ -1,5 +1,5 @@
 <!--
-SPDX-FileCopyrightText: syuilo and other misskey contributors
+SPDX-FileCopyrightText: syuilo and misskey-project
 SPDX-License-Identifier: AGPL-3.0-only
 -->
 
@@ -87,11 +87,8 @@ async function save() {
 
 const headerTabs = computed(() => []);
 
-definePageMetadata(computed(() => role.value ? {
-	title: i18n.ts._role.edit + ': ' + role.value.name,
-	icon: 'ph-seal-check ph-bold ph-lg',
-} : {
-	title: i18n.ts._role.new,
+definePageMetadata(() => ({
+	title: role.value ? `${i18n.ts._role.edit}: ${role.value.name}` : i18n.ts._role.new,
 	icon: 'ph-seal-check ph-bold ph-lg',
 }));
 </script>
