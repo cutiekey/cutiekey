@@ -1,10 +1,10 @@
 {
 	"name": "sharkey",
-	"version": "2024.2.0-beta.11",
+	"version": "2024.2.0-beta.12",
 	"codename": "shonk",
 	"repository": {
 		"type": "git",
-		"url": "https://git.joinsharkey.org/Sharkey/Sharkey.git"
+		"url": "https://activitypub.software/TransFem-org/Sharkey.git"
 	},
 	"packageManager": "pnpm@8.15.1",
 	"workspaces": [
@@ -21,7 +21,7 @@
 		"build-assets": "node ./scripts/build-assets.mjs",
 		"build": "pnpm build-pre && pnpm -r build && pnpm build-assets",
 		"build-storybook": "pnpm --filter frontend build-storybook",
-		"build-misskey-js-with-types": "pnpm --filter backend build && pnpm --filter backend generate-api-json && ncp packages/backend/built/api.json packages/misskey-js/generator/api.json && pnpm --filter misskey-js update-autogen-code && pnpm --filter misskey-js build && pnpm --filter misskey-js api",
+		"build-misskey-js-with-types": "pnpm build-pre && pnpm --filter backend... --filter=!misskey-js build && pnpm --filter backend generate-api-json && ncp packages/backend/built/api.json packages/misskey-js/generator/api.json && pnpm --filter misskey-js update-autogen-code && pnpm --filter misskey-js build && pnpm --filter misskey-js api",
 		"start": "pnpm check:connect && cd packages/backend && node ./built/boot/entry.js",
 		"start:test": "cd packages/backend && cross-env NODE_ENV=test node ./built/boot/entry.js",
 		"init": "pnpm migrate",
@@ -48,10 +48,13 @@
 		"lodash": "4.17.21"
 	},
 	"dependencies": {
-		"execa": "8.0.1",
 		"cssnano": "6.0.3",
+		"execa": "8.0.1",
+		"fast-glob": "3.3.2",
+		"ignore-walk": "6.0.4",
 		"js-yaml": "4.1.0",
 		"postcss": "8.4.33",
+		"tar": "6.2.0",
 		"terser": "5.27.0",
 		"typescript": "5.3.3"
 	},

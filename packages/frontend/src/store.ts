@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: syuilo and other misskey contributors
+ * SPDX-FileCopyrightText: syuilo and misskey-project
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
@@ -159,7 +159,7 @@ export const defaultStore = markRaw(new Storage('base', {
 	},
 	visibilityOnBoost: {
 		where: 'account',
-		default: 'public' as 'public' | 'home' | 'followers' | 'local',
+		default: 'public' as 'public' | 'home' | 'followers',
 	},
 
 	menu: {
