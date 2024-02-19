@@ -747,26 +747,24 @@ async function post(ev?: MouseEvent) {
 	
 	if (defaultStore.state.warnMissingAltText) {
 		const filesData = toRaw(files.value);
-		for (let i = 0; i < filesData.length; i++) {
-			const file = filesData[i];
-			const isMissingAltText = !file.comment;
-			if (isMissingAltText) {
-				const { canceled, result } = await os.actions({
-					type: 'warning',
-					text: i18n.ts.thisPostIsMissingAltText,
-					actions: [{
-						value: 'cancel',
-						text: i18n.ts.thisPostIsMissingAltTextCancel,
-					}, {
-						value: 'ignore',
-						text: i18n.ts.thisPostIsMissingAltTextIgnore,
-					}],
-				});
 
-				if (canceled) return;
-				if (result === 'cancel') return;
-				break;
-			}
+		const isMissingAltText = filesData.some(file => !file.comment);
+
+		if (isMissingAltText) {
+			const { canceled, result } = await os.actions({
+				type: 'warning',
+				text: i18n.ts.thisPostIsMissingAltText,
+				actions: [{
+					value: 'cancel',
+					text: i18n.ts.thisPostIsMissingAltTextCancel,
+				}, {
+					value: 'ignore',
+					text: i18n.ts.thisPostIsMissingAltTextIgnore,
+				}],
+			});
+
+			if (canceled) return;
+			if (result === 'cancel') return;	
 		}
 	}
 
