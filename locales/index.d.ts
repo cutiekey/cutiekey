@@ -7055,7 +7055,7 @@ export interface Locale extends ILocale {
          */
         "thisIsModifiedVersion": ParameterizedString<"name">;
         /**
-         * Misskeyを翻訳
+         * Sharkeyを翻訳
          */
         "translation": string;
         /**
