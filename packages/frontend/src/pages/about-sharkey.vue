@@ -69,16 +69,16 @@ SPDX-License-Identifier: AGPL-3.0-only
 				<FormSection>
 					<template #label>{{ i18n.ts._aboutMisskey.projectMembers }}</template>
 					<div :class="$style.contributors" style="margin-bottom: 8px;">
-						<a href="https://git.joinsharkey.org/Marie" target="_blank" :class="$style.contributor">
-							<img src="https://git.joinsharkey.org/avatar/0d57abf583f5ed6cf37f47055a1e1aa4?size=512" :class="$style.contributorAvatar">
+						<a href="https://activitypub.software/Marie" target="_blank" :class="$style.contributor">
+							<img src="https://activitypub.software/uploads/-/system/user/avatar/2/avatar.png?width=128" :class="$style.contributorAvatar">
 							<span :class="$style.contributorUsername">@Marie</span>
 						</a>
-						<a href="https://git.joinsharkey.org/Amelia" target="_blank" :class="$style.contributor">
-							<img src="https://git.joinsharkey.org/avatars/0634b661b89d6e45137074b6ddcd0b9ffc4cf467f2188ec12416ec6f91bb9d42?size=512" :class="$style.contributorAvatar">
+						<a href="https://activitypub.software/Amelia" target="_blank" :class="$style.contributor">
+							<img src="https://activitypub.software/uploads/-/system/user/avatar/1/avatar.png?width=128" :class="$style.contributorAvatar">
 							<span :class="$style.contributorUsername">@Amelia</span>
 						</a>
 					</div>
-					<template #caption><MkLink url="https://git.joinsharkey.org/Sharkey/Sharkey/graph">{{ i18n.ts._aboutMisskey.allContributors }}</MkLink></template>
+					<template #caption><MkLink url="https://activitypub.software/TransFem-org/Sharkey/-/graphs/develop">{{ i18n.ts._aboutMisskey.allContributors }}</MkLink></template>
 				</FormSection>
 				<FormSection>
 					<template #label>Misskey Contributors</template>

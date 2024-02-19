@@ -84,12 +84,12 @@ SPDX-License-Identifier: AGPL-3.0-only
 					</MkTextarea>
 
 					<MkInput v-model="repositoryUrl" type="url">
-						<template #prefix><i class="ti ti-link"></i></template>
+						<template #prefix><i class="ph-link ph-bold ph-lg"></i></template>
 						<template #label>{{ i18n.ts.repositoryUrl }}</template>
 					</MkInput>
 
 					<MkInput v-model="feedbackUrl" type="url">
-						<template #prefix><i class="ti ti-link"></i></template>
+						<template #prefix><i class="ph-link ph-bold ph-lg"></i></template>
 						<template #label>{{ i18n.ts.feedbackUrl }}</template>
 					</MkInput>
 

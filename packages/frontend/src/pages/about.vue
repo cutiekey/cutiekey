@@ -58,13 +58,13 @@ SPDX-License-Identifier: AGPL-3.0-only
 							</MkKeyValue>
 						</FormSplit>
 						<FormLink v-if="instance.impressumUrl" :to="instance.impressumUrl" external>
-							<template #icon><i class="ti ti-user-shield"></i></template>
+							<template #icon><i class="ph-newspaper-clipping ph-bold ph-lg"></i></template>
 							{{ i18n.ts.impressum }}
 						</FormLink>
 						<div class="_gaps_s">
 							<MkFolder v-if="instance.serverRules.length > 0">
 								<template #label>
-									<i class="ti ti-checkup-list"></i>
+									<i class="ph-list-checks ph-bold ph-lg"></i>
 									{{ i18n.ts.serverRules }}
 								</template>
 
