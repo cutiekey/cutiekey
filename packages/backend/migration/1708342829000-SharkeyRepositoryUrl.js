@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-export class SharkeyRepositoryUrl1708080086874 {
-	name = 'SharkeyRepositoryUrl1708080086874'
+export class SharkeyRepositoryUrl1708342829000 {
+  name = 'SharkeyRepositoryUrl1708342829000'
 
   async up(queryRunner) {
     await queryRunner.query(`ALTER TABLE "meta" ALTER COLUMN "repositoryUrl" SET DEFAULT 'https://activitypub.software/TransFem-org/Sharkey/'`);
