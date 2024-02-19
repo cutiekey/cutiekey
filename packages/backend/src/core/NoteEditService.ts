@@ -275,6 +275,10 @@ export class NoteEditService implements OnApplicationShutdown {
 			}
 		}
 
+		if (this.utilityService.isKeyWordIncluded(data.cw ?? data.text ?? '', meta.prohibitedWords)) {
+			throw new NoteEditService.ContainsProhibitedWordsError();
+		}
+
 		const inSilencedInstance = this.utilityService.isSilencedHost((meta).silencedHosts, user.host);
 
 		if (data.visibility === 'public' && inSilencedInstance && user.host !== null) {
