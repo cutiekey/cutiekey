@@ -2389,6 +2389,7 @@ _notification:
   youReceivedFollowRequest: "フォローリクエストが来ました"
   yourFollowRequestAccepted: "フォローリクエストが承認されました"
   pollEnded: "アンケートの結果が出ました"
+  edited: "投稿が編集されました"
   newNote: "新しい投稿"
   unreadAntennaNote: "アンテナ {name}"
   roleAssigned: "ロールが付与されました"

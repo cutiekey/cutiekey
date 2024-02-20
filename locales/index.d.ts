@@ -9049,6 +9049,10 @@ export interface Locale extends ILocale {
          */
         "pollEnded": string;
         /**
+         * 注記が編集されました
+         */
+        "edited": string;
+        /**
          * 新しい投稿
          */
         "newNote": string;

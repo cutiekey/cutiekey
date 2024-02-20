@@ -232,6 +232,14 @@ async function composeNotification(data: PushNotificationDataMap[keyof PushNotif
 						data,
 					}];
 
+				case 'edited':
+					return [t('_notification.edited', { name: getUserName(data.body.user) }), {
+						body: data.body.note.text ?? '',
+						icon: data.body.user.avatarUrl,
+						badge: iconUrl('messages'),
+						data,
+					}];
+
 				default:
 					return null;
 			}
