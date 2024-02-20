@@ -71,6 +71,7 @@ function close() {
 	width: calc(100% - (var(--margin) * 2));
 	max-width: 500px;
 	display: flex;
+	backdrop-filter: var(--blur, blur(15px));
 }
 
 .icon {

@@ -7059,11 +7059,15 @@ export interface Locale extends ILocale {
          */
         "source": string;
         /**
-         * オリジナル
+         * Misskey オリジナル
          */
         "original": string;
         /**
-         * {name}はオリジナルのMisskeyを改変したバージョンを使用しています。
+         * Sharkey オリジナル
+         */
+        "original_sharkey": string;
+        /**
+         * {name}はオリジナルのSharkeyを改変したバージョンを使用しています。
          */
         "thisIsModifiedVersion": ParameterizedString<"name">;
         /**
@@ -7071,9 +7075,13 @@ export interface Locale extends ILocale {
          */
         "translation": string;
         /**
-         * Sharkeyに寄付
+         * Misskeyに寄付
          */
         "donate": string;
+        /**
+         * Sharkeyに寄付
+         */
+        "donate_sharkey": string;
         /**
          * 他にも多くの方が支援してくれています。ありがとうございます🥰
          */
@@ -9049,7 +9057,7 @@ export interface Locale extends ILocale {
          */
         "pollEnded": string;
         /**
-         * 注記が編集されました
+         * 投稿が編集されました
          */
         "edited": string;
         /**
