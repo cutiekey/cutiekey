@@ -4226,6 +4226,18 @@ export interface Locale extends ILocale {
      */
     "thisPostMayBeAnnoyingIgnore": string;
     /**
+     * やめる
+     */
+    "thisPostIsMissingAltTextCancel": string;
+    /**
+     * このまま投稿
+     */
+    "thisPostIsMissingAltTextIgnore": string;
+    /**
+     * この投稿に添付されたファイルの 1 つに代替テキストがありません。すべての添付ファイルに代替テキストが含まれていることを確認してください。
+     */
+    "thisPostIsMissingAltText": string;
+    /**
      * 見たことのあるブーストを省略して表示
      */
     "collapseRenotes": string;
