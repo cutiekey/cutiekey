@@ -2334,6 +2334,7 @@ _notification:
   reactedBySomeUsers: "{n} users reacted"
   renotedBySomeUsers: "Boosted by {n} users"
   followedBySomeUsers: "Followed by {n} users"
+  edited: "Note got edited"
   _types:
     all: "All"
     note: "New notes"
