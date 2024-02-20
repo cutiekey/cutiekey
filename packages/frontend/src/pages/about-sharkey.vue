@@ -27,6 +27,39 @@ SPDX-License-Identifier: AGPL-3.0-only
 				<div v-if="$i != null" style="text-align: center;">
 					<MkButton primary rounded inline @click="iLoveMisskey">I <Mfm text="$[jelly ❤]"/> #Sharkey</MkButton>
 				</div>
+				<FormSection v-if="instance.repositoryUrl !== 'https://activitypub.software/TransFem-org/Sharkey/'">
+					<div class="_gaps_s">
+						<MkInfo>
+							{{ i18n.tsx._aboutMisskey.thisIsModifiedVersion({ name: instance.name }) }}
+						</MkInfo>
+						<FormLink v-if="instance.repositoryUrl" :to="instance.repositoryUrl" external>
+							<template #icon><i class="ph-code ph-bold ph-lg"></i></template>
+							{{ i18n.ts._aboutMisskey.source }}
+						</FormLink>
+						<FormLink v-if="instance.providesTarball" :to="`/tarball/sharkey-${version}.tar.gz`" external>
+							<template #icon><i class="ph-download ph-bold ph-lg"></i></template>
+							{{ i18n.ts._aboutMisskey.source }}
+							<template #suffix>Tarball</template>
+						</FormLink>
+						<MkInfo v-if="!instance.repositoryUrl && !instance.providesTarball" warn>
+							{{ i18n.ts.sourceCodeIsNotYetProvided }}
+						</MkInfo>
+					</div>
+				</FormSection>
+				<FormSection>
+					<div class="_gaps_s">
+						<FormLink to="https://activitypub.software/TransFem-org/Sharkey/" external>
+							<template #icon><i class="ph-code ph-bold ph-lg"></i></template>
+							{{ i18n.ts._aboutMisskey.source }} ({{ i18n.ts._aboutMisskey.original_sharkey }})
+							<template #suffix>GitLab</template>
+						</FormLink>
+						<FormLink to="https://ko-fi.com/transfem" external>
+							<template #icon><i class="ph-piggy-bank ph-bold ph-lg"></i></template>
+							{{ i18n.ts._aboutMisskey.donate_sharkey }}
+							<template #suffix>Ko-Fi</template>
+						</FormLink>
+					</div>
+				</FormSection>
 				<FormSection>
 					<div class="_gaps_s">
 						<FormLink to="https://github.com/misskey-dev/misskey" external>
@@ -39,31 +72,6 @@ SPDX-License-Identifier: AGPL-3.0-only
 							{{ i18n.ts._aboutMisskey.donate }}
 							<template #suffix>Patreon</template>
 						</FormLink>
-					</div>
-				</FormSection>
-				<FormSection v-if="instance.repositoryUrl !== 'https://github.com/misskey-dev/misskey'">
-					<div class="_gaps_s">
-						<MkInfo>
-							{{ i18n.tsx._aboutMisskey.thisIsModifiedVersion({ name: instance.name }) }}
-						</MkInfo>
-						<FormLink v-if="instance.repositoryUrl" :to="instance.repositoryUrl" external>
-							<template #icon><i class="ph-code ph-bold ph-lg"></i></template>
-							{{ i18n.ts._aboutMisskey.source }}
-							<template #suffix>GitLab</template>
-						</FormLink>
-						<FormLink to="https://ko-fi.com/transfem" external>
-							<template #icon><i class="ph-piggy-bank ph-bold ph-lg"></i></template>
-							{{ i18n.ts._aboutMisskey.donate }}
-							<template #suffix>Ko-Fi</template>
-						</FormLink>
-						<FormLink v-if="instance.providesTarball" :to="`/tarball/sharkey-${version}.tar.gz`" external>
-							<template #icon><i class="ph-download ph-bold ph-lg"></i></template>
-							{{ i18n.ts._aboutMisskey.source }}
-							<template #suffix>Tarball</template>
-						</FormLink>
-						<MkInfo v-if="!instance.repositoryUrl && !instance.providesTarball" warn>
-							{{ i18n.ts.sourceCodeIsNotYetProvided }}
-						</MkInfo>
 					</div>
 				</FormSection>
 				<FormSection>
