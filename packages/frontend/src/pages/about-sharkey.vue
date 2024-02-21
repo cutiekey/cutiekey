@@ -121,7 +121,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 						</a>
 					</div>
 				</FormSection>
-				<FormSection>
+				<FormSection v-if="sponsors[0].length > 0">
 					<template #label>Our lovely Sponsors</template>
 					<div :class="$style.contributors">
 						<span
