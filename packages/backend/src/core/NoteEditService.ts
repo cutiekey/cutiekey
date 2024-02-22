@@ -241,6 +241,14 @@ export class NoteEditService implements OnApplicationShutdown {
 			throw new Error('not the author');
 		}
 
+		// we never want to change the replyId, so fetch the original "parent"
+		if (oldnote.replyId) {
+			data.reply = await this.notesRepository.findOneBy({ id: oldnote.replyId });
+		}
+		else {
+			data.reply = undefined;
+		}
+
 		// チャンネル外にリプライしたら対象のスコープに合わせる
 		// (クライアントサイドでやっても良い処理だと思うけどとりあえずサーバーサイドで)
 		if (data.reply && data.channel && data.reply.channelId !== data.channel.id) {
@@ -435,7 +443,7 @@ export class NoteEditService implements OnApplicationShutdown {
 				id: oldnote.id,
 				updatedAt: data.updatedAt ? data.updatedAt : new Date(),
 				fileIds: data.files ? data.files.map(file => file.id) : [],
-				replyId: data.reply ? data.reply.id : null,
+				replyId: oldnote.replyId,
 				renoteId: data.renote ? data.renote.id : null,
 				channelId: data.channel ? data.channel.id : null,
 				threadId: data.reply
