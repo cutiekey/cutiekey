@@ -141,7 +141,7 @@ const replies = ref<Misskey.entities.Note[]>([]);
 const isRenote = (
 	props.note.renote != null &&
 	props.note.text == null &&
-	props.note.fileIds.length === 0 &&
+	props.note.fileIds && props.note.fileIds.length === 0 &&
 	props.note.poll == null
 );
 
@@ -211,7 +211,7 @@ function react(viaKeyboard = false): void {
 		}
 	} else {
 		blur();
-		reactionPicker.show(reactButton.value, reaction => {
+		reactionPicker.show(reactButton.value ?? null, props.note, reaction => {
 			misskeyApi('notes/reactions/create', {
 				noteId: props.note.id,
 				reaction: reaction,
