@@ -127,7 +127,7 @@ function save() {
 		preservedUsernames: preservedUsernames.value.split('\n'),
 		bubbleInstances: bubbleTimeline.value.split('\n'),
 	}).then(() => {
-		fetchInstance();
+		fetchInstance(true);
 	});
 }
 

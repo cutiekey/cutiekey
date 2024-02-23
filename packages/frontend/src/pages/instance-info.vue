@@ -40,6 +40,9 @@ SPDX-License-Identifier: AGPL-3.0-only
 						<MkSwitch v-model="isSilenced" :disabled="!meta || !instance" @update:modelValue="toggleSilenced">{{ i18n.ts.silenceThisInstance }}</MkSwitch>
 						<MkSwitch v-model="isNSFW" :disabled="!instance" @update:modelValue="toggleNSFW">Mark as NSFW</MkSwitch>
 						<MkButton @click="refreshMetadata"><i class="ph-arrows-clockwise ph-bold ph-lg"></i> Refresh metadata</MkButton>
+						<MkTextarea v-model="moderationNote" manualSave>
+							<template #label>{{ i18n.ts.moderationNote }}</template>
+						</MkTextarea>
 					</div>
 				</FormSection>
 
@@ -120,7 +123,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 </template>
 
 <script lang="ts" setup>
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 import * as Misskey from 'misskey-js';
 import MkChart from '@/components/MkChart.vue';
 import MkObjectView from '@/components/MkObjectView.vue';
@@ -142,6 +145,7 @@ import MkPagination from '@/components/MkPagination.vue';
 import MkHorizontalSwipe from '@/components/MkHorizontalSwipe.vue';
 import { getProxiedImageUrlNullable } from '@/scripts/media-proxy.js';
 import { dateString } from '@/filters/date.js';
+import MkTextarea from '@/components/MkTextarea.vue';
 
 const props = defineProps<{
 	host: string;
@@ -157,6 +161,7 @@ const isBlocked = ref(false);
 const isSilenced = ref(false);
 const isNSFW = ref(false);
 const faviconUrl = ref<string | null>(null);
+const moderationNote = ref('');
 
 const usersPagination = {
 	endpoint: iAmModerator ? 'admin/show-users' : 'users' as const,
@@ -168,6 +173,10 @@ const usersPagination = {
 	},
 	offsetMode: true,
 };
+
+watch(moderationNote, async () => {
+	await misskeyApi('admin/federation/update-instance', { host: instance.value.host, moderationNote: moderationNote.value });
+});
 
 async function fetch(): Promise<void> {
 	if (iAmAdmin) {
@@ -181,6 +190,7 @@ async function fetch(): Promise<void> {
 	isSilenced.value = instance.value?.isSilenced ?? false;
 	isNSFW.value = instance.value?.isNSFW ?? false;
 	faviconUrl.value = getProxiedImageUrlNullable(instance.value?.faviconUrl, 'preview') ?? getProxiedImageUrlNullable(instance.value?.iconUrl, 'preview');
+	moderationNote.value = instance.value?.moderationNote;
 }
 
 async function toggleBlock(): Promise<void> {
