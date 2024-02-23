@@ -11,6 +11,7 @@ import { Endpoint } from '@/server/api/endpoint-base.js';
 import { NoteEntityService } from '@/core/entities/NoteEntityService.js';
 import { NoteEditService } from '@/core/NoteEditService.js';
 import { DI } from '@/di-symbols.js';
+import { IdentifiableError } from '@/misc/identifiable-error.js';
 import { ApiError } from '../../error.js';
 
 export const meta = {
@@ -140,6 +141,12 @@ export const meta = {
 			message: 'You tried posting a note which is too long.',
 			code: 'MAX_LENGTH',
 			id: '3ac74a84-8fd5-4bb0-870f-01804f82ce16',
+		},
+
+		containsProhibitedWords: {
+			message: 'Cannot post because it contains prohibited words.',
+			code: 'CONTAINS_PROHIBITED_WORDS',
+			id: 'aa6e01d3-a85c-669d-758a-76aab43af334',
 		},
 	},
 } as const;
@@ -379,32 +386,40 @@ export default class extends Endpoint<typeof meta, typeof paramDef> { // eslint-
 					throw new ApiError(meta.errors.noSuchChannel);
 				}
 			}
+			try {
+				// 投稿を作成
+				const note = await this.noteEditService.edit(me, ps.editId!, {
+					files: files,
+					poll: ps.poll ? {
+						choices: ps.poll.choices,
+						multiple: ps.poll.multiple ?? false,
+						expiresAt: ps.poll.expiresAt ? new Date(ps.poll.expiresAt) : null,
+					} : undefined,
+					text: ps.text ?? undefined,
+					reply,
+					renote,
+					cw: ps.cw,
+					localOnly: ps.localOnly,
+					reactionAcceptance: ps.reactionAcceptance,
+					visibility: ps.visibility,
+					visibleUsers,
+					channel,
+					apMentions: ps.noExtractMentions ? [] : undefined,
+					apHashtags: ps.noExtractHashtags ? [] : undefined,
+					apEmojis: ps.noExtractEmojis ? [] : undefined,
+				});
 
-			// 投稿を作成
-			const note = await this.noteEditService.edit(me, ps.editId!, {
-				files: files,
-				poll: ps.poll ? {
-					choices: ps.poll.choices,
-					multiple: ps.poll.multiple ?? false,
-					expiresAt: ps.poll.expiresAt ? new Date(ps.poll.expiresAt) : null,
-				} : undefined,
-				text: ps.text ?? undefined,
-				reply,
-				renote,
-				cw: ps.cw,
-				localOnly: ps.localOnly,
-				reactionAcceptance: ps.reactionAcceptance,
-				visibility: ps.visibility,
-				visibleUsers,
-				channel,
-				apMentions: ps.noExtractMentions ? [] : undefined,
-				apHashtags: ps.noExtractHashtags ? [] : undefined,
-				apEmojis: ps.noExtractEmojis ? [] : undefined,
-			});
+				return {
+					createdNote: await this.noteEntityService.pack(note, me),
+				};
+			} catch (e) {
+				// TODO: 他のErrorもここでキャッチしてエラーメッセージを当てるようにしたい
+				if (e instanceof IdentifiableError) {
+					if (e.id === '689ee33f-f97c-479a-ac49-1b9f8140af99') throw new ApiError(meta.errors.containsProhibitedWords);
+				}
 
-			return {
-				createdNote: await this.noteEntityService.pack(note, me),
-			};
+				throw e;
+			}
 		});
 	}
 }
