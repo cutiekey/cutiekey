@@ -1,5 +1,5 @@
 <!--
-SPDX-FileCopyrightText: syuilo and other misskey contributors
+SPDX-FileCopyrightText: syuilo and misskey-project
 SPDX-License-Identifier: AGPL-3.0-only
 -->
 
@@ -276,10 +276,10 @@ watch(pinnedEmojis, () => {
 	deep: true,
 });
 
-definePageMetadata({
+definePageMetadata(() => ({
 	title: i18n.ts.emojiPicker,
 	icon: 'ph-smiley ph-bold ph-lg',
-});
+}));
 </script>
 
 <style lang="scss" module>

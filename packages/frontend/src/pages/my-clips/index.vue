@@ -1,5 +1,5 @@
 <!--
-SPDX-FileCopyrightText: syuilo and other misskey contributors
+SPDX-FileCopyrightText: syuilo and misskey-project
 SPDX-License-Identifier: AGPL-3.0-only
 -->
 
@@ -104,14 +104,10 @@ const headerTabs = computed(() => [{
 	icon: 'ph-heart ph-bold ph-lg',
 }]);
 
-definePageMetadata({
+definePageMetadata(() => ({
 	title: i18n.ts.clip,
 	icon: 'ph-paperclip ph-bold ph-lg',
-	action: {
-		icon: 'ph-plus ph-bold ph-lg',
-		handler: create,
-	},
-});
+}));
 </script>
 
 <style lang="scss" module>

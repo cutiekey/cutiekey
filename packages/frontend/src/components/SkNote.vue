@@ -217,6 +217,7 @@ import MkRippleEffect from '@/components/MkRippleEffect.vue';
 import { showMovedDialog } from '@/scripts/show-moved-dialog.js';
 import { shouldCollapsed } from '@/scripts/collapsed.js';
 import { useRouter } from '@/router/supplier.js';
+import { boostMenuItems, type Visibility } from '@/scripts/boost-quote.js';
 
 const props = withDefaults(defineProps<{
 	note: Misskey.entities.Note;
@@ -408,58 +409,15 @@ if (!props.mock) {
 	}
 }
 
-type Visibility = 'public' | 'home' | 'followers' | 'specified';
-
-// defaultStore.state.visibilityがstringなためstringも受け付けている
-function smallerVisibility(a: Visibility | string, b: Visibility | string): Visibility {
-	if (a === 'specified' || b === 'specified') return 'specified';
-	if (a === 'followers' || b === 'followers') return 'followers';
-	if (a === 'home' || b === 'home') return 'home';
-	// if (a === 'public' || b === 'public')
-	return 'public';
-}
-
 function boostVisibility() {
 	if (!defaultStore.state.showVisibilitySelectorOnBoost) {
 		renote(defaultStore.state.visibilityOnBoost);
 	} else {
-		os.popupMenu([
-			{
-				type: 'button',
-				icon: 'ph-globe-hemisphere-west ph-bold ph-lg',
-				text: i18n.ts._visibility['public'],
-				action: () => {
-					renote('public');
-				},
-			},
-			{
-				type: 'button',
-				icon: 'ph-house ph-bold ph-lg',
-				text: i18n.ts._visibility['home'],
-				action: () => {
-					renote('home');
-				},
-			},
-			{
-				type: 'button',
-				icon: 'ph-lock ph-bold ph-lg',
-				text: i18n.ts._visibility['followers'],
-				action: () => {
-					renote('followers');
-				},
-			},
-			{
-				type: 'button',
-				icon: 'ph-planet ph-bold ph-lg',
-				text: i18n.ts._timelines.local,
-				action: () => {
-					renote('local');
-				},
-			}], renoteButton.value);
+		os.popupMenu(boostMenuItems(appearNote, renote), renoteButton.value);
 	}
 }
 
-function renote(visibility: Visibility | 'local') {
+function renote(visibility: Visibility, localOnly: boolean = false) {
 	pleaseLogin();
 	showMovedDialog();
 
@@ -490,18 +448,10 @@ function renote(visibility: Visibility | 'local') {
 			os.popup(MkRippleEffect, { x, y }, {}, 'end');
 		}
 
-		const configuredVisibility = defaultStore.state.rememberNoteVisibility ? defaultStore.state.visibility : defaultStore.state.defaultNoteVisibility;
-		const localOnlySetting = defaultStore.state.rememberNoteVisibility ? defaultStore.state.localOnly : defaultStore.state.defaultNoteLocalOnly;
-
-		let noteVisibility = visibility === 'local' || visibility === 'specified' ? smallerVisibility(appearNote.value.visibility, configuredVisibility) : smallerVisibility(visibility, configuredVisibility);
-		if (appearNote.value.channel?.isSensitive) {
-			noteVisibility = smallerVisibility(visibility === 'local' || visibility === 'specified' ? appearNote.value.visibility : visibility, 'home');
-		}
-
 		if (!props.mock) {
 			misskeyApi('notes/create', {
-				localOnly: visibility === 'local' ? true : localOnlySetting,
-				visibility: noteVisibility,
+				localOnly: localOnly,
+				visibility: visibility,
 				renoteId: appearNote.value.id,
 			}).then(() => {
 				os.toast(i18n.ts.renoted);

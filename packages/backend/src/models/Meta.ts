@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: syuilo and other misskey contributors
+ * SPDX-FileCopyrightText: syuilo and misskey-project
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
@@ -258,6 +258,8 @@ export class MiMeta {
 	})
 	public turnstileSecretKey: string | null;
 
+	// chaptcha系を追加した際にはnodeinfoのレスポンスに追加するのを忘れないようにすること
+
 	@Column('enum', {
 		enum: ['none', 'all', 'local', 'remote'],
 		default: 'none',
@@ -377,14 +379,14 @@ export class MiMeta {
 
 	@Column('varchar', {
 		length: 1024,
-		default: 'https://github.com/misskey-dev/misskey',
+		default: 'https://activitypub.software/TransFem-org/Sharkey/',
 		nullable: false,
 	})
-	public repositoryUrl: string;
+	public repositoryUrl: string | null;
 
 	@Column('varchar', {
 		length: 1024,
-		default: 'https://github.com/misskey-dev/misskey/issues/new',
+		default: 'https://activitypub.software/TransFem-org/Sharkey/-/issues/new',
 		nullable: true,
 	})
 	public feedbackUrl: string | null;

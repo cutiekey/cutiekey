@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: syuilo and other misskey contributors
+ * SPDX-FileCopyrightText: syuilo and misskey-project
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
@@ -109,10 +109,17 @@ export function promiseDialog<T extends Promise<any>>(
 		if (onFailure) {
 			onFailure(err);
 		} else {
-			alert({
-				type: 'error',
-				text: err,
-			});
+			if (err.message) {
+				alert({
+					type: 'error',
+					text: err.message,
+				});
+			} else {
+				alert({
+					type: 'error',
+					text: err,
+				});
+			}
 		}
 	});
 

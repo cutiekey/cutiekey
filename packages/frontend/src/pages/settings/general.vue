@@ -1,5 +1,5 @@
 <!--
-SPDX-FileCopyrightText: syuilo and other misskey contributors
+SPDX-FileCopyrightText: syuilo and misskey-project
 SPDX-License-Identifier: AGPL-3.0-only
 -->
 
@@ -180,6 +180,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 
 		<div class="_gaps_m">
 			<div class="_gaps_s">
+				<MkSwitch v-model="warnMissingAltText">{{ i18n.ts.warnForMissingAltText }}</MkSwitch>
 				<MkSwitch v-model="imageNewTab">{{ i18n.ts.openImageInNewTab }}</MkSwitch>
 				<MkSwitch v-model="useReactionPickerForContextMenu">{{ i18n.ts.useReactionPickerForContextMenu }}</MkSwitch>
 				<MkSwitch v-model="enableInfiniteScroll">{{ i18n.ts.enableInfiniteScroll }}</MkSwitch>
@@ -212,7 +213,6 @@ SPDX-License-Identifier: AGPL-3.0-only
 						<option value="public">{{ i18n.ts._visibility['public'] }}</option>
 						<option value="home">{{ i18n.ts._visibility['home'] }}</option>
 						<option value="followers">{{ i18n.ts._visibility['followers'] }}</option>
-						<option value="local">{{ i18n.ts._timelines.local }}</option>
 					</MkSelect>
 				</div>
 			</MkFolder>
@@ -337,6 +337,7 @@ const oneko = computed(defaultStore.makeGetterSetter('oneko'));
 const loadRawImages = computed(defaultStore.makeGetterSetter('loadRawImages'));
 const highlightSensitiveMedia = computed(defaultStore.makeGetterSetter('highlightSensitiveMedia'));
 const imageNewTab = computed(defaultStore.makeGetterSetter('imageNewTab'));
+const warnMissingAltText = computed(defaultStore.makeGetterSetter('warnMissingAltText'));
 const nsfw = computed(defaultStore.makeGetterSetter('nsfw'));
 const showFixedPostForm = computed(defaultStore.makeGetterSetter('showFixedPostForm'));
 const showFixedPostFormInChannel = computed(defaultStore.makeGetterSetter('showFixedPostFormInChannel'));
@@ -537,8 +538,8 @@ const headerActions = computed(() => []);
 
 const headerTabs = computed(() => []);
 
-definePageMetadata({
+definePageMetadata(() => ({
 	title: i18n.ts.general,
 	icon: 'ph-faders ph-bold ph-lg',
-});
+}));
 </script>

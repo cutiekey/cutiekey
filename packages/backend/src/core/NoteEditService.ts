@@ -52,7 +52,7 @@ import { isReply } from '@/misc/is-reply.js';
 import { trackPromise } from '@/misc/promise-tracker.js';
 import { isUserRelated } from '@/misc/is-user-related.js';
 
-type NotificationType = 'reply' | 'renote' | 'quote' | 'mention';
+type NotificationType = 'reply' | 'renote' | 'quote' | 'mention' | 'edited';
 
 class NotificationManager {
 	private notifier: { id: MiUser['id']; };
@@ -241,6 +241,14 @@ export class NoteEditService implements OnApplicationShutdown {
 			throw new Error('not the author');
 		}
 
+		// we never want to change the replyId, so fetch the original "parent"
+		if (oldnote.replyId) {
+			data.reply = await this.notesRepository.findOneBy({ id: oldnote.replyId });
+		}
+		else {
+			data.reply = undefined;
+		}
+
 		// チャンネル外にリプライしたら対象のスコープに合わせる
 		// (クライアントサイドでやっても良い処理だと思うけどとりあえずサーバーサイドで)
 		if (data.reply && data.channel && data.reply.channelId !== data.channel.id) {
@@ -273,6 +281,10 @@ export class NoteEditService implements OnApplicationShutdown {
 			} else if ((await this.roleService.getUserPolicies(user.id)).canPublicNote === false) {
 				data.visibility = 'home';
 			}
+		}
+
+		if (this.utilityService.isKeyWordIncluded(data.cw ?? data.text ?? '', meta.prohibitedWords)) {
+			throw new NoteEditService.ContainsProhibitedWordsError();
 		}
 
 		const inSilencedInstance = this.utilityService.isSilencedHost((meta).silencedHosts, user.host);
@@ -431,7 +443,7 @@ export class NoteEditService implements OnApplicationShutdown {
 				id: oldnote.id,
 				updatedAt: data.updatedAt ? data.updatedAt : new Date(),
 				fileIds: data.files ? data.files.map(file => file.id) : [],
-				replyId: data.reply ? data.reply.id : null,
+				replyId: oldnote.replyId,
 				renoteId: data.renote ? data.renote.id : null,
 				channelId: data.channel ? data.channel.id : null,
 				threadId: data.reply
@@ -582,7 +594,7 @@ export class NoteEditService implements OnApplicationShutdown {
 			}
 
 			// Pack the note
-			const noteObj = await this.noteEntityService.pack(note, null, { skipHide: true });
+			const noteObj = await this.noteEntityService.pack(note, null, { skipHide: true, withReactionAndUserPairCache: true });
 			if (data.poll != null) {
 				this.globalEventService.publishNoteStream(note.id, 'updated', {
 					cw: note.cw,
@@ -608,7 +620,7 @@ export class NoteEditService implements OnApplicationShutdown {
 
 			const nm = new NotificationManager(this.mutingsRepository, this.notificationService, user, note);
 
-			await this.createMentionedEvents(mentionedUsers, note, nm);
+			//await this.createMentionedEvents(mentionedUsers, note, nm);
 
 			// If has in reply to note
 			if (data.reply) {
@@ -630,54 +642,15 @@ export class NoteEditService implements OnApplicationShutdown {
 					const muted = isUserRelated(note, userIdsWhoMeMuting);
 
 					if (!isThreadMuted && !muted) {
-						nm.push(data.reply.userId, 'reply');
-						this.globalEventService.publishMainStream(data.reply.userId, 'reply', noteObj);
+						nm.push(data.reply.userId, 'edited');
+						this.globalEventService.publishMainStream(data.reply.userId, 'edited', noteObj);
 
-						const webhooks = (await this.webhookService.getActiveWebhooks()).filter(x => x.userId === data.reply!.userId && x.on.includes('reply'));
+						const webhooks = (await this.webhookService.getActiveWebhooks()).filter(x => x.userId === data.reply!.userId && x.on.includes('edited'));
 						for (const webhook of webhooks) {
-							this.queueService.webhookDeliver(webhook, 'reply', {
+							this.queueService.webhookDeliver(webhook, 'edited', {
 								note: noteObj,
 							});
 						}
-					}
-				}
-			}
-
-			// If it is renote
-			if (data.renote) {
-				const type = this.isQuote(data) ? 'quote' : 'renote';
-
-				// Notify
-				if (data.renote.userHost === null) {
-					const isThreadMuted = await this.noteThreadMutingsRepository.exists({
-						where: {
-							userId: data.renote.userId,
-							threadId: data.renote.threadId ?? data.renote.id,
-						},
-					});
-
-					const [
-						userIdsWhoMeMuting,
-					] = data.renote.userId ? await Promise.all([
-						this.cacheService.userMutingsCache.fetch(data.renote.userId),
-					]) : [new Set<string>()];
-
-					const muted = isUserRelated(note, userIdsWhoMeMuting);
-
-					if (!isThreadMuted && !muted) {
-						nm.push(data.renote.userId, type);
-					}
-				}
-
-				// Publish event
-				if ((user.id !== data.renote.userId) && data.renote.userHost === null) {
-					this.globalEventService.publishMainStream(data.renote.userId, 'renote', noteObj);
-
-					const webhooks = (await this.webhookService.getActiveWebhooks()).filter(x => x.userId === data.renote!.userId && x.on.includes('renote'));
-					for (const webhook of webhooks) {
-						this.queueService.webhookDeliver(webhook, 'renote', {
-							note: noteObj,
-						});
 					}
 				}
 			}
@@ -776,17 +749,17 @@ export class NoteEditService implements OnApplicationShutdown {
 				detail: true,
 			});
 
-			this.globalEventService.publishMainStream(u.id, 'mention', detailPackedNote);
+			this.globalEventService.publishMainStream(u.id, 'edited', detailPackedNote);
 
-			const webhooks = (await this.webhookService.getActiveWebhooks()).filter(x => x.userId === u.id && x.on.includes('mention'));
+			const webhooks = (await this.webhookService.getActiveWebhooks()).filter(x => x.userId === u.id && x.on.includes('edited'));
 			for (const webhook of webhooks) {
-				this.queueService.webhookDeliver(webhook, 'mention', {
+				this.queueService.webhookDeliver(webhook, 'edited', {
 					note: detailPackedNote,
 				});
 			}
 
 			// Create notification
-			nm.push(u.id, 'mention');
+			nm.push(u.id, 'edited');
 		}
 	}
 

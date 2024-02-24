@@ -1,5 +1,5 @@
 <!--
-SPDX-FileCopyrightText: syuilo and other misskey contributors
+SPDX-FileCopyrightText: syuilo and misskey-project
 SPDX-License-Identifier: AGPL-3.0-only
 -->
 
@@ -258,10 +258,10 @@ const headerTabs = computed(() => [{
 	icon: 'ph-magnifying-glass ph-bold ph-lg',
 }]);
 
-definePageMetadata(computed(() => channel.value ? {
-	title: channel.value.name,
+definePageMetadata(() => ({
+	title: channel.value ? channel.value.name : i18n.ts.channel,
 	icon: 'ph-television ph-bold ph-lg',
-} : null));
+}));
 </script>
 
 <style lang="scss" module>
