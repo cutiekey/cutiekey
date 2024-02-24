@@ -112,5 +112,9 @@ export const packedFederationInstanceSchema = {
 			optional: false,
 			nullable: false,
 		},
+		moderationNote: {
+			type: 'string',
+			optional: true, nullable: true,
+		},
 	},
 } as const;

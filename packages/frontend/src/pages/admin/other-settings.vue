@@ -93,7 +93,7 @@ function save() {
 		enableChartsForRemoteUser: enableChartsForRemoteUser.value,
 		enableChartsForFederatedInstances: enableChartsForFederatedInstances.value,
 	}).then(() => {
-		fetchInstance();
+		fetchInstance(true);
 	});
 }
 

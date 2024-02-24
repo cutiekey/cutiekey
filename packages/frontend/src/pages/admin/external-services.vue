@@ -75,7 +75,7 @@ function save() {
 		deeplFreeMode: deeplFreeMode.value,
 		deeplFreeInstance: deeplFreeInstance.value,
 	}).then(() => {
-		fetchInstance();
+		fetchInstance(true);
 	});
 }
 

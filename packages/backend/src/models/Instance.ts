@@ -149,4 +149,9 @@ export class MiInstance {
 		default: false,
 	})
 	public isNSFW: boolean;
+	
+	@Column('varchar', {
+		length: 16384, default: '',
+	})
+	public moderationNote: string;
 }
