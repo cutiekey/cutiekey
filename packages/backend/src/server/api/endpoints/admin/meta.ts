@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: syuilo and other misskey contributors
+ * SPDX-FileCopyrightText: syuilo and misskey-project
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
@@ -154,6 +154,13 @@ export const meta = {
 				},
 			},
 			sensitiveWords: {
+				type: 'array',
+				optional: false, nullable: false,
+				items: {
+					type: 'string',
+				},
+			},
+			prohibitedWords: {
 				type: 'array',
 				optional: false, nullable: false,
 				items: {
@@ -453,7 +460,7 @@ export const meta = {
 			},
 			repositoryUrl: {
 				type: 'string',
-				optional: false, nullable: false,
+				optional: false, nullable: true,
 			},
 			summalyProxy: {
 				type: 'string',
@@ -549,6 +556,7 @@ export default class extends Endpoint<typeof meta, typeof paramDef> { // eslint-
 				blockedHosts: instance.blockedHosts,
 				silencedHosts: instance.silencedHosts,
 				sensitiveWords: instance.sensitiveWords,
+				prohibitedWords: instance.prohibitedWords,
 				preservedUsernames: instance.preservedUsernames,
 				bubbleInstances: instance.bubbleInstances,
 				hcaptchaSecretKey: instance.hcaptchaSecretKey,

@@ -1,5 +1,5 @@
 <!--
-SPDX-FileCopyrightText: syuilo and other misskey contributors
+SPDX-FileCopyrightText: syuilo and misskey-project
 SPDX-License-Identifier: AGPL-3.0-only
 -->
 
@@ -27,7 +27,7 @@ const modal = shallowRef<InstanceType<typeof MkModal>>();
 
 const whatIsNew = () => {
 	modal.value?.close();
-	window.open(`https://git.joinsharkey.org/Sharkey/Sharkey/releases/tag/${version}`, '_blank');
+	window.open(`https://activitypub.software/TransFem-org/Sharkey/-/releases/${version}`, '_blank');
 };
 
 onMounted(() => {

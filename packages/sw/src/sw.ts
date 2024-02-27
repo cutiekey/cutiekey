@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: syuilo and other misskey contributors
+ * SPDX-FileCopyrightText: syuilo and misskey-project
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
@@ -132,6 +132,9 @@ globalThis.addEventListener('notificationclick', (ev: ServiceWorkerGlobalScopeEv
 						break;
 					case 'showFollowRequests':
 						client = await swos.openClient('push', '/my/follow-requests', loginId);
+						break;
+					case 'edited':
+						if ('note' in data.body) client = await swos.openPost({ reply: data.body.note }, loginId);
 						break;
 					default:
 						switch (data.body.type) {

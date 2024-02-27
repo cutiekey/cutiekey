@@ -1,5 +1,5 @@
 <!--
-SPDX-FileCopyrightText: syuilo and other misskey contributors
+SPDX-FileCopyrightText: syuilo and misskey-project
 SPDX-License-Identifier: AGPL-3.0-only
 -->
 
@@ -19,9 +19,9 @@ SPDX-License-Identifier: AGPL-3.0-only
 				<option value="publishing">{{ i18n.ts.publishing }}</option>
 				<option value="bubble">Bubble</option>
 				<option value="nsfw">NSFW</option>
-				<option value="suspended">{{ i18n.ts.suspended }}</option>
-				<option value="silenced">{{ i18n.ts.silence }}</option>
-				<option value="blocked">{{ i18n.ts.blocked }}</option>
+				<option v-if="$i" value="suspended">{{ i18n.ts.suspended }}</option>
+				<option v-if="$i" value="silenced">{{ i18n.ts.silence }}</option>
+				<option v-if="$i" value="blocked">{{ i18n.ts.blocked }}</option>
 				<option value="notResponding">{{ i18n.ts.notResponding }}</option>
 			</MkSelect>
 			<MkSelect v-model="sort">
@@ -60,6 +60,7 @@ import MkPagination, { Paging } from '@/components/MkPagination.vue';
 import MkInstanceCardMini from '@/components/MkInstanceCardMini.vue';
 import FormSplit from '@/components/form/split.vue';
 import { i18n } from '@/i18n.js';
+import { $i } from '@/account.js';
 
 const host = ref('');
 const state = ref('federating');

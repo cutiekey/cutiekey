@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: syuilo and other misskey contributors
+ * SPDX-FileCopyrightText: syuilo and misskey-project
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
@@ -98,6 +98,12 @@ export default class extends Endpoint<typeof meta, typeof paramDef> { // eslint-
 				case '-latestRequestReceivedAt': query.orderBy('instance.latestRequestReceivedAt', 'ASC', 'NULLS FIRST'); break;
 
 				default: query.orderBy('instance.id', 'DESC'); break;
+			}
+
+			if (me == null) {
+				ps.blocked = false;
+				ps.suspended = false;
+				ps.silenced = false;
 			}
 
 			if (typeof ps.blocked === 'boolean') {

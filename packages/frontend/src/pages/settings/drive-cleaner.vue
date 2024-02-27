@@ -1,5 +1,5 @@
 <!--
-SPDX-FileCopyrightText: syuilo and other misskey contributors
+SPDX-FileCopyrightText: syuilo and misskey-project
 SPDX-License-Identifier: AGPL-3.0-only
 -->
 
@@ -117,10 +117,10 @@ function onContextMenu(ev: MouseEvent, file): void {
 	os.contextMenu(getDriveFileMenu(file), ev);
 }
 
-definePageMetadata({
+definePageMetadata(() => ({
 	title: i18n.ts.drivecleaner,
 	icon: 'ph-trash ph-bold ph-lg',
-});
+}));
 </script>
 
 <style lang="scss" module>

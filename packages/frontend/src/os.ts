@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: syuilo and other misskey contributors
+ * SPDX-FileCopyrightText: syuilo and misskey-project
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
@@ -109,10 +109,17 @@ export function promiseDialog<T extends Promise<any>>(
 		if (onFailure) {
 			onFailure(err);
 		} else {
-			alert({
-				type: 'error',
-				text: err,
-			});
+			if (err.message) {
+				alert({
+					type: 'error',
+					text: err.message,
+				});
+			} else {
+				alert({
+					type: 'error',
+					text: err,
+				});
+			}
 		}
 	});
 
@@ -128,9 +135,10 @@ export function promiseDialog<T extends Promise<any>>(
 
 let popupIdCount = 0;
 export const popups = ref([]) as Ref<{
-	id: any;
-	component: any;
+	id: number;
+	component: Component;
 	props: Record<string, any>;
+	events: Record<string, any>;
 }[]>;
 
 const zIndexes = {
@@ -144,7 +152,18 @@ export function claimZIndex(priority: keyof typeof zIndexes = 'low'): number {
 	return zIndexes[priority];
 }
 
-export async function popup<T extends Component>(component: T, props: ComponentProps<T>, events = {}, disposeEvent?: string) {
+// InstanceType<typeof Component>['$emit'] だとインターセクション型が返ってきて
+// 使い物にならないので、代わりに ['$props'] から色々省くことで emit の型を生成する
+// FIXME: 何故か *.ts ファイルからだと型がうまく取れない？ことがあるのをなんとかしたい
+type ComponentEmit<T> = T extends new () => { $props: infer Props }
+	? EmitsExtractor<Props>
+	: never;
+
+type EmitsExtractor<T> = {
+	[K in keyof T as K extends `onVnode${string}` ? never : K extends `on${infer E}` ? Uncapitalize<E> : K extends string ? never : K]: T[K];
+};
+
+export async function popup<T extends Component>(component: T, props: ComponentProps<T>, events: ComponentEmit<T> = {} as ComponentEmit<T>, disposeEvent?: keyof ComponentEmit<T>) {
 	markRaw(component);
 
 	const id = ++popupIdCount;

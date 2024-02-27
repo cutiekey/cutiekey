@@ -1,5 +1,5 @@
 <!--
-SPDX-FileCopyrightText: syuilo and other misskey contributors
+SPDX-FileCopyrightText: syuilo and misskey-project
 SPDX-License-Identifier: AGPL-3.0-only
 -->
 
@@ -42,14 +42,14 @@ SPDX-License-Identifier: AGPL-3.0-only
 							<template #label>Use TrueMail API</template>
 						</MkSwitch>
 						<MkInput v-model="truemailInstance">
-							<template #prefix><i class="ti ti-key"></i></template>
+							<template #prefix><i class="ph-key ph-bold ph-lg"></i></template>
 							<template #label>TrueMail API Instance</template>
 						</MkInput>
 						<MkInput v-model="truemailAuthKey">
-							<template #prefix><i class="ti ti-key"></i></template>
+							<template #prefix><i class="ph-key ph-bold ph-lg"></i></template>
 							<template #label>TrueMail API Auth Key</template>
 						</MkInput>
-						<MkButton primary @click="save"><i class="ti ti-device-floppy"></i> {{ i18n.ts.save }}</MkButton>
+						<MkButton primary @click="save"><i class="ph-floppy-disk ph-bold ph-lg"></i> {{ i18n.ts.save }}</MkButton>
 					</div>
 				</MkFolder>
 
@@ -140,7 +140,7 @@ async function init() {
 	enableTruemailApi.value = meta.enableTruemailApi;
 	truemailInstance.value = meta.truemailInstance;
 	truemailAuthKey.value = meta.truemailAuthKey;
-	bannedEmailDomains.value = meta.bannedEmailDomains?.join('\n') || "";
+	bannedEmailDomains.value = meta.bannedEmailDomains?.join('\n') || '';
 }
 
 function save() {
@@ -155,7 +155,7 @@ function save() {
 		truemailAuthKey: truemailAuthKey.value,
 		bannedEmailDomains: bannedEmailDomains.value.split('\n'),
 	}).then(() => {
-		fetchInstance();
+		fetchInstance(true);
 	});
 }
 
@@ -163,8 +163,8 @@ const headerActions = computed(() => []);
 
 const headerTabs = computed(() => []);
 
-definePageMetadata({
+definePageMetadata(() => ({
 	title: i18n.ts.security,
 	icon: 'ph-lock ph-bold ph-lg',
-});
+}));
 </script>

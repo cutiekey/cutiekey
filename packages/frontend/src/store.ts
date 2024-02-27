@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: syuilo and other misskey contributors
+ * SPDX-FileCopyrightText: syuilo and misskey-project
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
@@ -7,6 +7,7 @@ import { markRaw, ref } from 'vue';
 import * as Misskey from 'misskey-js';
 import { miLocalStorage } from './local-storage.js';
 import type { SoundType } from '@/scripts/sound.js';
+import type { BuiltinTheme as ShikiBuiltinTheme } from 'shiki';
 import { Storage } from '@/pizzax.js';
 import { hemisphere } from '@/scripts/intl-const.js';
 
@@ -158,7 +159,7 @@ export const defaultStore = markRaw(new Storage('base', {
 	},
 	visibilityOnBoost: {
 		where: 'account',
-		default: 'public' as 'public' | 'home' | 'followers' | 'local',
+		default: 'public' as 'public' | 'home' | 'followers',
 	},
 
 	menu: {
@@ -262,6 +263,10 @@ export const defaultStore = markRaw(new Storage('base', {
 	loadRawImages: {
 		where: 'device',
 		default: false,
+	},
+	warnMissingAltText: {
+		where: 'device',
+		default: true,
 	},
 	imageNewTab: {
 		where: 'device',
