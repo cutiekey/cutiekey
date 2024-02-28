@@ -1,29 +1,38 @@
 {
-	"name": "Misskey",
-	"dockerComposeFile": "docker-compose.yml",
-	"service": "app",
-	"workspaceFolder": "/workspace",
-	"features": {
-		"ghcr.io/devcontainers-contrib/features/pnpm:2": {
-			"version": "8.9.2"
-		},
-		"ghcr.io/devcontainers/features/node:1": {
-			"version": "20.10.0"
-		}
-	},
-	"forwardPorts": [3000],
-	"postCreateCommand": "sudo chmod 755 .devcontainer/init.sh && .devcontainer/init.sh",
-	"customizations": {
-		"vscode": {
-			"extensions": [
-				"editorconfig.editorconfig",
-				"dbaeumer.vscode-eslint",
-				"Vue.volar",
-				"Vue.vscode-typescript-vue-plugin",
-				"Orta.vscode-jest",
-				"dbaeumer.vscode-eslint",
-				"mrmlnc.vscode-json5"
-			]
-		}
-	}
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "christian-kohler.path-intellisense",
+        "EditorConfig.EditorConfig",
+        "github.vscode-github-actions",
+        "mrmlnc.vscode-json5",
+        "ms-azuretools.vscode-docker",
+        "redhat.vscode-xml",
+        "redhat.vscode-yaml",
+        "vscode-icons-team.vscode-icons",
+        "Vue.volar",
+        "Vue.vscode-typescript-vue-plugin",
+        "YoavBls.pretty-ts-errors"
+      ],
+      "settings": {
+        "vsicons.dontShowNewVersionMessage": true,
+        "workbench.colorTheme": "Default Dark Modern",
+        "workbench.iconTheme": "vscode-icons"
+      }
+    }
+  },
+  "dockerComposeFile": "docker-compose.yml",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1.4.0": {
+      "version": "20.11.1"
+    },
+    "ghcr.io/devcontainers-contrib/features/pnpm:2.0.4": {
+      "version": "8.15.4"
+    }
+  },
+  "forwardPorts": [3000],
+  "name": "Cutiekey",
+  "postCreateCommand": "sudo chmod 755 ./.devcontainer/init.sh && ./.devcontainer/init.sh",
+  "service": "app",
+  "workspaceFolder": "/workspace"
 }

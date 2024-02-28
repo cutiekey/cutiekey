@@ -5,43 +5,40 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-
+    command: sleep infinity
+    networks:
+      - external_network
+      - internal_network
     volumes:
       - ../:/workspace:cached
 
-    command: sleep infinity
-
+  db:
+    environment:
+      POSTGRES_DB: cutiekey
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+    healthcheck:
+      interval: 5s
+      retries: 20
+      test: 'pg_isready -d $$POSTGRES_DB -U $$POSTGRES_USER'
+    image: postgres:16-alpine
     networks:
       - internal_network
-      - external_network
+    restart: unless-stopped
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
 
   redis:
-    restart: unless-stopped
+    healthcheck:
+      interval: 5s
+      retries: 20
+      test: 'redis-cli ping'
     image: redis:7-alpine
     networks:
       - internal_network
+    restart: unless-stopped
     volumes:
       - redis-data:/data
-    healthcheck:
-      test: "redis-cli ping"
-      interval: 5s
-      retries: 20
-
-  db:
-    restart: unless-stopped
-    image: postgres:15-alpine
-    networks:
-      - internal_network
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: misskey
-    volumes:
-      - postgres-data:/var/lib/postgresql/data
-    healthcheck:
-      test: "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"
-      interval: 5s
-      retries: 20
 
 volumes:
   postgres-data:

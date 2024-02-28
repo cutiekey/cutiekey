@@ -38,7 +38,7 @@ db:
   port: 5432
 
   # Database name
-  db: misskey
+  db: cutiekey
 
   # Auth
   user: postgres
