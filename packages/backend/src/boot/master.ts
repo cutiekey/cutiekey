@@ -29,7 +29,19 @@ const themeColor = chalk.hex('#86b300');
 
 function greet() {
 	if (!envOption.quiet) {
+    //#region Cutiekey logo
+    const version = `v${meta.version}`;
+
+    console.log(themeColor('  _____     _   _     _'));
+    console.log(themeColor(' |     |_ _| |_|_|___| |_ ___ _ _'));
+    console.log(themeColor(' |   --| | |  _| | -_| \'_| -_| | |'));
+    console.log(themeColor(' |_____|___|_| |_|___|_,_|___|_  |'));
+    console.log(` ${chalk.gray(version)}${themeColor('                            |___|'.substring(version.length))}`);
+    //#endregion
+
 		console.log(' Cutiekey is an open-source decentralized microblogging platform.');
+    console.log(chalk.rgb(255, 136, 0)(' If you like Cutiekey, please consider contributing on GitHub.'));
+
 		console.log('');
 		console.log(chalkTemplate`--- ${os.hostname()} {gray (PID: ${process.pid.toString()})} ---`);
 	}
