@@ -36,7 +36,7 @@ function greet() {
     console.log(themeColor(' |     |_ _| |_|_|___| |_ ___ _ _'));
     console.log(themeColor(' |   --| | |  _| | -_| \'_| -_| | |'));
     console.log(themeColor(' |_____|___|_| |_|___|_,_|___|_  |'));
-    console.log(` ${chalk.gray(version)}${themeColor('                            |___|'.substring(version.length))}`);
+    console.log(` ${chalk.gray(version)}${themeColor('                            |___|\n'.substring(version.length))}`);
     //#endregion
 
 		console.log(' Cutiekey is an open-source decentralized microblogging platform.');
