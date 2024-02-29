@@ -12,7 +12,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 				<div v-panel class="about">
 					<div ref="containerEl" class="container" :class="{ playing: easterEggEngine != null }">
 						<img src="/client-assets/about-icon.png" alt="" class="icon" draggable="false" @load="iconLoaded" @click="gravity"/>
-						<div class="misskey">Sharkey</div>
+						<div class="misskey">Cutiekey</div>
 						<div class="version">v{{ version }}</div>
 						<span v-for="emoji in easterEggEmojis" :key="emoji.id" class="emoji" :data-physics-x="emoji.left" :data-physics-y="emoji.top" :class="{ _physics_circle_: !emoji.emoji.startsWith(':') }">
 							<MkCustomEmoji v-if="emoji.emoji[0] === ':'" class="emoji" :name="emoji.emoji" :normal="true" :noStyle="true"/>
@@ -22,12 +22,12 @@ SPDX-License-Identifier: AGPL-3.0-only
 					<button v-if="thereIsTreasure" class="_button treasure" @click="getTreasure"><img src="/fluent-emoji/1f3c6.png" class="treasureImg"></button>
 				</div>
 				<div style="text-align: center;">
-					{{ i18n.ts._aboutMisskey.about }}<br><a href="https://joinsharkey.org/" target="_blank" class="_link">{{ i18n.ts.learnMore }}</a>
+					{{ i18n.ts._aboutMisskey.about }}<br><a href="https://github.com/cutiekey/cutiekey" target="_blank" class="_link">{{ i18n.ts.learnMore }}</a>
 				</div>
 				<div v-if="$i != null" style="text-align: center;">
-					<MkButton primary rounded inline @click="iLoveMisskey">I <Mfm text="$[jelly ❤]"/> #Sharkey</MkButton>
+					<MkButton primary rounded inline @click="iLoveMisskey">I <Mfm text="$[jelly ❤]"/> #Cutiekey</MkButton>
 				</div>
-				<FormSection v-if="instance.repositoryUrl !== 'https://activitypub.software/TransFem-org/Sharkey/'">
+				<FormSection v-if="instance.repositoryUrl !== 'https://github.com/cutiekey/cutiekey'">
 					<div class="_gaps_s">
 						<MkInfo>
 							{{ i18n.tsx._aboutMisskey.thisIsModifiedVersion({ name: instance.name }) }}
@@ -36,7 +36,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 							<template #icon><i class="ph-code ph-bold ph-lg"></i></template>
 							{{ i18n.ts._aboutMisskey.source }}
 						</FormLink>
-						<FormLink v-if="instance.providesTarball" :to="`/tarball/sharkey-${version}.tar.gz`" external>
+						<FormLink v-if="instance.providesTarball" :to="`/tarball/cutiekey-${version}.tar.gz`" external>
 							<template #icon><i class="ph-download ph-bold ph-lg"></i></template>
 							{{ i18n.ts._aboutMisskey.source }}
 							<template #suffix>Tarball</template>
@@ -48,15 +48,10 @@ SPDX-License-Identifier: AGPL-3.0-only
 				</FormSection>
 				<FormSection>
 					<div class="_gaps_s">
-						<FormLink to="https://activitypub.software/TransFem-org/Sharkey/" external>
+						<FormLink to="https://github.com/cutiekey/cutiekey" external>
 							<template #icon><i class="ph-code ph-bold ph-lg"></i></template>
-							{{ i18n.ts._aboutMisskey.source }} ({{ i18n.ts._aboutMisskey.original_sharkey }})
+							{{ i18n.ts._aboutMisskey.source }} ({{ i18n.ts._aboutMisskey.original_cutiekey }})
 							<template #suffix>GitLab</template>
-						</FormLink>
-						<FormLink to="https://ko-fi.com/transfem" external>
-							<template #icon><i class="ph-piggy-bank ph-bold ph-lg"></i></template>
-							{{ i18n.ts._aboutMisskey.donate_sharkey }}
-							<template #suffix>Ko-Fi</template>
 						</FormLink>
 					</div>
 				</FormSection>
@@ -86,7 +81,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 							<span :class="$style.contributorUsername">@Amelia</span>
 						</a>
 					</div>
-					<template #caption><MkLink url="https://activitypub.software/TransFem-org/Sharkey/-/graphs/develop">{{ i18n.ts._aboutMisskey.allContributors }}</MkLink></template>
+					<template #caption><MkLink url="https://github.com/cutiekey/cutiekey/graphs/contributors">{{ i18n.ts._aboutMisskey.allContributors }}</MkLink></template>
 				</FormSection>
 				<FormSection>
 					<template #label>Misskey Contributors</template>

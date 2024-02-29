@@ -26,16 +26,16 @@ SPDX-License-Identifier: AGPL-3.0-only
 				<FormSection>
 					<div class="_gaps_m">
 						<MkKeyValue :copy="version">
-							<template #key>Sharkey</template>
+							<template #key>Cutiekey</template>
 							<template #value>{{ version }}</template>
 						</MkKeyValue>
 						<div v-html="i18n.tsx.poweredByMisskeyDescription({ name: instance.name ?? host })">
 						</div>
-						<FormLink to="/about-sharkey">
+						<FormLink to="/about-cutiekey">
 							<template #icon><i class="ph-info ph-bold ph-lg"></i></template>
 							{{ i18n.ts.aboutMisskey }}
 						</FormLink>
-						<FormLink v-if="instance.repositoryUrl || instance.providesTarball" :to="instance.repositoryUrl || `/tarball/sharkey-${version}.tar.gz`" external>
+						<FormLink v-if="instance.repositoryUrl || instance.providesTarball" :to="instance.repositoryUrl || `/tarball/cutiekey-${version}.tar.gz`" external>
 							<template #icon><i class="ph-code ph-bold ph-lg"></i></template>
 							{{ i18n.ts.sourceCode }}
 						</FormLink>

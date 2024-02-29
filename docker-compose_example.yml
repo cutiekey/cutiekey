@@ -20,8 +20,8 @@ services:
     networks:
       - shonk
     volumes:
-      - ./files:/sharkey/files
-      - ./.config:/sharkey/.config:ro
+      - ./files:/cutiekey/files
+      - ./.config:/cutiekey/.config:ro
 
   redis:
     restart: always
