@@ -25,7 +25,7 @@ import { fetchCustomEmojis } from '@/custom-emojis.js';
 import { setupRouter } from '@/router/definition.js';
 
 export async function common(createVue: () => App<Element>) {
-	console.info(`Sharkey v${version}`);
+	console.info(`Cutiekey v${version}`);
 
 	if (_DEV_) {
 		console.warn('Development mode!!!');

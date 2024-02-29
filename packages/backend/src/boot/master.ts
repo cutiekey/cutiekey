@@ -29,27 +29,13 @@ const themeColor = chalk.hex('#86b300');
 
 function greet() {
 	if (!envOption.quiet) {
-		//#region Misskey logo
-		const v = `v${meta.version}`;
-		console.log(themeColor(' _____ _                _              '));
-		console.log(themeColor('/  ___| |              | |             '));
-		console.log(themeColor('\ `--.| |__   __ _ _ __| | _____ _   _ '));
-		console.log(themeColor(" `--. \ '_ \ / _` | '__| |/ / _ \ | | |"));
-		console.log(themeColor('/\__/ / | | | (_| | |  |   <  __/ |_| |'));
-		console.log(themeColor('\____/|_| |_|\__,_|_|  |_|\_\___|\__, |'));
-		console.log(themeColor('                                  __/ |'));
-		console.log(themeColor('                                 |___/ '));
-		//#endregion
-
-		console.log(' Sharkey is an open-source decentralized microblogging platform.');
-		console.log(chalk.rgb(255, 136, 0)(' If you like Sharkey, please donate to support development. https://ko-fi.com/transfem'));
-
+		console.log(' Cutiekey is an open-source decentralized microblogging platform.');
 		console.log('');
 		console.log(chalkTemplate`--- ${os.hostname()} {gray (PID: ${process.pid.toString()})} ---`);
 	}
 
-	bootLogger.info('Welcome to Sharkey!');
-	bootLogger.info(`Sharkey v${meta.version}`, null, true);
+	bootLogger.info('Welcome to Cutiekey!');
+	bootLogger.info(`Cutiekey v${meta.version}`, null, true);
 }
 
 /**
@@ -72,7 +58,7 @@ export async function masterMain() {
 		process.exit(1);
 	}
 
-	bootLogger.succ('Sharkey initialized');
+	bootLogger.succ('Cutiekey initialized');
 
 	if (envOption.disableClustering) {
 		if (envOption.onlyServer) {

@@ -198,8 +198,8 @@ const routes: RouteDef[] = [{
 	component: page(() => import('@/pages/about.vue')),
 	hash: 'initialTab',
 }, {
-	path: '/about-sharkey',
-	component: page(() => import('@/pages/about-sharkey.vue')),
+	path: '/about-cutiekey',
+	component: page(() => import('@/pages/about-cutiekey.vue')),
 }, {
 	path: '/invite',
 	name: 'invite',

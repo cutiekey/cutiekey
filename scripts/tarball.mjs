@@ -28,5 +28,5 @@ export default async function build() {
 
 	await mkdirPromise;
 
-	pack.pipe(createWriteStream(resolve(cwd, 'built', 'tarball', `sharkey-${meta.version}.tar.gz`)));
+	pack.pipe(createWriteStream(resolve(cwd, 'built', 'tarball', `cutiekey-${meta.version}.tar.gz`)));
 }

@@ -18,14 +18,14 @@ export interface Locale extends ILocale {
      */
     "headlineMisskey": string;
     /**
-     * ようこそ！Sharkeyは、オープンソースの分散型マイクロブログサービスです。
+     * ようこそ！Cutiekeyは、オープンソースの分散型マイクロブログサービスです。
      * 「ノート」を作成して、いま起こっていることを共有したり、あなたについて皆に発信しよう📡
      * 「リアクション」機能で、皆のノートに素早く反応を追加することもできます👍
      * 新しい世界を探検しよう🚀
      */
     "introMisskey": string;
     /**
-     * {name}は、オープンソースのプラットフォーム<b>Sharkey</b>のサーバーのひとつです。
+     * {name}は、オープンソースのプラットフォーム<b>Cutiekey</b>のサーバーのひとつです。
      */
     "poweredByMisskeyDescription": ParameterizedString<"name">;
     /**
@@ -717,7 +717,7 @@ export interface Locale extends ILocale {
      */
     "flagAsBot": string;
     /**
-     * このアカウントがプログラムによって運用される場合は、このフラグをオンにします。オンにすると、反応の連鎖を防ぐためのフラグとして他の開発者に役立ったり、Sharkeyのシステム上での扱いがBotに合ったものになります。
+     * このアカウントがプログラムによって運用される場合は、このフラグをオンにします。オンにすると、反応の連鎖を防ぐためのフラグとして他の開発者に役立ったり、Cutiekeyのシステム上での扱いがBotに合ったものになります。
      */
     "flagAsBotDescription": string;
     /**
@@ -977,7 +977,7 @@ export interface Locale extends ILocale {
      */
     "pinLimitExceeded": string;
     /**
-     * Sharkeyのインストールが完了しました！管理者アカウントを作成しましょう。
+     * Cutiekeyのインストールが完了しました！管理者アカウントを作成しましょう。
      */
     "intro": string;
     /**
@@ -1753,7 +1753,7 @@ export interface Locale extends ILocale {
      */
     "about": string;
     /**
-     * Sharkeyについて
+     * Cutiekeyについて
      */
     "aboutMisskey": string;
     /**
@@ -2373,7 +2373,7 @@ export interface Locale extends ILocale {
      */
     "scratchpad": string;
     /**
-     * スクラッチパッドは、AiScriptの実験環境を提供します。Sharkeyと対話するコードの記述、実行、結果の確認ができます。
+     * スクラッチパッドは、AiScriptの実験環境を提供します。Cutiekeyと対話するコードの記述、実行、結果の確認ができます。
      */
     "scratchpadDescription": string;
     /**
@@ -2929,7 +2929,7 @@ export interface Locale extends ILocale {
      */
     "private": string;
     /**
-     * Sharkeyは有志によって様々な言語に翻訳されています。{link}で翻訳に協力できます。
+     * Cutiekeyは有志によって様々な言語に翻訳されています。{link}で翻訳に協力できます。
      */
     "i18nInfo": ParameterizedString<"link">;
     /**
@@ -3153,7 +3153,7 @@ export interface Locale extends ILocale {
      */
     "sendErrorReports": string;
     /**
-     * オンにすると、問題が発生したときにエラーの詳細情報がSharkeyに共有され、ソフトウェアの品質向上に役立てることができます。エラー情報には、OSのバージョン、ブラウザの種類、行動履歴などが含まれます。
+     * オンにすると、問題が発生したときにエラーの詳細情報がCutiekeyに共有され、ソフトウェアの品質向上に役立てることができます。エラー情報には、OSのバージョン、ブラウザの種類、行動履歴などが含まれます。
      */
     "sendErrorReportsDescription": string;
     /**
@@ -3529,7 +3529,7 @@ export interface Locale extends ILocale {
      */
     "learnMore": string;
     /**
-     * Sharkeyが更新されました！
+     * Cutiekeyが更新されました！
      */
     "misskeyUpdated": string;
     /**
@@ -4106,11 +4106,11 @@ export interface Locale extends ILocale {
      */
     "remindMeLater": string;
     /**
-     * Sharkeyを気に入っていただけましたか？
+     * Cutiekeyを気に入っていただけましたか？
      */
     "didYouLikeMisskey": string;
     /**
-     * Sharkeyは{host}が使用している無料のソフトウェアです。これからも開発を続けられるように、ぜひ寄付をお願いします！
+     * Cutiekeyは{host}が使用している無料のソフトウェアです。これからも開発を続けられるように、ぜひ寄付をお願いします！
      */
     "pleaseDonate": ParameterizedString<"host">;
     /**
@@ -4622,7 +4622,7 @@ export interface Locale extends ILocale {
      */
     "later": string;
     /**
-     * Sharkeyへ
+     * Cutiekeyへ
      */
     "goToMisskey": string;
     /**
@@ -5251,7 +5251,7 @@ export interface Locale extends ILocale {
          */
         "haveFun": ParameterizedString<"name">;
         /**
-         * このまま{name}(Sharkey)の使い方についてのチュートリアルに進むこともできますが、ここで中断してすぐに使い始めることもできます。
+         * このまま{name}(Cutiekey)の使い方についてのチュートリアルに進むこともできますが、ここで中断してすぐに使い始めることもできます。
          */
         "youCanContinueTutorial": ParameterizedString<"name">;
         /**
@@ -5290,7 +5290,7 @@ export interface Locale extends ILocale {
              */
             "title": string;
             /**
-             * ここでは、Sharkeyの基本的な使い方や機能を確認できます。
+             * ここでは、Cutiekeyの基本的な使い方や機能を確認できます。
              */
             "description": string;
         };
@@ -5300,7 +5300,7 @@ export interface Locale extends ILocale {
              */
             "title": string;
             /**
-             * Sharkeyでの投稿は「ノート」と呼びます。ノートはタイムラインに時系列で並んでいて、リアルタイムで更新されていきます。
+             * Cutiekeyでの投稿は「ノート」と呼びます。ノートはタイムラインに時系列で並んでいて、リアルタイムで更新されていきます。
              */
             "description": string;
             /**
@@ -5352,7 +5352,7 @@ export interface Locale extends ILocale {
              */
             "title": string;
             /**
-             * Sharkeyには、使い方に応じて複数のタイムラインが用意されています（サーバーによってはいずれかが無効になっていることがあります）。
+             * Cutiekeyには、使い方に応じて複数のタイムラインが用意されています（サーバーによってはいずれかが無効になっていることがあります）。
              */
             "description1": string;
             /**
@@ -5386,7 +5386,7 @@ export interface Locale extends ILocale {
              */
             "title": string;
             /**
-             * Sharkeyにノートを投稿する際には、様々なオプションの設定が可能です。投稿フォームはこのようになっています。
+             * Cutiekeyにノートを投稿する際には、様々なオプションの設定が可能です。投稿フォームはこのようになっています。
              */
             "description1": string;
             "_visibility": {
@@ -5486,7 +5486,7 @@ export interface Locale extends ILocale {
              */
             "title": string;
             /**
-             * ここで紹介した機能はほんの一部にすぎません。Sharkeyの使い方をより詳しく知るには、{link}をご覧ください。
+             * ここで紹介した機能はほんの一部にすぎません。Cutiekeyの使い方をより詳しく知るには、{link}をご覧ください。
              */
             "description": ParameterizedString<"link">;
         };
@@ -5601,7 +5601,7 @@ export interface Locale extends ILocale {
          * フォロワーの移行は自動ですが、フォローの移行は手動で行う必要があります。移行前にこのアカウントでフォローエクスポートし、移行後すぐに移行先アカウントでインポートを行なってください。
          * リスト・ミュート・ブロックについても同様ですので、手動で移行する必要があります。
          *
-         * （この説明はこのサーバー（Sharkey v13.12.0以降）の仕様です。Mastodonなどの他のActivityPubソフトウェアでは挙動が異なる場合があります。）
+         * （この説明はこのサーバー（Cutiekey v13.12.0以降）の仕様です。Mastodonなどの他のActivityPubソフトウェアでは挙動が異なる場合があります。）
          */
         "moveAccountDescription": string;
         /**
@@ -5649,7 +5649,7 @@ export interface Locale extends ILocale {
                  */
                 "description": string;
                 /**
-                 * 良いSharkeyライフを！
+                 * 良いCutiekeyライフを！
                  */
                 "flavor": string;
             };
@@ -5973,7 +5973,7 @@ export interface Locale extends ILocale {
                  */
                 "description": string;
                 /**
-                 * Sharkeyを使ってくれてありがとう！
+                 * Cutiekeyを使ってくれてありがとう！
                  */
                 "flavor": string;
             };
@@ -6173,15 +6173,15 @@ export interface Locale extends ILocale {
             };
             "_iLoveMisskey": {
                 /**
-                 * I Love Sharkey
+                 * I Love Cutiekey
                  */
                 "title": string;
                 /**
-                 * "I ❤ #Sharkey"を投稿した
+                 * "I ❤ #Cutiekey"を投稿した
                  */
                 "description": string;
                 /**
-                 * Sharkeyを使ってくださりありがとうございます！ by 開発チーム
+                 * Cutiekeyを使ってくださりありがとうございます！ by 開発チーム
                  */
                 "flavor": string;
             };
@@ -6207,7 +6207,7 @@ export interface Locale extends ILocale {
             };
             "_client60min": {
                 /**
-                 * Sharkeyの見すぎ
+                 * Cutiekeyの見すぎ
                  */
                 "title": string;
                 /**
@@ -6447,7 +6447,7 @@ export interface Locale extends ILocale {
             };
             "_tutorialCompleted": {
                 /**
-                 * Sharkey初心者講座 修了証
+                 * Cutiekey初心者講座 修了証
                  */
                 "title": string;
                 /**
@@ -7097,7 +7097,7 @@ export interface Locale extends ILocale {
     };
     "_aboutMisskey": {
         /**
-         * Sharkeyは、Misskeyをベースにしたオープンソースのソフトウェアです。
+         * Cutiekeyは、Misskeyをベースにしたオープンソースのソフトウェアです。
          */
         "about": string;
         /**
@@ -7117,15 +7117,15 @@ export interface Locale extends ILocale {
          */
         "original": string;
         /**
-         * Sharkey オリジナル
+         * Cutiekey オリジナル
          */
-        "original_sharkey": string;
+        "original_Cutiekey": string;
         /**
-         * {name}はオリジナルのSharkeyを改変したバージョンを使用しています。
+         * {name}はオリジナルのCutiekeyを改変したバージョンを使用しています。
          */
         "thisIsModifiedVersion": ParameterizedString<"name">;
         /**
-         * Sharkeyを翻訳
+         * Cutiekeyを翻訳
          */
         "translation": string;
         /**
@@ -7133,9 +7133,9 @@ export interface Locale extends ILocale {
          */
         "donate": string;
         /**
-         * Sharkeyに寄付
+         * Cutiekeyに寄付
          */
-        "donate_sharkey": string;
+        "donate_Cutiekey": string;
         /**
          * 他にも多くの方が支援してくれています。ありがとうございます🥰
          */
