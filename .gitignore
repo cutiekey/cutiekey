@@ -27,6 +27,7 @@
 /meili
 /packages/api-generator/api.json
 /packages/frontend/src/**/*.stories.ts
+/packages/megalodon/lib
 /redis
 /various
 *.bak
