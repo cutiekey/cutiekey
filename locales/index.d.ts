@@ -7119,7 +7119,7 @@ export interface Locale extends ILocale {
         /**
          * Cutiekey オリジナル
          */
-        "original_Cutiekey": string;
+        "original_cutiekey": string;
         /**
          * {name}はオリジナルのCutiekeyを改変したバージョンを使用しています。
          */
@@ -7135,7 +7135,7 @@ export interface Locale extends ILocale {
         /**
          * Cutiekeyに寄付
          */
-        "donate_Cutiekey": string;
+        "donate_cutiekey": string;
         /**
          * 他にも多くの方が支援してくれています。ありがとうございます🥰
          */
