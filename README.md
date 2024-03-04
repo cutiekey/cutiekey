@@ -1,6 +1,6 @@
 <div align="center">
 <a href="https://joinsharkey.org/">
-	<img src="https://activitypub.software/TransFem-org/Sharkey/-/raw/develop/packages/frontend/assets/sharkey.svg" alt="Sharkey logo" style="border-radius:50%" width="400"/>
+	<img src="https://activitypub.software/TransFem-org/Sharkey/-/raw/develop/packages/frontend/assets/sharkey.svg" alt="Sharkey logo" style="border-radius:50%" width="300"/>
 </a>
 
 **🌎 **[Sharkey](https://joinsharkey.org/)** is an open source, decentralized social media platform that's free forever! 🚀**
@@ -42,9 +42,9 @@ Sharkey makes some UI/UX improvements to make it easier to navigate
 - **Sign-Up Approval**\
 With Sharkey, you can enable sign-ups, subject to manual moderator approval and mandatory user-provided reasons for joining.
 - **Rich Web UI**\
-	Sharkey has a rich and easy to use Web UI!
-	It is highly customizable, from changing the layout and adding widgets to making custom themes.
-	Furthermore, plugins can be created using AiScript, an original programming language.
+       Sharkey has a rich and easy to use Web UI!
+       It is highly customizable, from changing the layout and adding widgets to making custom themes.
+       Furthermore, plugins can be created using AiScript, an original programming language.
 - And much more...
 
 </div>

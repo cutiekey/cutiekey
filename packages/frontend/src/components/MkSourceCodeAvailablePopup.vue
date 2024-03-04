@@ -27,7 +27,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 			</I18n>
 			<I18n :src="i18n.ts.correspondingSourceIsAvailable" tag="span">
 				<template #anchor>
-					<MkA to="/about-sharkey" class="_link">{{ i18n.ts.aboutMisskey }}</MkA>
+					<MkA to="/about-cutiekey" class="_link">{{ i18n.ts.aboutMisskey }}</MkA>
 				</template>
 			</I18n>
 		</div>
