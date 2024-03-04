@@ -27,7 +27,7 @@ const modal = shallowRef<InstanceType<typeof MkModal>>();
 
 const whatIsNew = () => {
 	modal.value?.close();
-	window.open(`https://activitypub.software/TransFem-org/Sharkey/-/releases/${version}`, '_blank');
+	window.open(`https://github.com/cutiekey/cutiekey/releases/${version}`, '_blank');
 };
 
 onMounted(() => {
