@@ -462,6 +462,8 @@ fix conflicts and *commit*!
 *after that commit*, do all the extra work, on the same branch:
 
 * copy all changes:
+  * from `NoteCreateService.create` to `NoteCreateService.import` (and
+    vice versa if `git` got confused!)
   * from `NoteCreateService` to `NoteEditService`
   * from `ApNoteService.createNote` to `ApNoteService.updateNote`
   * from `endoints/notes/create.ts` to `endoints/notes/edit.ts`
