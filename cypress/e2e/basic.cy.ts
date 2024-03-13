@@ -144,3 +144,130 @@ describe('After user signup', () => {
     cy.contains(/This account has been suspended due to/gi)
   })
 })
+
+describe('After user sign in', () => {
+  beforeEach(() => {
+    cy.resetState()
+
+    // Set up the administrator account
+    cy.registerUser('admin', 'pass', true)
+
+    // Set up the `alice` account and login
+    cy.registerUser('alice', 'alice1234')
+    cy.login('alice', 'alice1234')
+  })
+
+  afterEach(() => {
+    // In test cases where there is a page transition just before the end of the
+    // test (e.g. account creation), the browser content will probably be
+    // carried over to the next test case due to a bug in Cypress (e.g. the test
+    // starts when the account has been created). The inclusion of `cy.wait` can
+    // prevent this.
+    cy.wait(1000)
+  })
+
+  it('successfully loads', () => {
+    // This takes a long time to display, so the default timeout value needs to
+    // be raised
+    cy.get(
+      '[data-cy-user-setup-continue]',
+      {
+        timeout: 30000
+      }
+    ).should('be.visible')
+  })
+
+  it('sets up the account', () => {
+    // This takes a long time to display, so the default timeout value needs to
+    // be raised
+    cy.get('[data-cy-user-setup-continue]', { timeout: 30000 }).click()
+
+    cy.get('[data-cy-user-setup-user-name] input').type('ありす')
+    cy.get('[data-cy-user-setup-user-description] textarea').type('ほげ')
+    cy.get('[data-cy-user-setup-continue]').click()
+
+    // Privacy settings
+    cy.get('[data-cy-user-setup-continue]').click()
+
+    // Skip the follow-up questions
+    cy.get('[data-cy-user-setup-continue]').click()
+
+    // Skip the push notification settings
+    cy.get('[data-cy-user-setup-continue]').click()
+
+    // Finish the wizard
+    cy.get('[data-cy-user-setup-continue]').click()
+  })
+})
+
+describe('After user setup', () => {
+  beforeEach(() => {
+    cy.resetState()
+
+    // Set up the administrator account
+    cy.registerUser('admin', 'pass', true)
+
+    // Set up the `alice` account and login
+    cy.registerUser('alice', 'alice1234')
+    cy.login('alice', 'alice1234')
+
+    // Set up the account. The initialization wizard takes a long time to
+    // display, so the default timeout needs to be raised.
+    cy.get(
+      '[data-cy-user-setup] [data-cy-modal-window-close]',
+      {
+        timeout: 30000
+      }
+    ).click()
+
+    cy.get('[data-cy-modal-dialog-ok]').click()
+  })
+
+  afterEach(() => {
+    // In test cases where there is a page transition just before the end of the
+    // test (e.g. account creation), the browser content will probably be
+    // carried over to the next test case due to a bug in Cypress (e.g. the test
+    // starts when the account has been created). The inclusion of `cy.wait` can
+    // prevent this.
+    cy.wait(1000)
+  })
+
+  it('creates a note', () => {
+    cy.get('[data-cy-open-post-form]').should('be.visible')
+    cy.get('[data-cy-open-post-form]').click()
+    cy.get('[data-cy-post-form-text]').type('Hello, Cutiekey!')
+    cy.get('[data-cy-open-post-form-submit]').click()
+
+    cy.contains('Hello, Cutiekey!')
+  })
+
+  it('opens a note form with a hotkey', () => {
+    // Wait until the page is loaded
+    cy.get('[data-cy-open-post-form]').should('be.visible')
+
+    cy.document().trigger(
+      'keydown',
+      {
+        code: 'KeyL',
+        eventConstructor: 'KeyboardEvent',
+        key: 'n'
+      }
+    )
+
+    // See if the form has been opened
+    cy.get('[data-cy-post-form-text]').should('be.visible')
+
+    // Close the form
+    cy.focused().trigger(
+      'keydown',
+      {
+        code: 'Escape',
+        eventConstructor: 'KeyboardEvent',
+        key: 'Escape'
+      }
+    )
+
+    // See if the form has been closed
+    cy.get('[data-cy-post-form-text]').should('not.be.visible')
+  })
+})
