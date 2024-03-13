@@ -11,10 +11,10 @@
         "redhat.vscode-yaml",
         "vscode-icons-team.vscode-icons",
         "Vue.volar",
-        "Vue.vscode-typescript-vue-plugin",
         "YoavBls.pretty-ts-errors"
       ],
       "settings": {
+        "redhat.telemetry.enabled": false,
         "vsicons.dontShowNewVersionMessage": true,
         "workbench.colorTheme": "Default Dark Modern",
         "workbench.iconTheme": "vscode-icons"
