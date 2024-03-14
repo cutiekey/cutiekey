@@ -12,7 +12,7 @@ import postcss from 'postcss';
 import * as terser from 'terser';
 
 import { build as buildLocales } from '../locales/index.js';
-import generateDTS from '../locales/generateDTS.js';
+import { generateDts } from '../locales/generate-dts.js';
 import meta from '../package.json' assert { type: "json" };
 import buildTarball from './tarball.mjs';
 
@@ -38,7 +38,7 @@ async function copyFrontendTablerIcons() {
 }
 
 async function copyFrontendLocales() {
-  generateDTS();
+  generateDts();
 
   await fs.mkdir('./built/_frontend_dist_/locales', { recursive: true });
 
