@@ -1,39 +1,30 @@
 {
-	"compilerOptions": {
-		"allowJs": true,
-		"noEmitOnError": false,
-		"noImplicitAny": false,
-		"noImplicitReturns": true,
-		"noUnusedParameters": false,
-		"noUnusedLocals": true,
-		"noFallthroughCasesInSwitch": true,
-		"declaration": false,
-		"sourceMap": false,
-		"target": "ES2022",
-		"module": "nodenext",
-		"moduleResolution": "nodenext",
-		"removeComments": false,
-		"noLib": false,
-		"strict": true,
-		"strictNullChecks": true,
-		"experimentalDecorators": true,
-		"resolveJsonModule": true,
-		"isolatedModules": true,
-		"baseUrl": ".",
-		"paths": {
-			"@/*": ["./src/*"]
-		},
-		"typeRoots": [
-			"./node_modules/@types",
-			"./src/@types"
-		],
-		"lib": [
-			"esnext",
-			"webworker"
-		]
-	},
-	"compileOnSave": false,
-	"include": [
-		"./**/*.ts"
-	]
+  "compileOnSave": false,
+  "compilerOptions": {
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "declaration": false,
+    "experimentalDecorators": true,
+    "isolatedModules": true,
+    "lib": ["esnext", "webworker"],
+    "module": "esnext",
+    "moduleResolution": "node",
+    "noEmitOnError": false,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noLib": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "removeComments": false,
+    "resolveJsonModule": true,
+    "sourceMap": false,
+    "strict": true,
+    "target": "es2022"
+  },
+  "include": ["./build.js", "./src/**/*"]
 }

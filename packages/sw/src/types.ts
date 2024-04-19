@@ -1,53 +1,52 @@
-/*
- * SPDX-FileCopyrightText: syuilo and misskey-project
- * SPDX-License-Identifier: AGPL-3.0-only
- */
+import type * as Misskey from 'misskey-js'
 
-import type * as Misskey from 'misskey-js';
-
-export type SwMessageOrderType = 'post' | 'push';
-
-export type SwMessage = {
-	type: 'order';
-	order: SwMessageOrderType;
-	loginId?: string;
-	url: string;
-	[x: string]: unknown;
-};
-
-// Defined also @/core/PushNotificationService.ts#L12
 type PushNotificationDataSourceMap = {
-	notification: Misskey.entities.Notification;
-	unreadAntennaNote: {
-		antenna: { id: string; name: string };
-		note: Misskey.entities.Note;
-	};
-	readAllNotifications: undefined;
-};
-
-export type PushNotificationData<K extends keyof PushNotificationDataSourceMap> = {
-	type: K;
-	body: PushNotificationDataSourceMap[K];
-	userId: string;
-	dateTime: number;
-};
-
-export type PushNotificationDataMap = {
-	[K in keyof PushNotificationDataSourceMap]: PushNotificationData<K>;
-};
+  notification: Misskey.entities.Notification
+  readAllNotifications: undefined
+  unreadAntennaNote: {
+    antenna: {
+      id: string
+      name: string
+    }
+    note: Misskey.entities.Note
+  }
+}
 
 export type BadgeNames =
-	| 'null'
-	| 'antenna'
-	| 'arrow-back-up'
-	| 'at'
-	| 'bell'
-	| 'chart-arrows'
-	| 'circle-check'
-	| 'medal'
-	| 'messages'
-	| 'plus'
-	| 'quote'
-	| 'repeat'
-	| 'user-plus'
-	| 'users';
+  | 'antenna'
+  | 'arrow-back-up'
+  | 'at'
+  | 'bell'
+  | 'chart-arrows'
+  | 'circle-check'
+  | 'medal'
+  | 'messagess'
+  | 'null'
+  | 'plus'
+  | 'quote'
+  | 'repeat'
+  | 'user-plus'
+  | 'users'
+
+export type PushNotificationData<
+  K extends keyof PushNotificationDataSourceMap
+> = {
+  body: PushNotificationDataSourceMap[K]
+  dateTime: number
+  type: K
+  userId: string
+}
+
+export type PushNotificationDataMap = {
+  [K in keyof PushNotificationDataSourceMap]: PushNotificationData<K>
+}
+
+export type SwMessage = {
+  loginId?: string
+  order: SwMessageOrderType
+  type: 'order'
+  url: string
+  [x: string]: unknown
+}
+
+export type SwMessageOrderType = 'post' | 'push'
