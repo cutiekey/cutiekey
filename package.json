@@ -7,12 +7,15 @@
 	},
 	"packageManager": "pnpm@9.1.1",
 	"workspaces": [
-		"packages/frontend",
-		"packages/backend",
-		"packages/sw",
-		"packages/misskey-js",
-		"packages/misskey-reversi",
-		"packages/misskey-bubble-game"
+    "./packages/api-generator",
+    "./packages/backend",
+    "./packages/cutiekey.js",
+    "./packages/frontend",
+    "./packages/megalodon",
+    "./packages/misskey-bubble-game",
+    "./packages/misskey-js",
+    "./packages/misskey-reversi",
+    "./packages/sw"
 	],
 	"private": true,
 	"scripts": {

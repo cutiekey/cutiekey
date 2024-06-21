@@ -11,9 +11,9 @@
     "watch": "nodemon -e json --exec \"node ./build.js watch\" -w \"../../package.json\""
   },
   "dependencies": {
+    "cutiekey.js": "workspace:*",
     "esbuild": "^0.20.2",
-    "idb-keyval": "^6.2.1",
-    "misskey-js": "workspace:*"
+    "idb-keyval": "^6.2.1"
   },
   "devDependencies": {
     "@misskey-dev/eslint-plugin": "^1.0.0",

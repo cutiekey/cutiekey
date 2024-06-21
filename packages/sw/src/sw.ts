@@ -1,7 +1,7 @@
 import type { PushNotificationDataMap } from '@/types'
 import type { I18n, Locale } from '@/utils/i18n'
 import * as swos from '@/utils/operations'
-import * as Misskey from 'misskey-js'
+import * as Cutiekey from 'cutiekey.js'
 import { swLang } from '@/utils/lang'
 import { get } from 'idb-keyval'
 import {
@@ -192,7 +192,7 @@ globalThis.addEventListener(
               case 'showUser':
                 if ('user' in data.body) {
                   client = await swos.openUser(
-                    Misskey.acct.toString(data.body.user),
+                    Cutiekey.Acct.toString(data.body.user),
                     loginId
                   )
                 }
@@ -220,7 +220,7 @@ globalThis.addEventListener(
                       client = await swos.openNote(data.body.note.id, loginId)
                     } else if ('user' in data.body) {
                       client = await swos.openUser(
-                        Misskey.acct.toString(data.body.user),
+                        Cutiekey.Acct.toString(data.body.user),
                         loginId
                       )
                     }

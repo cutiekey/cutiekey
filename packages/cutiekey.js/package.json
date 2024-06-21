@@ -1,0 +1,63 @@
+{
+  "name": "cutiekey.js",
+  "type": "module",
+  "version": "2024.4.0",
+  "description": "The JavaScript SDK for Cutiekey",
+  "license": "MIT",
+  "repository": {
+    "directory": "packages/cutiekey.js",
+    "type": "git",
+    "url": "https://github.com/cutiekey/cutiekey.git"
+  },
+  "files": [
+    "./built",
+    "./LICENSE"
+  ],
+  "exports": {
+    ".": {
+      "import": "./built/esm/index.js",
+      "types": "./built/dts/index.d.ts"
+    },
+    "./*": {
+      "import": "./built/esm/*",
+      "types": "./built/dts/*"
+    }
+  },
+  "types": "./built/dts/index.d.ts",
+  "scripts": {
+    "api": "api-extractor run --local --verbose",
+    "api:prod": "api-extractor run --verbose",
+    "build": "pnpm run build:esm && pnpm run build:dts",
+    "build:dts": "tsc --declaration true --declarationMap true --emitDeclarationOnly true --outDir \"./built/dts\" -p \"./tsconfig.json\" && tsc-alias --outDir \"./built/dts\" -p \"./tsconfig.json\"",
+    "build:esm": "tsc --outDir \"./built/esm\" -p \"./tsconfig.json\" && tsc-alias --outDir \"./built/esm\" -p \"./tsconfig.json\"",
+    "lint": "pnpm run lint:types && pnpm run lint:eslint",
+    "lint:eslint": "eslint --ext \".js,.jsx,.ts,.tsx\" \"./src/**/*\"",
+    "lint:types": "tsc --noEmit -p \"./tsconfig.json\"",
+    "test": "pnpm run test:jest && tsd",
+    "test:jest": "jest --coverage --detectOpenHandles",
+    "update-autogen-code": "pnpm --filter api-generator run generate && ncp \"../api-generator/built/autogen\" \"./src/autogen\"",
+    "watch": "nodemon -e \"cjs,js,json,mjs,ts\" --exec \"pnpm run build\" -w \"./src\""
+  },
+  "dependencies": {
+    "eventemitter3": "^5.0.1",
+    "reconnecting-websocket": "^4.4.0"
+  },
+  "devDependencies": {
+    "@microsoft/api-extractor": "^7.43.2",
+    "@misskey-dev/eslint-plugin": "^1.0.0",
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.12.11",
+    "@typescript-eslint/eslint-plugin": "^7.8.0",
+    "@typescript-eslint/parser": "^7.8.0",
+    "eslint": "^8.57.0",
+    "jest": "^29.7.0",
+    "jest-fetch-mock": "^3.0.3",
+    "jest-websocket-mock": "^2.5.0",
+    "mock-socket": "^9.3.1",
+    "ncp": "^2.0.0",
+    "nodemon": "^3.1.0",
+    "tsc-alias": "^1.8.8",
+    "tsd": "^0.31.0",
+    "typescript": "^5.4.5"
+  }
+}

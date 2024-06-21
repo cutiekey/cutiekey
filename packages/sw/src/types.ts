@@ -1,14 +1,14 @@
-import type * as Misskey from 'misskey-js'
+import type * as Cutiekey from 'cutiekey.js'
 
 type PushNotificationDataSourceMap = {
-  notification: Misskey.entities.Notification
+  notification: Cutiekey.Entities.Notification
   readAllNotifications: undefined
   unreadAntennaNote: {
     antenna: {
       id: string
       name: string
     }
-    note: Misskey.entities.Note
+    note: Cutiekey.Entities.Note
   }
 }
 

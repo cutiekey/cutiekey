@@ -1,16 +1,16 @@
 import { getUrlWithLoginId } from '@/utils/get-url-with-login-id'
 import { getAccountFromId } from '@/utils/get-account-from-id'
 import type { SwMessage, SwMessageOrderType } from '@/types'
-import * as Misskey from 'misskey-js'
+import * as Cutiekey from 'cutiekey.js'
 
 // Limit sending requests to `notifications/mark-all-as-read`
 const readBlockingStatus = new Map<string, boolean>()
 
-export const cli = new Misskey.api.APIClient({ origin })
+export const cli = new Cutiekey.API.ApiClient({ origin })
 
 export async function api<
-  E extends keyof Misskey.Endpoints,
-  O extends Misskey.Endpoints[E]['req']
+  E extends keyof Cutiekey.Endpoints,
+  O extends Cutiekey.Endpoints[E]['req']
 >(
   endpoint: E,
   userId?: string,
@@ -75,8 +75,8 @@ export function openNote(noteId: string, loginId?: string) {
 export async function openPost(
   opts: {
     initialText?: string
-    renote?: Misskey.entities.Note
-    reply?: Misskey.entities.Note
+    renote?: Cutiekey.Entities.Note
+    reply?: Cutiekey.Entities.Note
   },
   loginId?: string
 ) {
